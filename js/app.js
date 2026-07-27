@@ -1,3 +1,55 @@
+// Particle System for Background Animation
+class ParticleSystem {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.particles = [];
+        this.particleCount = window.innerWidth > 768 ? 20 : 10;
+        this.init();
+    }
+
+    init() {
+        this.createParticles();
+        this.animate();
+    }
+
+    createParticles() {
+        for (let i = 0; i < this.particleCount; i++) {
+            const particle = {
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                size: Math.random() * 100 + 50,
+                duration: Math.random() * 20 + 15,
+                delay: Math.random() * 5,
+                tx: (Math.random() - 0.5) * window.innerWidth,
+                ty: (Math.random() - 0.5) * window.innerHeight,
+            };
+
+            const el = document.createElement('div');
+            el.className = 'particle';
+            el.style.left = particle.x + 'px';
+            el.style.top = particle.y + 'px';
+            el.style.width = particle.size + 'px';
+            el.style.height = particle.size + 'px';
+            el.style.setProperty('--tx', particle.tx + 'px');
+            el.style.setProperty('--ty', particle.ty + 'px');
+            el.style.animationDuration = particle.duration + 's';
+            el.style.animationDelay = particle.delay + 's';
+
+            this.container.appendChild(el);
+            this.particles.push(particle);
+        }
+    }
+
+    animate() {
+        setInterval(() => {
+            this.particles.forEach((particle, index) => {
+                particle.tx = (Math.random() - 0.5) * window.innerWidth;
+                particle.ty = (Math.random() - 0.5) * window.innerHeight;
+            });
+        }, 25000);
+    }
+}
+
 // DistroHub Application
 class DistroHub {
     constructor() {
@@ -8,11 +60,32 @@ class DistroHub {
     }
 
     async init() {
+        // Initialize particle system
+        const particleContainer = document.getElementById('particleBackground');
+        if (particleContainer) {
+            new ParticleSystem('particleBackground');
+        }
+
+        // Hide loading animation
+        this.hideLoadingAnimation();
+
         await this.loadDistributions();
         this.setupTheme();
         this.setupEventListeners();
         this.renderDistributions();
         this.populateCompareSelects();
+    }
+
+    hideLoadingAnimation() {
+        const loadingAnimation = document.getElementById('loadingAnimation');
+        if (loadingAnimation) {
+            setTimeout(() => {
+                loadingAnimation.classList.add('hidden');
+                setTimeout(() => {
+                    loadingAnimation.style.display = 'none';
+                }, 500);
+            }, 800);
+        }
     }
 
     async loadDistributions() {
@@ -76,6 +149,9 @@ class DistroHub {
         const searchBar = document.getElementById('searchBar');
         searchBar?.addEventListener('input', (e) => this.handleSearch(e.target.value));
 
+        const searchBarCompact = document.getElementById('searchBarCompact');
+        searchBarCompact?.addEventListener('input', (e) => this.handleSearch(e.target.value));
+
         // Theme toggle
         document.getElementById('themeToggle')?.addEventListener('click', () => this.toggleTheme());
 
@@ -92,8 +168,25 @@ class DistroHub {
         // Compare button
         document.getElementById('compareBtn')?.addEventListener('click', () => this.handleCompare());
 
+        // Random distro button
+        document.getElementById('randomDistroBtn')?.addEventListener('click', () => this.showRandomDistro());
+
         // Contact form
         document.getElementById('contactForm')?.addEventListener('submit', (e) => this.handleContactSubmit(e));
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (window.innerWidth < 768 && !sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                this.closeMobileMenu();
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            this.handleResize();
+        });
     }
 
     handleNavClick(e) {
@@ -102,6 +195,7 @@ class DistroHub {
         if (page) {
             this.showPage(page);
             this.closeMobileMenu();
+            this.updateBreadcrumb(page);
         }
     }
 
@@ -121,6 +215,23 @@ class DistroHub {
         document.querySelectorAll('.nav-link').forEach(link => {
             link.classList.toggle('active', link.dataset.page === pageName);
         });
+
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    updateBreadcrumb(pageName) {
+        const breadcrumb = document.getElementById('breadcrumb');
+        if (breadcrumb) {
+            const pageNames = {
+                home: 'Home',
+                distros: 'Distributions',
+                compare: 'Compare',
+                about: 'About',
+                contact: 'Contact'
+            };
+            breadcrumb.textContent = pageNames[pageName] || 'Home';
+        }
     }
 
     handleSearch(query) {
@@ -142,7 +253,12 @@ class DistroHub {
         if (!container) return;
 
         if (this.filteredDistros.length === 0) {
-            container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem;"><p>No distributions found</p></div>';
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem;">
+                    <i class="fas fa-search" style="font-size: 48px; color: var(--text-tertiary); margin-bottom: 1rem; display: block;"></i>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem; font-weight: 500;">No distributions found matching your search</p>
+                </div>
+            `;
             return;
         }
 
@@ -206,6 +322,48 @@ class DistroHub {
         modal.classList.add('active');
     }
 
+    showRandomDistro() {
+        if (this.distros.length === 0) return;
+
+        const randomIndex = Math.floor(Math.random() * this.distros.length);
+        const randomDistro = this.distros[randomIndex];
+
+        // Show the distro details in a modal
+        this.showDistroDetails(randomDistro.name);
+
+        // Show a notification
+        this.showNotification(`🎲 Random Pick: ${randomDistro.name}!`);
+    }
+
+    showNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            z-index: 5000;
+            animation: slideInRight 0.3s ease;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        `;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideInRight 0.3s ease reverse';
+            setTimeout(() => {
+                notification.remove();
+            }, 300);
+        }, 3000);
+    }
+
     downloadDistro(name, url) {
         window.open(url, '_blank');
     }
@@ -237,7 +395,7 @@ class DistroHub {
         ].filter(v => v);
 
         if (selected.length < 2) {
-            alert('Please select at least 2 distributions to compare');
+            this.showNotification('⚠️ Select at least 2 distributions to compare');
             return;
         }
 
@@ -298,7 +456,7 @@ class DistroHub {
         const data = Object.fromEntries(formData);
         
         console.log('Contact form submitted:', data);
-        alert(`Thank you for your message, ${data.name}! We'll get back to you soon.`);
+        this.showNotification(`✅ Thanks ${data.name}! We'll get back to you soon.`);
         form.reset();
     }
 
@@ -310,6 +468,12 @@ class DistroHub {
     closeMobileMenu() {
         const sidebar = document.getElementById('sidebar');
         sidebar?.classList.remove('active');
+    }
+
+    handleResize() {
+        if (window.innerWidth > 768) {
+            this.closeMobileMenu();
+        }
     }
 }
 
