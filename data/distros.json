@@ -9,7 +9,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "GNOME",
     "description": "Most popular Linux distribution with excellent community support and regular updates.",
-    "fullDescription": "Ubuntu is a free and open-source Linux distribution based on Debian. It is one of the most widely used Linux distributions for both personal computers and servers. Ubuntu comes with a rich set of applications pre-installed and offers excellent hardware support.",
+    "fullDescription": "Ubuntu is a free and open-source Linux distribution based on Debian. It is one of the most widely used Linux distributions for both personal computers and servers. Ubuntu comes with regular updates and a large community support.",
     "downloadUrl": "https://ubuntu.com/download/desktop",
     "website": "https://ubuntu.com",
     "wiki": "https://ubuntu.com/support/community-support"
@@ -24,7 +24,7 @@
     "packageManager": "DNF",
     "desktopEnvironment": "GNOME",
     "description": "Cutting-edge Linux distribution sponsored by Red Hat with latest technologies.",
-    "fullDescription": "Fedora is a Linux distribution developed by the community-supported Fedora Project and sponsored primarily by Red Hat. It aims to be on the cutting edge of open source technology. Fedora provides the latest software built on proven open source technologies.",
+    "fullDescription": "Fedora is a Linux distribution developed by the community-supported Fedora Project and sponsored primarily by Red Hat. It aims to be on the cutting edge of open source technologies.",
     "downloadUrl": "https://fedoraproject.org/en/workstation/download/",
     "website": "https://fedoraproject.org",
     "wiki": "https://docs.fedoraproject.org"
@@ -39,7 +39,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Multiple",
     "description": "One of the oldest and most stable Linux distributions with extensive package support.",
-    "fullDescription": "Debian is a free operating system for your computer. Debian is more than just an operating system: it comes with over 59,000 packages, pre-compiled software bundled up in a nice format for easy installation on your machine.",
+    "fullDescription": "Debian is a free operating system for your computer. It comes with over 59,000 packages, pre-compiled software bundled up in a nice format for easy installation.",
     "downloadUrl": "https://www.debian.org/download",
     "website": "https://www.debian.org",
     "wiki": "https://wiki.debian.org"
@@ -54,7 +54,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Cinnamon/MATE/Xfce",
     "description": "Beginner-friendly Linux distribution with focus on out-of-the-box functionality.",
-    "fullDescription": "Linux Mint is a community-driven Linux distribution based on Ubuntu and Debian. It provides out-of-the-box multimedia support and is designed for ease of use. Linux Mint is available in three editions with different desktop environments.",
+    "fullDescription": "Linux Mint is a community-driven Linux distribution based on Ubuntu and Debian. It provides out-of-the-box multimedia support and is designed for ease of use.",
     "downloadUrl": "https://linuxmint.com/download.php",
     "website": "https://linuxmint.com",
     "wiki": "https://linuxmint.com/documentation.php"
@@ -69,7 +69,7 @@
     "packageManager": "Pacman",
     "desktopEnvironment": "Custom",
     "description": "Lightweight and flexible Linux distribution for experienced users.",
-    "fullDescription": "Arch Linux is an independently developed Linux distribution for computers based on the x86-64 architecture. It is composed predominantly of free and open-source software, and supports community involvement. Arch follows a rolling release model.",
+    "fullDescription": "Arch Linux is an independently developed Linux distribution for computers based on the x86-64 architecture. It is composed predominantly of free and open-source software.",
     "downloadUrl": "https://archlinux.org/download/",
     "website": "https://archlinux.org",
     "wiki": "https://wiki.archlinux.org"
@@ -84,7 +84,7 @@
     "packageManager": "DNF",
     "desktopEnvironment": "Optional",
     "description": "Stable and reliable Linux distribution for enterprise and server deployments.",
-    "fullDescription": "CentOS (Community Enterprise Operating System) is a Linux distribution that provides a free, community-supported computing platform functionally compatible with its upstream source, Red Hat Enterprise Linux.",
+    "fullDescription": "CentOS is a Linux distribution that provides a free, community-supported computing platform functionally compatible with its upstream source Red Hat Enterprise Linux.",
     "downloadUrl": "https://centos.org/download/",
     "website": "https://centos.org",
     "wiki": "https://wiki.centos.org"
@@ -99,7 +99,7 @@
     "packageManager": "Zypper",
     "desktopEnvironment": "KDE/GNOME",
     "description": "Professional-grade Linux distribution with excellent system configuration tools.",
-    "fullDescription": "openSUSE is a free and Linux-based operating system for your PC, laptop or server. You can surf the web, manage your e-mails and photos, do office work, play videos or music and have fun with lots of other creative and productive things.",
+    "fullDescription": "openSUSE is a free and Linux-based operating system for your PC, laptop or server. You can surf the web, manage your e-mails and photos, do office work, play videos or music.",
     "downloadUrl": "https://www.opensuse.org/",
     "website": "https://www.opensuse.org",
     "wiki": "https://en.opensuse.org/Portal"
@@ -114,7 +114,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Pantheon",
     "description": "Beautiful and elegant Linux distribution with focus on design and user experience.",
-    "fullDescription": "Elementary OS is an Ubuntu-based desktop Linux operating system. It is designed to be as fast and power-efficient as possible while maintaining the quality and reliability of a long-term support base.",
+    "fullDescription": "Elementary OS is an Ubuntu-based desktop Linux operating system. It is designed to be as fast and power-efficient as possible while maintaining the quality and reliability.",
     "downloadUrl": "https://elementary.io/",
     "website": "https://elementary.io",
     "wiki": "https://docs.elementary.io"
@@ -129,7 +129,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Xfce",
     "description": "Specialized Linux distribution for penetration testing and security research.",
-    "fullDescription": "Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security. Kali Linux comes pre-installed with numerous penetration-testing programs.",
+    "fullDescription": "Kali Linux is a Debian-derived Linux distribution designed for digital forensics and penetration testing. It is maintained and funded by Offensive Security.",
     "downloadUrl": "https://www.kali.org/get-kali/",
     "website": "https://www.kali.org",
     "wiki": "https://www.kali.org/docs/"
@@ -144,7 +144,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "GNOME",
     "description": "Fast and free operating system developed by System76 for creators and developers.",
-    "fullDescription": "Pop!_OS is an operating system for STEM and creative professionals who use their computer as a tool to discover and create. Pop!_OS is an Ubuntu LTS based operating system, created by System76.",
+    "fullDescription": "Pop!_OS is an operating system for STEM and creative professionals who use their computer as a tool to discover and create. Pop!_OS is an Ubuntu LTS based operating system.",
     "downloadUrl": "https://pop.system76.com/",
     "website": "https://system76.com",
     "wiki": "https://support.system76.com"
@@ -159,7 +159,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "GNOME",
     "description": "Elegant Linux distribution designed for Windows users transitioning to Linux.",
-    "fullDescription": "Zorin OS is a desktop operating system designed to look and feel like Windows, making it simple for new users to get started with Linux. It's built on a foundation of Ubuntu, using the same base and package management system.",
+    "fullDescription": "Zorin OS is a desktop operating system designed to look and feel like Windows, making it simple for new users to get started with Linux. It's built on a foundation of Ubuntu.",
     "downloadUrl": "https://zorin.com/os/download/",
     "website": "https://zorin.com",
     "wiki": "https://zorin.com/help"
@@ -174,7 +174,7 @@
     "packageManager": "Pacman",
     "desktopEnvironment": "Multiple",
     "description": "User-friendly Arch Linux-based distribution with graphical installation tools.",
-    "fullDescription": "Manjaro is a free and open-source Linux distribution based on the Arch Linux operating system. It provides all the benefits of Arch Linux combined with a focus on user-friendliness and accessibility, making it suitable for both experienced and new users.",
+    "fullDescription": "Manjaro is a free and open-source Linux distribution based on the Arch Linux operating system. It provides all the benefits of Arch Linux combined with a focus on user-friendliness.",
     "downloadUrl": "https://manjaro.org/",
     "website": "https://manjaro.org",
     "wiki": "https://wiki.manjaro.org"
@@ -189,7 +189,7 @@
     "packageManager": "DNF",
     "desktopEnvironment": "Optional",
     "description": "Free, open-source, production-ready Linux distribution compatible with RHEL.",
-    "fullDescription": "AlmaLinux is a stable, predictable, and manageable Linux ecosystem. It benefits the open source community by providing a stable platform to build upon, with long-term support and a clear upgrade path.",
+    "fullDescription": "AlmaLinux is a stable, predictable, and manageable Linux ecosystem. It benefits the open source community by providing a stable platform to build upon with long-term support.",
     "downloadUrl": "https://almalinux.org/",
     "website": "https://almalinux.org",
     "wiki": "https://wiki.almalinux.org"
@@ -204,7 +204,7 @@
     "packageManager": "DNF",
     "desktopEnvironment": "Optional",
     "description": "Production-grade Linux distribution providing drop-in compatibility with RHEL.",
-    "fullDescription": "Rocky Linux is a community-driven enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux. It is built by the community to be a secure, stable, and reliable platform.",
+    "fullDescription": "Rocky Linux is a community-driven enterprise operating system designed to be 100% compatible with Red Hat Enterprise Linux. It is built by the community to be secure and stable.",
     "downloadUrl": "https://rockylinux.org/",
     "website": "https://rockylinux.org",
     "wiki": "https://docs.rockylinux.org"
@@ -219,7 +219,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Xfce",
     "description": "Linux distribution optimized for audio, video, and graphics production.",
-    "fullDescription": "Ubuntu Studio is a community-driven variant of Ubuntu. It is designed to be an out-of-the-box creative powerhouse with professional-grade tools pre-installed for audio production, video production, graphics design and more.",
+    "fullDescription": "Ubuntu Studio is a community-driven variant of Ubuntu. It is designed to be an out-of-the-box creative powerhouse with professional-grade tools pre-installed for audio production.",
     "downloadUrl": "https://ubuntustudio.org/",
     "website": "https://ubuntustudio.org",
     "wiki": "https://ubuntustudio.org/help-support/"
@@ -234,7 +234,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "Xfce",
     "description": "Lightweight Ubuntu variant using the Xfce desktop environment.",
-    "fullDescription": "Xubuntu is an elegant and easy to use operating system. It combines the power and flexibility of Linux with a clean, intuitive user interface. Xubuntu is based on Ubuntu and uses the Xfce desktop environment.",
+    "fullDescription": "Xubuntu is an elegant and easy to use operating system. It combines the power and flexibility of Linux with a clean, intuitive user interface. Xubuntu is based on Ubuntu.",
     "downloadUrl": "https://xubuntu.org/",
     "website": "https://xubuntu.org",
     "wiki": "https://docs.xubuntu.org"
@@ -249,7 +249,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "KDE Plasma",
     "description": "Ubuntu variant with KDE Plasma desktop environment for customizable computing.",
-    "fullDescription": "Kubuntu is an operating system built by the KDE and Ubuntu communities. It uses KDE Plasma, the KDE Frameworks and other KDE technologies. It comes in flavors for desktop computers and laptops.",
+    "fullDescription": "Kubuntu is an operating system built by the KDE and Ubuntu communities. It uses KDE Plasma, the KDE Frameworks and other KDE technologies. It comes in flavors for desktop systems.",
     "downloadUrl": "https://kubuntu.org/",
     "website": "https://kubuntu.org",
     "wiki": "https://docs.kde.org"
@@ -264,7 +264,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "LXQt",
     "description": "Lightweight Ubuntu variant for older computers and low-resource systems.",
-    "fullDescription": "Lubuntu is a lightweight, fast and elegant operating system with a clean and intuitive interface. It is a variant of Ubuntu using LXDE or LXQt as the default desktop environment.",
+    "fullDescription": "Lubuntu is a lightweight, fast and elegant operating system with a clean and intuitive interface. It is a variant of Ubuntu using LXQt as the default desktop environment.",
     "downloadUrl": "https://lubuntu.me/",
     "website": "https://lubuntu.me",
     "wiki": "https://docs.lubuntu.me"
@@ -294,7 +294,7 @@
     "packageManager": "Portage",
     "desktopEnvironment": "Custom",
     "description": "Highly flexible and powerful Linux distribution for advanced users.",
-    "fullDescription": "Gentoo is a flexible, source-based Linux distribution built for performance and customization. Every aspect of Gentoo is configurable, allowing users to create a system tailored to their needs.",
+    "fullDescription": "Gentoo is a flexible, source-based Linux distribution built for performance and customization. Every aspect of Gentoo is configurable, allowing users to create custom systems.",
     "downloadUrl": "https://www.gentoo.org/downloads/",
     "website": "https://www.gentoo.org",
     "wiki": "https://wiki.gentoo.org"
@@ -309,7 +309,7 @@
     "packageManager": "Slackpkg",
     "desktopEnvironment": "Optional",
     "description": "One of the oldest and most stable Linux distributions emphasizing simplicity.",
-    "fullDescription": "Slackware Linux is an advanced Linux operating system, designed with ease of use in mind. It aims to be the most 'UNIX-like' Linux distribution out there and is also one of the oldest operating systems still in widespread use.",
+    "fullDescription": "Slackware Linux is an advanced Linux operating system, designed with ease of use in mind. It aims to be the most 'UNIX-like' Linux distribution out there.",
     "downloadUrl": "http://www.slackware.com/",
     "website": "http://www.slackware.com",
     "wiki": "http://www.slackware.com/config/"
@@ -339,7 +339,7 @@
     "packageManager": "Xbps",
     "desktopEnvironment": "Multiple",
     "description": "Independent Linux distribution using its own package manager and init system.",
-    "fullDescription": "Void is a general purpose operating system built on top of the Linux kernel. It's a rolling release distribution and comes with the runit init system. Void Linux is very flexible and suitable for any type of installation.",
+    "fullDescription": "Void is a general purpose operating system built on top of the Linux kernel. It's a rolling release distribution and comes with the runit init system.",
     "downloadUrl": "https://voidlinux.org/",
     "website": "https://voidlinux.org",
     "wiki": "https://docs.voidlinux.org"
@@ -354,7 +354,7 @@
     "packageManager": "Pacman",
     "desktopEnvironment": "Multiple",
     "description": "Arch Linux-based distribution with choice of init systems instead of systemd.",
-    "fullDescription": "Artix Linux is a rolling-release distribution, based on Arch Linux. It is based on the principles of simplicity and modernity. Artix Linux comes with different init systems instead of systemd.",
+    "fullDescription": "Artix Linux is a rolling-release distribution, based on Arch Linux. It is based on the principles of simplicity and modernity. Artix Linux comes with different init systems.",
     "downloadUrl": "https://artixlinux.org/",
     "website": "https://artixlinux.org",
     "wiki": "https://wiki.artixlinux.org"
@@ -369,7 +369,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "MATE",
     "description": "Security-focused Linux distribution for cybersecurity professionals and developers.",
-    "fullDescription": "Parrot OS is a project based on Debian. It aims to provide a comprehensive cybersecurity environment for security professionals and developers, both in cloud-hosted and embedded systems.",
+    "fullDescription": "Parrot OS is a project based on Debian. It aims to provide a comprehensive cybersecurity environment for security professionals and developers.",
     "downloadUrl": "https://parrotsec.org/",
     "website": "https://parrotsec.org",
     "wiki": "https://parrotsec.org/docs/"
@@ -384,7 +384,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "GNOME",
     "description": "Ubuntu-based security-focused Linux for penetration testing and ethical hacking.",
-    "fullDescription": "Black Lab Linux is a penetration testing, computer forensics and security operations operating system. It is built on Ubuntu and comes with pre-installed penetration testing and hacking tools.",
+    "fullDescription": "Black Lab Linux is a penetration testing, computer forensics and security operations operating system. It is built on Ubuntu and comes with pre-installed penetration testing tools.",
     "downloadUrl": "https://www.blacklablinux.com/",
     "website": "https://www.blacklablinux.com",
     "wiki": "https://www.blacklablinux.com/docs/"
@@ -399,7 +399,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "GNOME",
     "description": "Privacy-focused Linux designed to leave no traces and provide anonymity.",
-    "fullDescription": "Tails is a portable operating system that protects your privacy and anonymity. It helps you to use the Internet anonymously and circumvent censorship almost anywhere you go and on any computer.",
+    "fullDescription": "Tails is a portable operating system that protects your privacy and anonymity. It helps you to use the Internet anonymously and circumvent censorship almost anywhere.",
     "downloadUrl": "https://tails.net/",
     "website": "https://tails.net",
     "wiki": "https://tails.net/doc/index.en.html"
@@ -429,7 +429,7 @@
     "packageManager": "DNF/APT",
     "desktopEnvironment": "Custom",
     "description": "Operating system focused on security through compartmentalization.",
-    "fullDescription": "Qubes OS is a security-oriented operating system focused on isolation through compartmentalization. It uses virtualization to create isolated compartments for different security domains.",
+    "fullDescription": "Qubes OS is a security-oriented operating system focused on isolation through compartmentalization. It uses virtualization to create isolated compartments.",
     "downloadUrl": "https://www.qubes-os.org/",
     "website": "https://www.qubes-os.org",
     "wiki": "https://www.qubes-os.org/doc/"
@@ -534,7 +534,7 @@
     "packageManager": "APT",
     "desktopEnvironment": "None",
     "description": "Server distribution of Ubuntu optimized for data centers and cloud.",
-    "fullDescription": "Ubuntu Server is a server operating system built on Ubuntu, designed to run on physical servers, virtual machines, and cloud platforms. It comes with no graphical interface.",
+    "fullDescription": "Ubuntu Server is a server operating system built on Ubuntu, designed to run on physical servers, virtual machines, and cloud platforms.",
     "downloadUrl": "https://ubuntu.com/download/server",
     "website": "https://ubuntu.com/server",
     "wiki": "https://ubuntu.com/support/community-support"
@@ -568,5 +568,50 @@
     "downloadUrl": "https://www.suse.com/",
     "website": "https://www.suse.com/products/server/",
     "wiki": "https://documentation.suse.com/"
+  },
+  {
+    "name": "Deepin",
+    "icon": "🌺",
+    "category": "Desktop",
+    "base": "Debian",
+    "release": "June 2024",
+    "support": "Continuous",
+    "packageManager": "APT",
+    "desktopEnvironment": "Deepin Desktop Environment",
+    "description": "Beautiful and user-friendly Linux distribution with elegant design from China.",
+    "fullDescription": "Deepin is a Linux distribution based on Debian that emphasizes beauty, ease of use, and reliability. It features a unique and elegant desktop environment designed for everyday users.",
+    "downloadUrl": "https://www.deepin.org/en/download/",
+    "website": "https://www.deepin.org",
+    "wiki": "https://wiki.deepin.org"
+  },
+  {
+    "name": "Solus",
+    "icon": "🌙",
+    "category": "Desktop",
+    "base": "Independent",
+    "release": "Rolling",
+    "support": "Continuous",
+    "packageManager": "Eopkg",
+    "desktopEnvironment": "Budgie/GNOME/KDE",
+    "description": "Independent Linux distribution focusing on speed, stability and user experience.",
+    "fullDescription": "Solus is an independent desktop operating system that is built from the ground up. It is designed to be a modern, capable and elegant operating system.",
+    "downloadUrl": "https://getsol.us/download/",
+    "website": "https://getsol.us",
+    "wiki": "https://help.getsol.us"
+  },
+  {
+    "name": "antiX Linux",
+    "icon": "🐜",
+    "category": "Lightweight",
+    "base": "Debian",
+    "release": "Rolling",
+    "support": "Community",
+    "packageManager": "APT",
+    "desktopEnvironment": "IceWM/Fluxbox",
+    "description": "Fast, lightweight Linux distribution for old and new computers.",
+    "fullDescription": "antiX is a fast, lightweight and easy to install systemd-free Linux distribution based on Debian GNU/Linux stable for both new and old computers.",
+    "downloadUrl": "https://antixlinux.com/download.html",
+    "website": "https://antixlinux.com",
+    "wiki": "https://wiki.antixlinux.com"
   }
 ]
