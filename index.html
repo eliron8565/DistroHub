@@ -87,6 +87,9 @@
                 <span id="breadcrumb">Home</span>
             </div>
             <div class="nav-actions">
+                <button class="btn-random-distro" id="randomDistroBtn" title="Pick a random Linux distribution">
+                    <i class="fas fa-dice"></i>
+                </button>
                 <div class="search-wrapper-compact">
                     <i class="fas fa-search"></i>
                     <input type="text" id="searchBarCompact" class="search-input-compact" placeholder="Quick search...">
@@ -122,6 +125,9 @@
                     <div class="hero-buttons">
                         <button class="btn btn-primary" data-page="distros">
                             <i class="fas fa-arrow-right"></i> Explore Now
+                        </button>
+                        <button class="btn btn-secondary" id="randomDistroHeroBtn">
+                            <i class="fas fa-dice"></i> Pick Random
                         </button>
                         <button class="btn btn-secondary" data-page="about">
                             <i class="fas fa-book"></i> Learn More
@@ -345,7 +351,6 @@
         </div>
     </div>
 
-    <script src="js/particles.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
