@@ -1,0 +1,14 @@
+/* DistroHub OS logo registry. Uses Simple Icons CDN for consistent SVG brand marks. */
+(() => {
+  const slugs = {
+    'ubuntu':'ubuntu','deepin os':'deepin','linux mint':'linuxmint','elementary os':'elementary','zorin os':'zorin','pop!_os':'popos','fedora':'fedora','manjaro':'manjaro','debian':'debian','opensuse':'opensuse','arch linux':'archlinux','linux lite':'linuxlite','centos':'centos','kali linux':'kalilinux','tails':'tails','qubes os':'qubesos','nixos':'nixos','alpine linux':'alpinelinux','mx linux':'mxlinux','rocky linux':'rockylinux','almalinux':'almalinux','void linux':'voidlinux','puppy linux':'puppylinux','ubuntu studio':'ubuntustudio','kubuntu':'kubuntu','lubuntu':'lubuntu','raspberry pi os':'raspberrypi','parrot os':'parrot','solus':'solus','endeavouros':'endeavouros','garuda linux':'garudalinux','cachyos':'cachyos','nobara linux':'nobara','bazzite':'bazzite','chimeraos':'chimeraos','pikaos':'pikaos','batocera linux':'batocera','recalbox':'recalbox','lakka':'lakka','retropie':'retropie','winesapos':'winesapOS','freedos':'freedos','haiku':'haiku','reactos':'reactos','serenityos':'serenityos','openindiana':'openindiana','illumos':'illumos','freebsd':'freebsd','openbsd':'openbsd','netbsd':'netbsd','dragonfly bsd':'dragonflybsd','ghostbsd':'ghostbsd','midnightbsd':'midnightbsd','truenas core':'truenas','lineageos':'lineageos','postmarketos':'postmarketos','ubuntu touch':'ubuntutouch','grapheneos':'grapheneos','/e/os':'e','libreelec':'libreelec','coreelec':'coreelec','steamos':'steam'
+  };
+  const aliases = {'open suse':'opensuse','opensuse leap':'opensuse','opensuse tumbleweed':'opensuse','kali':'kalilinux','mint':'linuxmint','pop os':'popos','rocky':'rockylinux','alma linux':'almalinux','arch':'archlinux','endeavour os':'endeavouros','garuda':'garudalinux','cachy os':'cachyos','nobara':'nobara','chimera os':'chimeraos','pika os':'pikaos','batocera':'batocera','retro pie':'retropie','free dos':'freedos','open bsd':'openbsd','net bsd':'netbsd','dragonflybsd':'dragonflybsd','ghost bsd':'ghostbsd','midnight bsd':'midnightbsd','true nas core':'truenas','graphene os':'grapheneos','lineage os':'lineageos','postmarket os':'postmarketos','core elec':'coreelec','libre elec':'libreelec'};
+  const key = name => String(name || '').trim().toLowerCase().replace(/[®™]/g,'').replace(/\s+/g,' ');
+  const logoUrl = name => { const k=key(name); const slug=slugs[k]||aliases[k]; return slug ? `https://cdn.simpleicons.org/${slug}` : ''; };
+  if(window.DistroHubApp){
+    const originalNormalize=DistroHubApp.prototype.normalize;
+    DistroHubApp.prototype.normalize=function(system,fallbackType='Linux'){const result=originalNormalize.call(this,system,fallbackType);if(result&&!result.logo)result.logo=logoUrl(result.name);return result;};
+    DistroHubApp.prototype.logoFor=function(system){return logoUrl(system?.name)||'fa-solid fa-microchip';};
+  }
+})();
