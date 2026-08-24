@@ -8,12 +8,24 @@
   `;
   const style=document.createElement('style'); style.id='dh-surprise-style'; style.textContent=css; document.head.appendChild(style);
 
+  function fixOfficialLinks(app){
+    const nobaraUrl='https://nobaraproject.org/download-nobara/';
+    const all=[...(app.systems||[]),...(app.gaming||[])];
+    all.filter(s=>/nobara/i.test(s?.name||'')).forEach(s=>{
+      s.download=nobaraUrl;
+      s.downloadUrl=nobaraUrl;
+      s.website='https://nobaraproject.org/';
+      s.docs='https://wiki.nobaraproject.org/';
+    });
+  }
+
   function installButton(btn, app){
     if(!btn || btn.dataset.surpriseInstalled)return;
     const fresh=btn.cloneNode(true);
     btn.replaceWith(fresh);
     fresh.dataset.surpriseInstalled='true';
     fresh.addEventListener('click',()=>{
+      fixOfficialLinks(app);
       const pool=(app.systems||[]).filter(s=>s&&s.id);
       if(!pool.length){app.toast?.('The OS catalog is still loading.');return;}
       const previous=app.lastSurpriseId;
@@ -38,6 +50,12 @@
   function install(){
     const app=window.app;
     if(!app)return;
+    fixOfficialLinks(app);
+    const linkFixTimer=window.setInterval(()=>{
+      fixOfficialLinks(app);
+      if((app.systems||[]).length)window.clearInterval(linkFixTimer);
+    },250);
+    window.setTimeout(()=>window.clearInterval(linkFixTimer),10000);
     installButton(document.getElementById('randomBtn'),app);
     installButton(document.getElementById('randomBtnHome'),app);
   }
