@@ -6,7 +6,7 @@
   const aliases = {'open suse':'opensuse','opensuse leap':'opensuse','opensuse tumbleweed':'opensuse','kali':'kalilinux','mint':'linuxmint','pop os':'popos','rocky':'rockylinux','alma linux':'almalinux','arch':'archlinux','endeavour os':'endeavouros','garuda':'garudalinux','cachy os':'cachyos','nobara':'nobara','chimera os':'chimeraos','pika os':'pikaos','batocera':'batocera','retro pie':'retropie','free dos':'freedos','open bsd':'openbsd','net bsd':'netbsd','dragonflybsd':'dragonflybsd','ghost bsd':'ghostbsd','midnight bsd':'midnightbsd','true nas core':'truenas','graphene os':'grapheneos','lineage os':'lineageos','postmarket os':'postmarketos','core elec':'coreelec','libre elec':'libreelec'};
   const key = name => String(name || '').trim().toLowerCase().replace(/[®™]/g,'').replace(/\s+/g,' ');
   const logoUrl = name => { const k=key(name); const slug=slugs[k]||aliases[k]; return slug ? `https://cdn.simpleicons.org/${slug}` : ''; };
-  if(window.DistroHubApp){
+  if(typeof DistroHubApp !== 'undefined'){
     const originalNormalize=DistroHubApp.prototype.normalize;
     DistroHubApp.prototype.normalize=function(system,fallbackType='Linux'){const result=originalNormalize.call(this,system,fallbackType);if(result&&!result.logo)result.logo=logoUrl(result.name);return result;};
     DistroHubApp.prototype.logoFor=function(system){return logoUrl(system?.name)||'fa-solid fa-microchip';};
