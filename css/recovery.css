@@ -1,0 +1,16 @@
+/* Runtime recovery: keep the landing page visible even if JavaScript/data loading fails. */
+#home.page { display: block; }
+#home.page:not(.active) { display: none; }
+
+/* Prevent a broken external asset from making the interface feel empty. */
+img { max-width: 100%; }
+
+/* Mobile safety net. */
+@media (max-width: 760px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-orbit { display: none; }
+  .family-grid, .feature-strip, .system-grid, .gaming-grid, .dashboard-grid { grid-template-columns: 1fr; }
+  .explore-layout { grid-template-columns: 1fr; }
+  .compare-builder { grid-template-columns: 1fr; }
+  .versus { padding: 0; }
+}
