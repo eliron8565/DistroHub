@@ -5,7 +5,6 @@ class ParticleSystem {
         this.createParticles();
         window.addEventListener('resize', () => this.handleResize());
     }
-
     createParticles() {
         if (!this.container) return;
         this.container.innerHTML = '';
@@ -17,234 +16,43 @@ class ParticleSystem {
             this.container.appendChild(particle);
         }
     }
-
-    handleResize() {
-        this.particleCount = window.innerWidth > 768 ? 50 : 20;
-        this.createParticles();
-    }
+    handleResize() { this.particleCount = window.innerWidth > 768 ? 50 : 20; this.createParticles(); }
 }
 
 class DistroHub {
-    constructor() {
-        this.distros = [];
-        this.filteredDistros = [];
-        this.darkMode = this.getDarkModeSetting();
-        this.favorites = this.getFavorites();
-        this.init();
-    }
-
-    async init() {
-        await this.loadDistributions();
-        this.setupTheme();
-        this.setupEventListeners();
-        this.renderDistributions();
-        this.populateCompareSelects();
-        this.updateFavoriteCount();
-        new ParticleSystem();
-        this.hideLoadingAnimation();
-    }
-
-    hideLoadingAnimation() {
-        const loading = document.getElementById('loadingAnimation');
-        if (loading) setTimeout(() => loading.classList.add('hidden'), 350);
-    }
-
+    constructor() { this.distros=[]; this.filteredDistros=[]; this.darkMode=this.getDarkModeSetting(); this.favorites=this.getFavorites(); this.init(); }
+    async init() { await this.loadDistributions(); this.setupTheme(); this.setupEventListeners(); this.renderDistributions(); this.populateCompareSelects(); this.updateFavoriteCount(); new ParticleSystem(); this.hideLoadingAnimation(); }
+    hideLoadingAnimation() { const loading=document.getElementById('loadingAnimation'); if(loading) setTimeout(()=>loading.classList.add('hidden'),350); }
     async loadDistributions() {
-        try {
-            const response = await fetch('data/distros.json', { cache: 'no-store' });
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-            const distros = await response.json();
-            const categories = ['desktop', 'universal', 'advanced', 'desktop/server'];
-            this.distros = distros.filter(d => {
-                const category = String(d.category || '').toLowerCase();
-                return categories.some(c => category.includes(c)) || d.name === 'Arch Linux';
-            });
-            this.filteredDistros = [...this.distros];
-        } catch (error) {
-            console.error('DistroHub data error:', error);
-            this.distros = [];
-            this.filteredDistros = [];
-            const container = document.getElementById('distrosContainer');
-            if (container) container.innerHTML = '<div class="empty-state"><i class="fas fa-triangle-exclamation"></i><h3>Unable to load distributions</h3><p>Please refresh the page and try again.</p></div>';
-        }
+        try { const response=await fetch('data/distros.json',{cache:'no-store'}); if(!response.ok) throw new Error(`HTTP ${response.status}`); const distros=await response.json(); const categories=['desktop','universal','advanced','desktop/server']; this.distros=distros.filter(d=>{const c=String(d.category||'').toLowerCase();return categories.some(x=>c.includes(x))||d.name==='Arch Linux';}); this.filteredDistros=[...this.distros]; }
+        catch(error){ console.error('DistroHub data error:',error); this.distros=[]; this.filteredDistros=[]; const container=document.getElementById('distrosContainer'); if(container) container.innerHTML='<div class="empty-state"><i class="fas fa-triangle-exclamation"></i><h3>Unable to load distributions</h3><p>Please refresh the page and try again.</p></div>'; }
     }
-
-    getFavorites() {
-        try { return JSON.parse(localStorage.getItem('distroHubFavorites') || '[]'); }
-        catch { return []; }
-    }
-
-    saveFavorites() {
-        localStorage.setItem('distroHubFavorites', JSON.stringify(this.favorites));
-        this.updateFavoriteCount();
-    }
-
-    updateFavoriteCount() {
-        const count = document.getElementById('favoriteCount');
-        if (count) count.textContent = this.favorites.length;
-    }
-
-    isFavorite(name) { return this.favorites.includes(name); }
-
-    toggleFavorite(name, event) {
-        event?.stopPropagation();
-        if (this.isFavorite(name)) this.favorites = this.favorites.filter(n => n !== name);
-        else this.favorites.push(name);
-        this.saveFavorites();
-        this.renderDistributions();
-    }
-
-    setupTheme() {
-        document.body.classList.toggle('light-mode', !this.darkMode);
-        this.updateThemeIcon();
-    }
-
-    toggleTheme() {
-        this.darkMode = !this.darkMode;
-        localStorage.setItem('distroHubDarkMode', JSON.stringify(this.darkMode));
-        this.setupTheme();
-    }
-
-    getDarkModeSetting() {
-        const saved = localStorage.getItem('distroHubDarkMode');
-        if (saved !== null) return JSON.parse(saved);
-        return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-
-    updateThemeIcon() {
-        const icon = document.getElementById('themeToggle')?.querySelector('i');
-        if (icon) icon.className = this.darkMode ? 'fas fa-sun' : 'fas fa-moon';
-    }
-
-    setupEventListeners() {
-        document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', e => this.handleNavClick(e)));
-        document.querySelectorAll('[data-page]').forEach(btn => btn.addEventListener('click', () => this.showPage(btn.dataset.page)));
-        document.getElementById('searchBar')?.addEventListener('input', e => this.handleSearch(e.target.value));
-        document.getElementById('searchBarCompact')?.addEventListener('input', e => this.handleSearch(e.target.value));
-        document.getElementById('themeToggle')?.addEventListener('click', () => this.toggleTheme());
-        document.getElementById('mobileMenuBtn')?.addEventListener('click', () => this.toggleMobileMenu());
-        document.getElementById('sidebarToggle')?.addEventListener('click', () => this.toggleMobileMenu());
-        document.getElementById('modalClose')?.addEventListener('click', () => this.closeModal());
-        document.getElementById('distroModal')?.addEventListener('click', e => { if (e.target.id === 'distroModal' || e.target.classList.contains('modal-overlay')) this.closeModal(); });
-        document.getElementById('compareBtn')?.addEventListener('click', () => this.handleCompare());
-        document.getElementById('randomDistroBtn')?.addEventListener('click', () => this.showRandomDistro());
-        document.getElementById('randomDistroHeroBtn')?.addEventListener('click', () => this.showRandomDistro());
-        document.getElementById('contactForm')?.addEventListener('submit', e => this.handleContactSubmit(e));
-        document.addEventListener('keydown', e => this.handleKeyboard(e));
-    }
-
-    handleKeyboard(e) {
-        const tag = document.activeElement?.tagName;
-        if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) {
-            e.preventDefault();
-            const search = document.getElementById('searchBar');
-            search?.focus();
-        }
-        if (e.key === 'Escape') this.closeModal();
-    }
-
-    handleNavClick(e) {
-        e.preventDefault();
-        const page = e.target.closest('.nav-link')?.dataset.page;
-        if (page) { this.showPage(page); this.closeMobileMenu(); }
-    }
-
-    updateBreadcrumb(pageName) {
-        const breadcrumb = document.getElementById('breadcrumb');
-        const names = { home: 'Home', distros: 'Distributions', compare: 'Compare', about: 'About', contact: 'Contact' };
-        if (breadcrumb) breadcrumb.textContent = names[pageName] || pageName;
-    }
-
-    showPage(pageName) {
-        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-        document.getElementById(pageName)?.classList.add('active');
-        document.querySelectorAll('.nav-link').forEach(link => link.classList.toggle('active', link.dataset.page === pageName));
-        this.updateBreadcrumb(pageName);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    handleSearch(query) {
-        const q = query.trim().toLowerCase();
-        this.filteredDistros = !q ? [...this.distros] : this.distros.filter(d => {
-            const haystack = [d.name, d.description, d.category, d.base, d.release, d.support, d.packageManager, d.desktopEnvironment, ...(d.useCases || [])].filter(Boolean).join(' ').toLowerCase();
-            return haystack.includes(q);
-        });
-        this.renderDistributions();
-    }
-
-    renderDistributions() {
-        const container = document.getElementById('distrosContainer');
-        if (!container) return;
-        if (!this.filteredDistros.length) {
-            container.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:4rem 2rem"><div style="font-size:3rem;margin-bottom:1rem"><i class="fas fa-magnifying-glass"></i></div><h3>No distributions found</h3><p>Try another name, category, desktop environment, or use case.</p></div>';
-            return;
-        }
-        container.innerHTML = this.filteredDistros.map(d => {
-            const safeName = String(d.name).replace(/'/g, "\\'");
-            const favorite = this.isFavorite(d.name);
-            return `<article class="distro-card" tabindex="0" data-distro="${safeName}">
-                <button class="favorite-btn ${favorite ? 'active' : ''}" title="${favorite ? 'Remove from favorites' : 'Add to favorites'}" aria-label="Favorite ${d.name}" onclick="app.toggleFavorite('${safeName}', event)"><i class="${favorite ? 'fas' : 'far'} fa-heart"></i></button>
-                <div class="distro-card-logo">${d.icon || '<i class="fab fa-linux"></i>'}</div>
-                <h3 class="distro-card-name">${d.name}</h3>
-                <span class="distro-card-category">${d.category || 'Linux'}</span>
-                <p class="distro-card-description">${d.description || ''}</p>
-                <div class="distro-card-info"><div><strong>Base:</strong> ${d.base || '—'}</div><div><strong>Release:</strong> ${d.release || '—'}</div></div>
-                <div class="distro-card-buttons"><button class="btn-download" onclick="app.downloadDistro('${safeName}', '${String(d.downloadUrl || '').replace(/'/g, "\\'")}')"><i class="fas fa-download"></i> Download</button><button class="btn-details" onclick="app.showDistroDetails('${safeName}')"><i class="fas fa-info-circle"></i> Details</button></div>
-            </article>`;
-        }).join('');
-    }
-
-    showDistroDetails(name) {
-        const distro = this.distros.find(d => d.name === name);
-        if (!distro) return;
-        const modal = document.getElementById('distroModal');
-        const body = document.getElementById('modalBody');
-        if (!modal || !body) return;
-        body.innerHTML = `<div class="modal-hero"><div class="distro-card-logo">${distro.icon || '<i class="fab fa-linux"></i>'}</div><div><h2>${distro.name}</h2><span class="distro-card-category">${distro.category || 'Linux'}</span></div></div>
-            <div class="modal-info"><div class="modal-info-item"><div class="modal-info-label">Category</div><div class="modal-info-value">${distro.category || '—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Base</div><div class="modal-info-value">${distro.base || '—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Release</div><div class="modal-info-value">${distro.release || '—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Support</div><div class="modal-info-value">${distro.support || '—'}</div></div></div>
-            <div class="modal-description">${distro.fullDescription || distro.description || ''}</div>
-            <div class="modal-links"><a href="${distro.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download</a><a href="${distro.website}" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Official Website</a><a href="${distro.wiki}" target="_blank" rel="noopener noreferrer"><i class="fas fa-book"></i> Documentation</a></div>`;
-        modal.classList.add('active');
-    }
-
-    downloadDistro(name, url) { if (url) window.open(url, '_blank', 'noopener,noreferrer'); }
-    closeModal() { document.getElementById('distroModal')?.classList.remove('active'); }
-
-    showRandomDistro() {
-        if (!this.distros.length) return;
-        const distro = this.distros[Math.floor(Math.random() * this.distros.length)];
-        this.showDistroDetails(distro.name);
-    }
-
-    populateCompareSelects() {
-        const options = this.distros.map(d => `<option value="${d.name}">${d.name}</option>`).join('');
-        ['compare1', 'compare2', 'compare3'].forEach(id => { const select = document.getElementById(id); if (select) select.innerHTML = '<option value="">Select a distribution</option>' + options; });
-    }
-
-    handleCompare() {
-        const selected = ['compare1', 'compare2', 'compare3'].map(id => document.getElementById(id)?.value).filter(Boolean);
-        if (new Set(selected).size < 2) { alert('Please select at least 2 different distributions to compare.'); return; }
-        this.renderComparisonTable(this.distros.filter(d => selected.includes(d.name)));
-    }
-
-    renderComparisonTable(distros) {
-        const container = document.getElementById('comparisonTable');
-        if (!container) return;
-        const rows = [['Category','category'],['Base','base'],['Release','release'],['Support','support'],['Package Manager','packageManager'],['Desktop Environment','desktopEnvironment']];
-        container.innerHTML = `<table><thead><tr><th>Feature</th>${distros.map(d => `<th>${d.name}</th>`).join('')}</tr></thead><tbody>${rows.map(([label,key]) => `<tr><td><strong>${label}</strong></td>${distros.map(d => `<td>${d[key] || '—'}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
-        container.style.display = 'block';
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    handleContactSubmit(e) {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
-        alert(`Thanks, ${data.name}! Your message is ready to be sent. Connect the form to your preferred email service to receive submissions.`);
-        e.target.reset();
-    }
-
-    toggleMobileMenu() { document.getElementById('sidebar')?.classList.toggle('active'); }
-    closeMobileMenu() { document.getElementById('sidebar')?.classList.remove('active'); }
+    getFavorites(){try{return JSON.parse(localStorage.getItem('distroHubFavorites')||'[]');}catch{return[];}}
+    saveFavorites(){localStorage.setItem('distroHubFavorites',JSON.stringify(this.favorites));this.updateFavoriteCount();}
+    updateFavoriteCount(){const count=document.getElementById('favoriteCount');if(count)count.textContent=this.favorites.length;}
+    isFavorite(name){return this.favorites.includes(name);}
+    toggleFavorite(name,event){event?.stopPropagation();if(this.isFavorite(name))this.favorites=this.favorites.filter(n=>n!==name);else this.favorites.push(name);this.saveFavorites();this.renderDistributions();}
+    setupTheme(){document.body.classList.toggle('light-mode',!this.darkMode);this.updateThemeIcon();}
+    toggleTheme(){this.darkMode=!this.darkMode;localStorage.setItem('distroHubDarkMode',JSON.stringify(this.darkMode));this.setupTheme();}
+    getDarkModeSetting(){const saved=localStorage.getItem('distroHubDarkMode');if(saved!==null)return JSON.parse(saved);return window.matchMedia('(prefers-color-scheme: dark)').matches;}
+    updateThemeIcon(){const icon=document.getElementById('themeToggle')?.querySelector('i');if(icon)icon.className=this.darkMode?'fas fa-sun':'fas fa-moon';}
+    setupEventListeners(){document.querySelectorAll('.nav-link').forEach(link=>link.addEventListener('click',e=>this.handleNavClick(e)));document.querySelectorAll('[data-page]').forEach(btn=>btn.addEventListener('click',()=>this.showPage(btn.dataset.page)));document.getElementById('searchBar')?.addEventListener('input',e=>this.handleSearch(e.target.value));document.getElementById('searchBarCompact')?.addEventListener('input',e=>this.handleSearch(e.target.value));document.getElementById('themeToggle')?.addEventListener('click',()=>this.toggleTheme());document.getElementById('mobileMenuBtn')?.addEventListener('click',()=>this.toggleMobileMenu());document.getElementById('sidebarToggle')?.addEventListener('click',()=>this.toggleMobileMenu());document.getElementById('modalClose')?.addEventListener('click',()=>this.closeModal());document.getElementById('distroModal')?.addEventListener('click',e=>{if(e.target.id==='distroModal'||e.target.classList.contains('modal-overlay'))this.closeModal();});document.getElementById('compareBtn')?.addEventListener('click',()=>this.handleCompare());document.getElementById('randomDistroBtn')?.addEventListener('click',()=>this.showRandomDistro());document.getElementById('randomDistroHeroBtn')?.addEventListener('click',()=>this.showRandomDistro());document.getElementById('contactForm')?.addEventListener('submit',e=>this.handleContactSubmit(e));document.addEventListener('keydown',e=>this.handleKeyboard(e));}
+    handleKeyboard(e){const tag=document.activeElement?.tagName;if(e.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(tag)){e.preventDefault();document.getElementById('searchBar')?.focus();}if(e.key==='Escape')this.closeModal();}
+    handleNavClick(e){e.preventDefault();const page=e.target.closest('.nav-link')?.dataset.page;if(page){this.showPage(page);this.closeMobileMenu();}}
+    updateBreadcrumb(pageName){const breadcrumb=document.getElementById('breadcrumb');const names={home:'Home',distros:'Distributions',compare:'Compare',about:'About',contact:'Contact'};if(breadcrumb)breadcrumb.textContent=names[pageName]||pageName;}
+    showPage(pageName){document.querySelectorAll('.page').forEach(page=>page.classList.remove('active'));document.getElementById(pageName)?.classList.add('active');document.querySelectorAll('.nav-link').forEach(link=>link.classList.toggle('active',link.dataset.page===pageName));this.updateBreadcrumb(pageName);window.scrollTo({top:0,behavior:'smooth'});}
+    handleSearch(query){const q=query.trim().toLowerCase();this.filteredDistros=!q?[...this.distros]:this.distros.filter(d=>[d.name,d.description,d.category,d.base,d.release,d.support,d.packageManager,d.desktopEnvironment,...(d.useCases||[])].filter(Boolean).join(' ').toLowerCase().includes(q));this.renderDistributions();}
+    renderDistributions(){const container=document.getElementById('distrosContainer');if(!container)return;if(!this.filteredDistros.length){container.innerHTML='<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:4rem 2rem"><div style="font-size:3rem;margin-bottom:1rem"><i class="fas fa-magnifying-glass"></i></div><h3>No distributions found</h3><p>Try another name, category, desktop environment, or use case.</p></div>';return;}container.innerHTML=this.filteredDistros.map(d=>{const safeName=String(d.name).replace(/'/g,"\\'");const favorite=this.isFavorite(d.name);return `<article class="distro-card" tabindex="0" data-distro="${safeName}"><button class="favorite-btn ${favorite?'active':''}" title="${favorite?'Remove from favorites':'Add to favorites'}" aria-label="Favorite ${d.name}" onclick="app.toggleFavorite('${safeName}',event)"><i class="${favorite?'fas':'far'} fa-heart"></i></button><div class="distro-card-logo">${d.icon||'<i class="fab fa-linux"></i>'}</div><h3 class="distro-card-name">${d.name}</h3><span class="distro-card-category">${d.category||'Linux'}</span><p class="distro-card-description">${d.description||''}</p><div class="distro-card-info"><div><strong>Base:</strong> ${d.base||'—'}</div><div><strong>Release:</strong> ${d.release||'—'}</div></div><div class="distro-card-buttons"><button class="btn-download" onclick="app.downloadDistro('${safeName}','${String(d.downloadUrl||'').replace(/'/g,"\\'")}')"><i class="fas fa-download"></i> Download</button><button class="btn-details" onclick="app.showDistroDetails('${safeName}')"><i class="fas fa-info-circle"></i> Details</button></div></article>`;}).join('');}
+    showDistroDetails(name){const distro=this.distros.find(d=>d.name===name);if(!distro)return;const modal=document.getElementById('distroModal');const body=document.getElementById('modalBody');if(!modal||!body)return;body.innerHTML=`<div class="modal-hero"><div class="distro-card-logo">${distro.icon||'<i class="fab fa-linux"></i>'}</div><div><h2>${distro.name}</h2><span class="distro-card-category">${distro.category||'Linux'}</span></div></div><div class="modal-info"><div class="modal-info-item"><div class="modal-info-label">Category</div><div class="modal-info-value">${distro.category||'—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Base</div><div class="modal-info-value">${distro.base||'—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Release</div><div class="modal-info-value">${distro.release||'—'}</div></div><div class="modal-info-item"><div class="modal-info-label">Support</div><div class="modal-info-value">${distro.support||'—'}</div></div></div><div class="modal-description">${distro.fullDescription||distro.description||''}</div><div class="modal-links"><a href="${distro.downloadUrl}" target="_blank" rel="noopener noreferrer"><i class="fas fa-download"></i> Download</a><a href="${distro.website}" target="_blank" rel="noopener noreferrer"><i class="fas fa-globe"></i> Official Website</a><a href="${distro.wiki}" target="_blank" rel="noopener noreferrer"><i class="fas fa-book"></i> Documentation</a></div>`;modal.classList.add('active');}
+    downloadDistro(name,url){if(url)window.open(url,'_blank','noopener,noreferrer');}
+    closeModal(){document.getElementById('distroModal')?.classList.remove('active');}
+    showRandomDistro(){if(!this.distros.length)return;const distro=this.distros[Math.floor(Math.random()*this.distros.length)];this.showDistroDetails(distro.name);}
+    populateCompareSelects(){const options=this.distros.map(d=>`<option value="${d.name}">${d.name}</option>`).join('');['compare1','compare2','compare3'].forEach(id=>{const select=document.getElementById(id);if(select)select.innerHTML='<option value="">Select a distribution</option>'+options;});}
+    handleCompare(){const selected=['compare1','compare2','compare3'].map(id=>document.getElementById(id)?.value).filter(Boolean);if(new Set(selected).size<2){alert('Please select at least 2 different distributions to compare.');return;}this.renderComparisonTable(this.distros.filter(d=>selected.includes(d.name)));}
+    renderComparisonTable(distros){const container=document.getElementById('comparisonTable');if(!container)return;const rows=[['Category','category'],['Base','base'],['Release','release'],['Support','support'],['Package Manager','packageManager'],['Desktop Environment','desktopEnvironment']];container.innerHTML=`<table><thead><tr><th>Feature</th>${distros.map(d=>`<th>${d.name}</th>`).join('')}</tr></thead><tbody>${rows.map(([label,key])=>`<tr><td><strong>${label}</strong></td>${distros.map(d=>`<td>${d[key]||'—'}</td>`).join('')}</tr>`).join('')}</tbody></table>`;container.style.display='block';container.scrollIntoView({behavior:'smooth',block:'start'});}
+    handleContactSubmit(e){e.preventDefault();const data=Object.fromEntries(new FormData(e.target));alert(`Thanks, ${data.name}! Your message is ready to be sent. Connect the form to your preferred email service to receive submissions.`);e.target.reset();}
+    toggleMobileMenu(){document.getElementById('sidebar')?.classList.toggle('active');}
+    closeMobileMenu(){document.getElementById('sidebar')?.classList.remove('active');}
 }
-
-window.addEventListener('DOMContentLoaded', () => { window.app = new DistroHub(); });
+window.DistroHub=DistroHub;
+window.addEventListener('DOMContentLoaded',()=>{window.app=new DistroHub();});
