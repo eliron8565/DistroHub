@@ -3,12 +3,17 @@
  */
 (() => {
   'use strict';
+  const loadJson = url => fetch(url, { cache: 'no-store' }).then(r => {
+    if (!r.ok) throw new Error(`${url}: ${r.status}`);
+    return r.json();
+  });
   const load = async () => {
     try {
-      const data = await fetch('data/linux-expansion.json', { cache: 'no-store' }).then(r => {
-        if (!r.ok) throw new Error(`linux-expansion.json: ${r.status}`);
-        return r.json();
-      });
+      const datasets = await Promise.all([
+        loadJson('data/linux-expansion.json'),
+        loadJson('data/linux-expansion-2.json')
+      ]);
+      const data = datasets.flat();
       const waitForApp = (tries = 0) => {
         const instance = window.app || (typeof app !== 'undefined' ? app : null);
         if (!instance || !Array.isArray(instance.systems)) {
