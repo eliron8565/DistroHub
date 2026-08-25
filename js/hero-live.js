@@ -1,0 +1,100 @@
+/* OSPulse Living Hero — reactive orbital discovery core. */
+(() => {
+  const init = () => {
+    document.querySelectorAll('.hero-orbit').forEach((orbit) => {
+      if (orbit.dataset.liveReady) return;
+      orbit.dataset.liveReady = '1';
+
+      orbit.classList.add('os-live-orbit');
+      const rings = [0, 1, 2].map((i) => {
+        const el = document.createElement('div');
+        el.className = `live-ring live-ring-${i + 1}`;
+        orbit.appendChild(el);
+        return el;
+      });
+
+      const energy = document.createElement('div');
+      energy.className = 'live-energy';
+      energy.innerHTML = '<span></span><span></span><span></span><span></span>';
+      orbit.appendChild(energy);
+
+      const scanner = document.createElement('div');
+      scanner.className = 'live-scanner';
+      orbit.appendChild(scanner);
+
+      const sparks = document.createElement('div');
+      sparks.className = 'live-sparks';
+      for (let i = 0; i < 18; i++) {
+        const spark = document.createElement('i');
+        spark.style.setProperty('--angle', `${Math.random() * 360}deg`);
+        spark.style.setProperty('--distance', `${150 + Math.random() * 115}px`);
+        spark.style.setProperty('--delay', `${Math.random() * 4}s`);
+        spark.style.setProperty('--size', `${1 + Math.random() * 3}px`);
+        sparks.appendChild(spark);
+      }
+      orbit.appendChild(sparks);
+
+      const status = document.createElement('div');
+      status.className = 'live-status';
+      status.innerHTML = '<span class="live-status-dot"></span><span>LIVE DISCOVERY</span><b>SCAN</b>';
+      orbit.appendChild(status);
+
+      const core = orbit.querySelector('.core');
+      if (core) {
+        core.insertAdjacentHTML('beforeend', '<div class="core-radar"></div><div class="core-signal">●</div>');
+      }
+
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+      const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+      if (!reduce) {
+        orbit.addEventListener('pointermove', (e) => {
+          const r = orbit.getBoundingClientRect();
+          tx = (e.clientX - r.left - r.width / 2) / r.width * 18;
+          ty = (e.clientY - r.top - r.height / 2) / r.height * 18;
+        });
+        orbit.addEventListener('pointerleave', () => { tx = 0; ty = 0; });
+        const frame = () => {
+          cx += (tx - cx) * .055;
+          cy += (ty - cy) * .055;
+          orbit.style.setProperty('--hero-x', `${cx}px`);
+          orbit.style.setProperty('--hero-y', `${cy}px`);
+          requestAnimationFrame(frame);
+        };
+        requestAnimationFrame(frame);
+      }
+    });
+
+    if (!document.getElementById('ospulse-hero-live-style')) {
+      const style = document.createElement('style');
+      style.id = 'ospulse-hero-live-style';
+      style.textContent = `
+        .os-live-orbit{--hero-x:0px;--hero-y:0px;isolation:isolate;perspective:900px}
+        .os-live-orbit .core{position:relative;transform:translate3d(var(--hero-x),var(--hero-y),0);transition:box-shadow .35s ease;border-color:rgba(113,92,255,.8)}
+        .os-live-orbit .core::before{content:'';position:absolute;inset:-16px;border-radius:50%;border:1px solid rgba(34,211,238,.18);box-shadow:0 0 45px rgba(34,211,238,.08);animation:coreBreath 2.4s ease-in-out infinite}
+        .core-radar{position:absolute;inset:13px;border-radius:50%;border:1px dashed rgba(34,211,238,.22);animation:radarSpin 7s linear infinite;pointer-events:none}
+        .core-signal{position:absolute;right:22px;top:23px;color:#22d3ee;font-size:8px;text-shadow:0 0 12px #22d3ee;animation:signalBlink 1s steps(2,end) infinite}
+        .live-ring{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);border:1px solid rgba(34,211,238,.12)}
+        .live-ring-1{width:235px;height:235px;animation:ringPulse 3.2s ease-in-out infinite}
+        .live-ring-2{width:390px;height:390px;border-color:rgba(124,92,255,.12);animation:ringPulse 4.4s ease-in-out infinite reverse}
+        .live-ring-3{width:535px;height:535px;border-style:dashed;border-color:rgba(34,211,238,.08);animation:ringPulse 6s ease-in-out infinite}
+        .live-energy{position:absolute;inset:0;pointer-events:none;animation:energySpin 11s linear infinite}
+        .live-energy span{position:absolute;left:50%;top:50%;width:7px;height:7px;border-radius:50%;background:#22d3ee;box-shadow:0 0 18px #22d3ee;transform:rotate(var(--a)) translateX(260px);animation:energyBlink 1.7s ease-in-out infinite}
+        .live-energy span:nth-child(1){--a:35deg}.live-energy span:nth-child(2){--a:145deg}.live-energy span:nth-child(3){--a:220deg}.live-energy span:nth-child(4){--a:305deg;background:#a78bfa;box-shadow:0 0 18px #a78bfa}
+        .live-scanner{position:absolute;left:50%;top:50%;width:270px;height:270px;border-radius:50%;transform:translate(-50%,-50%);background:conic-gradient(from 0deg,transparent 0deg,rgba(34,211,238,.28) 28deg,transparent 58deg);filter:blur(.5px);animation:scannerSpin 5s linear infinite;mix-blend-mode:screen;pointer-events:none}
+        .live-sparks{position:absolute;inset:0;pointer-events:none;animation:sparkOrbit 16s linear infinite}
+        .live-sparks i{position:absolute;left:50%;top:50%;width:var(--size);height:var(--size);border-radius:50%;background:#67e8f9;box-shadow:0 0 10px #22d3ee;transform:rotate(var(--angle)) translateX(var(--distance));animation:sparkPulse 2.2s ease-in-out var(--delay) infinite}
+        .live-status{position:absolute;right:4%;bottom:8%;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(34,211,238,.16);border-radius:999px;background:rgba(7,11,22,.62);backdrop-filter:blur(12px);font:600 8px Inter;letter-spacing:.1em;color:#91a0b8;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:statusFloat 3s ease-in-out infinite}
+        .live-status b{color:#22d3ee;font-size:7px;margin-left:3px}.live-status-dot{width:6px;height:6px;border-radius:50%;background:#34d399;box-shadow:0 0 12px #34d399;animation:statusBlink 1.3s infinite}
+        .os-live-orbit .orbit-node{transition:transform .35s ease,box-shadow .35s ease;z-index:5}.os-live-orbit .node-1{animation:nodeLive1 5s ease-in-out infinite}.os-live-orbit .node-2{animation:nodeLive2 6s ease-in-out infinite}.os-live-orbit .node-3{animation:nodeLive3 4.5s ease-in-out infinite}
+        @keyframes coreBreath{0%,100%{transform:scale(.96);opacity:.35}50%{transform:scale(1.06);opacity:.9}}@keyframes radarSpin{to{transform:rotate(360deg)}}@keyframes signalBlink{50%{opacity:.2}}@keyframes ringPulse{0%,100%{opacity:.45;scale:.98}50%{opacity:1;scale:1.015}}@keyframes energySpin{to{transform:rotate(360deg)}}@keyframes energyBlink{0%,100%{opacity:.25;scale:.7}50%{opacity:1;scale:1.6}}@keyframes scannerSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes sparkOrbit{to{transform:rotate(-360deg)}}@keyframes sparkPulse{0%,100%{opacity:.15}50%{opacity:1}}@keyframes statusFloat{50%{transform:translateY(-5px)}}@keyframes statusBlink{50%{opacity:.25}}@keyframes nodeLive1{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(5px,-10px) rotate(4deg)}}@keyframes nodeLive2{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-7px,7px) rotate(-5deg)}}@keyframes nodeLive3{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(8px,-4px) rotate(5deg)}}
+        @media(max-width:700px){.live-ring-3{display:none}.live-status{right:0;bottom:2%}.live-energy span{transform:rotate(var(--a)) translateX(190px)}.live-sparks i{transform:rotate(var(--angle)) translateX(var(--distance))}}
+        @media(prefers-reduced-motion:reduce){.live-ring,.live-energy,.live-scanner,.live-sparks,.live-status,.os-live-orbit .orbit-node,.core-radar,.core-signal{animation:none!important}}
+      `;
+      document.head.appendChild(style);
+    }
+  };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+  new MutationObserver(init).observe(document.body, { childList: true, subtree: true });
+})();
