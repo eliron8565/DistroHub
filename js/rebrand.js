@@ -1,16 +1,15 @@
-/* OSNova visual rebrand. The repository remains DistroHub; the product name shown to visitors is OSNova. */
+/* OSPulse visual rebrand. The repository remains DistroHub; the product name shown to visitors is OSPulse. */
 (() => {
   const apply=()=>{
-    const name='OSNova';
-    document.title='OSNova — Discover your next operating system';
+    const name='OSPulse';
+    document.title='OSPulse — Discover your next operating system';
     const meta=document.querySelector('meta[name="description"]');
-    if(meta) meta.content='OSNova — discover open and alternative operating systems. Linux, Gaming OS, BSD, Mobile, Retro, Media and experimental platforms.';
+    if(meta) meta.content='OSPulse — discover open and alternative operating systems. Linux, Gaming OS, BSD, Mobile, Retro, Media and experimental platforms.';
 
-    // The original brand is made from nested spans, so changing a direct text node
-    // does not work. Replace the visible brand content explicitly.
+    // The original brand is made from nested spans, so replace the visible brand explicitly.
     document.querySelectorAll('.brand').forEach(brand=>{
       brand.setAttribute('aria-label',`${name} home`);
-      brand.innerHTML='<span class="brand-mark">O</span><span>OS<span>Nova</span></span>';
+      brand.innerHTML='<span class="brand-mark">O</span><span>OS<span>Pulse</span></span>';
     });
 
     document.querySelectorAll('.brand-mark').forEach(el=>{
@@ -18,8 +17,13 @@
       el.setAttribute('aria-hidden','true');
     });
 
-    // Keep any visible product-name text in common UI locations consistent.
     document.querySelectorAll('[data-brand-name]').forEach(el=>{el.textContent=name;});
+
+    // Replace stale visible product-name text without touching repository/internal identifiers.
+    document.querySelectorAll('body *').forEach(el=>{
+      if(el.children.length===0 && el.textContent.trim()==='OSNova') el.textContent=name;
+      if(el.children.length===0 && el.textContent.trim()==='DistroHub') el.textContent=name;
+    });
   };
 
   if(document.readyState==='loading'){
