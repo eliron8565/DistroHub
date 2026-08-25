@@ -11,7 +11,11 @@
     DistroHubApp.prototype.normalize=function(system,fallbackType='Linux'){const result=originalNormalize.call(this,system,fallbackType);if(result&&!result.logo)result.logo=logoUrl(result.name);return result;};
     DistroHubApp.prototype.logoFor=function(system){return logoUrl(system?.name)||'fa-solid fa-microchip';};
   }
-  // Load the resilient image layer after the catalog renderer is available.
-  const boot=()=>{if(document.querySelector('script[data-logo-resilience]'))return;const s=document.createElement('script');s.src='js/logo-resilience.js';s.dataset.logoResilience='1';document.head.appendChild(s)};
+  const boot=()=>{
+    if(document.querySelector('script[data-logo-resilience]'))return;
+    const s=document.createElement('script');s.src='js/logo-resilience.js';s.dataset.logoResilience='1';document.head.appendChild(s);
+    if(document.querySelector('script[data-linux-expansion]'))return;
+    const e=document.createElement('script');e.src='js/linux-expansion.js';e.dataset.linuxExpansion='1';document.head.appendChild(e);
+  };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
