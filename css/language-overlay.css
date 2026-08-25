@@ -1,0 +1,68 @@
+/* OSPulse language selector: always above the animated scene and fully opaque. */
+.site-header{
+  position:relative;
+  z-index:10000 !important;
+}
+.header-actions{
+  position:relative;
+  z-index:10001;
+}
+.lang-switcher{
+  position:relative !important;
+  z-index:10002 !important;
+  isolation:isolate;
+}
+.lang-btn{
+  position:relative;
+  z-index:10003;
+}
+.lang-menu{
+  position:absolute !important;
+  z-index:2147483647 !important;
+  pointer-events:none;
+  background:#0a1222 !important;
+  background-image:none !important;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px) scale(.98);
+  box-shadow:0 24px 80px rgba(0,0,0,.72),0 0 0 1px rgba(0,229,255,.08);
+}
+.lang-menu.open{
+  pointer-events:auto !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  transform:translateY(0) scale(1) !important;
+}
+.lang-option{
+  position:relative;
+  z-index:2147483647;
+  pointer-events:auto !important;
+  background:transparent;
+}
+.lang-option:hover,
+.lang-option:focus-visible,
+.lang-option.active{
+  background:#142238 !important;
+  color:#fff !important;
+  outline:none;
+}
+/* Keep animated hero layers below the header/menu. */
+.hero-orbit,
+.hero-live,
+.hero-particles,
+.ambient,
+[class*="orbit"],
+[class*="particle"]{
+  z-index:0;
+}
+@media(max-width:520px){
+  .lang-menu{
+    position:fixed !important;
+    top:64px !important;
+    right:10px !important;
+    left:auto !important;
+    width:min(270px,calc(100vw - 20px)) !important;
+    max-height:calc(100vh - 84px) !important;
+  }
+  .rtl .lang-menu{left:10px !important;right:auto !important}
+}
