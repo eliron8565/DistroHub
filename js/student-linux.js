@@ -1,5 +1,7 @@
-/* OSPulse catalog polish: Student Linux, Dual Boot, stable filters and duplicate cleanup. */
+/* OSPulse catalog polish: stable filters, Student Linux, Dual Boot and duplicate cleanup. */
 (() => {
+  'use strict';
+
   const STUDENT_NAMES = new Set([
     'Ubuntu','Linux Mint','Fedora','Debian','Zorin OS','Pop!_OS','KDE neon',
     'Ubuntu MATE','Ubuntu Budgie','Xubuntu','Ubuntu Cinnamon','Edubuntu',
@@ -13,7 +15,8 @@
     'Ubuntu MATE','Ubuntu Budgie','Xubuntu','Ubuntu Cinnamon','Kubuntu','Lubuntu',
     'elementary OS','Manjaro','openSUSE','MX Linux','EndeavourOS','Deepin OS','Deepin',
     'Pardus','Linux Lite','Q4OS','Peppermint OS','Solus','Nobara Linux','Nobara',
-    'Arch Linux','Garuda Linux','CachyOS','Bodhi Linux','antiX','SparkyLinux','Archcraft'
+    'Arch Linux','Garuda Linux','CachyOS','Bodhi Linux','antiX','SparkyLinux','Archcraft',
+    'Bazzite'
   ]);
 
   const BASE_TYPES = ['Linux','Gaming','BSD','Mobile','Alternative','Retro','Media'];
@@ -22,12 +25,13 @@
   const studentNorm = new Set([...STUDENT_NAMES].map(norm));
   const dualNorm = new Set([...DUAL_BOOT_NAMES].map(norm));
 
-  function isLinux(system) {
-    return String(system?.type || '').toLowerCase() === 'linux';
-  }
+  const isLinuxLike = system => {
+    const type = String(system?.type || '').toLowerCase();
+    return type === 'linux' || type === 'gaming';
+  };
 
   function isStudentSystem(system) {
-    if (!system || !isLinux(system)) return false;
+    if (!system || !isLinuxLike(system)) return false;
     if (studentNorm.has(norm(system.name))) return true;
     const hay = [system.name, system.description, ...(system.useCases || []), ...(system.category || [])].join(' ').toLowerCase();
     return /student|education|school|study|office|programming|development|learning/.test(hay)
@@ -37,13 +41,33 @@
   function isDualBootSystem(system) {
     if (!system) return false;
     if (norm(system.name) === 'netbootxyz') return true;
-    return isLinux(system) && dualNorm.has(norm(system.name));
+    return isLinuxLike(system) && dualNorm.has(norm(system.name));
+  }
+
+  function dedupeSystems(app) {
+    const seen = new Map();
+    for (const system of app.systems || []) {
+      if (!system) continue;
+      const key = norm(system.id || system.name);
+      if (!key) continue;
+      if (!seen.has(key)) seen.set(key, system);
+      else {
+        const current = seen.get(key);
+        seen.set(key, { ...current, ...system,
+          category: [...new Set([...(current.category || []), ...(system.category || [])])],
+          useCases: [...new Set([...(current.useCases || []), ...(system.useCases || [])])]
+        });
+      }
+    }
+    app.systems = [...seen.values()];
   }
 
   function tagSystems(app) {
+    dedupeSystems(app);
     app.systems.forEach(system => {
-      system.category = Array.isArray(system.category) ? system.category : [];
-      system.useCases = Array.isArray(system.useCases) ? system.useCases : [];
+      system.category = Array.isArray(system.category) ? system.category.filter(Boolean) : [];
+      system.useCases = Array.isArray(system.useCases) ? system.useCases.filter(Boolean) : [];
+      system.architecture = Array.isArray(system.architecture) ? system.architecture.filter(Boolean) : [];
 
       if (isStudentSystem(system)) {
         system.category = [...new Set([...system.category, 'Student Linux'])];
@@ -63,22 +87,21 @@
     if (!select) return;
     const selected = select.value;
     const wanted = ['', ...BASE_TYPES, ...SPECIAL_TYPES];
-    select.innerHTML = '';
-    wanted.forEach(value => {
+    select.replaceChildren(...wanted.map(value => {
       const option = document.createElement('option');
       option.value = value;
       option.textContent = value || 'All types';
-      select.appendChild(option);
-    });
+      return option;
+    }));
     if (wanted.includes(selected)) select.value = selected;
   }
 
   function rebuildTypeChips(app) {
     const host = document.getElementById('typeFilters');
     if (!host) return;
-    host.innerHTML = '';
-    [...BASE_TYPES, ...SPECIAL_TYPES].forEach(type => {
+    host.replaceChildren(...[...BASE_TYPES, ...SPECIAL_TYPES].map(type => {
       const button = document.createElement('button');
+      button.type = 'button';
       button.className = 'chip';
       button.textContent = type;
       button.dataset.catalogFilter = type;
@@ -87,8 +110,8 @@
         if (select) select.value = type;
         app.applyFilters?.();
       });
-      host.appendChild(button);
-    });
+      return button;
+    }));
   }
 
   function patchRenderTypes(app) {
@@ -96,6 +119,18 @@
       rebuildTypeOptions();
       rebuildTypeChips(app);
     };
+  }
+
+  function patchRenderAll(app) {
+    if (app.__catalogRenderAllPatched) return;
+    const original = app.renderAll.bind(app);
+    app.renderAll = function() {
+      tagSystems(app);
+      const result = original();
+      app.renderTypes?.();
+      return result;
+    };
+    app.__catalogRenderAllPatched = true;
   }
 
   function patchPopulateCompare(app) {
@@ -123,9 +158,14 @@
     }
   }
 
-  function updateCounters(app) {
+  function refresh(app) {
+    tagSystems(app);
+    app.renderTypes?.();
+    app.populateCompare?.();
     app.setText?.('statTotal', `${app.systems.length}+`);
     app.setText?.('gamingCount', app.gaming?.length || 0);
+    restoreHashFilter(app);
+    app.applyFilters?.();
   }
 
   function install() {
@@ -135,37 +175,24 @@
       return;
     }
 
-    tagSystems(app);
     patchRenderTypes(app);
+    patchRenderAll(app);
     patchPopulateCompare(app);
-    app.renderTypes();
-    app.populateCompare();
-    updateCounters(app);
-    restoreHashFilter(app);
-    app.applyFilters?.();
+    refresh(app);
 
-    // Guard against old cached scripts or later DOM mutations creating duplicate options.
-    const select = document.getElementById('typeFilter');
-    if (select && !select.__ospulseDedupeObserver) {
-      let queued = false;
-      const observer = new MutationObserver(() => {
-        if (queued) return;
-        queued = true;
-        queueMicrotask(() => {
-          queued = false;
-          const seen = new Set();
-          [...select.options].forEach(option => {
-            const key = `${option.value}|${option.textContent}`.toLowerCase();
-            if (seen.has(key)) option.remove();
-            else seen.add(key);
-          });
-        });
-      });
-      observer.observe(select, { childList: true });
-      select.__ospulseDedupeObserver = observer;
-    }
+    // Re-apply tags after asynchronously loaded catalog extensions.
+    let lastSignature = '';
+    const watcher = setInterval(() => {
+      if (!window.app) return;
+      const signature = `${app.systems.length}:${app.gaming?.length || 0}`;
+      if (signature !== lastSignature) {
+        lastSignature = signature;
+        refresh(app);
+      }
+    }, 500);
+    window.setTimeout(() => clearInterval(watcher), 20000);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, { once: true });
   else install();
 })();
