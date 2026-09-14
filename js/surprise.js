@@ -1,4 +1,4 @@
-/* OSPulse shared UI helpers: Surprise styling + canonical official-link repair. */
+/* OSPulse shared UI helpers: Surprise styling, canonical links, and one-time support-module loading. */
 (() => {
   'use strict';
 
@@ -56,7 +56,21 @@
     repairNobaraLinks();
   }
 
+  const loadOnce = src => {
+    if (document.querySelector(`script[src$="${src}"]`)) return;
+    const script = document.createElement('script');
+    script.src = src;
+    script.dataset.ospulseModule = '1';
+    document.body.appendChild(script);
+  };
+
+  const loadSupportModules = () => {
+    ['js/i18n.js','js/rebrand.js','js/feature-pack.js','js/logo-resilience.js','js/linux-expansion.js']
+      .forEach(loadOnce);
+  };
+
   const start = () => {
+    loadSupportModules();
     repair();
     let tries = 0;
     const timer = window.setInterval(() => {
