@@ -65,7 +65,7 @@
   };
 
   const loadSupportModules = () => {
-    ['js/i18n.js','js/rebrand.js','js/feature-pack.js','js/logo-resilience.js','js/linux-expansion.js']
+    ['js/i18n.js','js/rebrand.js','js/feature-pack.js','js/logo-resilience.js','js/linux-expansion.js','js/site-health.js']
       .forEach(loadOnce);
   };
 
