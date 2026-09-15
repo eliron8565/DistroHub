@@ -1,4 +1,4 @@
-/* Anime Linux catalog for OSPulse. Verified projects only. */
+/* Anime Linux catalog for OSPulse. Verified downloadable projects only. */
 (() => {
   'use strict';
 
@@ -6,7 +6,7 @@
     {
       id: 'nyarch-linux', name: 'Nyarch Linux', type: 'Linux',
       category: ['Anime Linux', 'Desktop', 'Arch-based', 'Dual Boot'],
-      base: 'Arch Linux', release: 'Rolling', packageManager: 'pacman / AUR',
+      base: 'Arch Linux', release: 'Semi-Rolling', packageManager: 'pacman / AUR',
       desktopEnvironment: 'GNOME / KDE Plasma', architecture: ['x86_64'], difficulty: 'Intermediate',
       description: 'Anime-themed Arch-based Linux distribution with GNOME and KDE Plasma editions, custom theming and bundled manga/anime-focused apps.',
       useCases: ['Anime', 'Desktop', 'Customization', 'Manga', 'Multimedia', 'Dual Boot'],
@@ -17,23 +17,26 @@
       tags: ['anime', 'weeb', 'otaku', 'manga', 'nyarch', 'arch', 'kde', 'gnome']
     },
     {
-      id: 'lainos', name: 'lainOS', type: 'Linux',
-      category: ['Anime Linux', 'Privacy', 'Development', 'Arch-based'],
-      base: 'Arch Linux', release: 'Rolling', packageManager: 'pacman / AUR',
-      desktopEnvironment: 'Custom', architecture: ['x86_64'], difficulty: 'Advanced',
-      description: 'Community-driven Arch-based Linux distribution inspired by Serial Experiments Lain, focused on privacy, productivity, developers and tinkerers.',
-      useCases: ['Anime', 'Privacy', 'Development', 'Customization', 'Learning'],
+      id: 'uwuntu', name: 'UwUntu', type: 'Linux',
+      category: ['Anime Linux', 'Desktop', 'Ubuntu-based', 'Beginner Friendly'],
+      base: 'Ubuntu / Ubuntu Budgie', release: 'Point Release', packageManager: 'APT / Flatpak',
+      desktopEnvironment: 'Budgie', architecture: ['x86_64'], difficulty: 'Beginner',
+      description: 'Ubuntu-based community Linux distribution with anime/weeb customization, a friendly desktop and pre-installed applications.',
+      useCases: ['Anime', 'Desktop', 'Customization', 'Beginners', 'Multimedia'],
       license: 'Free / Open', openSource: true,
-      website: 'https://lainos.net/landing.html', download: 'https://lainos.net/landing.html', downloadUrl: 'https://lainos.net/landing.html',
-      docs: 'https://lainos.net/landing.html',
-      logo: 'https://www.google.com/s2/favicons?domain=lainos.net&sz=128',
-      tags: ['anime', 'serial experiments lain', 'lain', 'privacy', 'arch', 'cyberpunk']
+      website: 'https://uwuntuos.com/', download: 'https://uwuntuos.com/en/downloads', downloadUrl: 'https://uwuntuos.com/en/downloads',
+      source: 'https://github.com/Duxi4/UwUntu',
+      logo: 'https://www.google.com/s2/favicons?domain=uwuntuos.com&sz=128',
+      tags: ['anime', 'weeb', 'otaku', 'uwuntu', 'ubuntu', 'budgie', 'beginner']
     }
   ];
 
+  const removedIds = new Set(['lainos']);
   const key = v => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 
   function ensureEntries(app) {
+    // Remove entries the site owner explicitly does not want in Anime Linux.
+    app.systems = app.systems.filter(s => !removedIds.has(key(s.id)) && key(s.name) !== 'lainos');
     entries.forEach(raw => {
       const found = app.systems.find(s => key(s.id) === key(raw.id) || key(s.name) === key(raw.name));
       if (found) Object.assign(found, raw);
@@ -67,22 +70,19 @@
     ensureUI(app);
     app.setText?.('statTotal', `${app.systems.length}+`);
     app.applyFilters?.();
+    app.populateCompare?.();
   }
 
   function install() {
     const app = window.app;
     if (!app || !Array.isArray(app.systems) || !app.systems.length) return setTimeout(install, 120);
 
-    // renderTypes() rebuilds the chip row. Re-add the custom Anime Linux chip afterwards.
     if (!app.__animeTypesPatched && typeof app.renderTypes === 'function') {
       const originalRenderTypes = app.renderTypes.bind(app);
       app.renderTypes = function() { originalRenderTypes(); ensureUI(app); };
       app.__animeTypesPatched = true;
     }
 
-    // Some OSPulse modules call renderAll() after this script loads. That can replace
-    // the systems array and make Nyarch/lainOS disappear while leaving the filter visible.
-    // Keep the entries installed before every full render.
     if (!app.__animeRenderAllPatched && typeof app.renderAll === 'function') {
       const originalRenderAll = app.renderAll.bind(app);
       app.renderAll = function() {
@@ -96,7 +96,6 @@
 
     refresh(app);
     requestAnimationFrame(() => refresh(app));
-    // One delayed pass covers late-loading catalog bridges without polling forever.
     setTimeout(() => refresh(app), 700);
   }
 
