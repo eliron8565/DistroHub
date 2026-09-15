@@ -33,33 +33,73 @@
 
   const key = v => String(v || '').toLowerCase().replace(/[^a-z0-9]+/g, '');
 
+  function ensureEntries(app) {
+    entries.forEach(raw => {
+      const found = app.systems.find(s => key(s.id) === key(raw.id) || key(s.name) === key(raw.name));
+      if (found) Object.assign(found, raw);
+      else app.systems.push(app.normalize ? app.normalize(raw, 'Linux') : {...raw});
+    });
+  }
+
   function ensureUI(app) {
     const select = document.getElementById('typeFilter');
-    if (select && ![...select.options].some(o => o.value === 'Anime Linux')) {
-      const o = document.createElement('option'); o.value = 'Anime Linux'; o.textContent = 'Anime Linux'; select.appendChild(o);
+    if (select) {
+      const matches = [...select.options].filter(o => String(o.value || o.textContent).trim().toLowerCase() === 'anime linux');
+      matches.slice(1).forEach(o => o.remove());
+      if (!matches.length) {
+        const o = document.createElement('option'); o.value = 'Anime Linux'; o.textContent = 'Anime Linux'; select.appendChild(o);
+      }
     }
     const chips = document.getElementById('typeFilters');
-    if (chips && ![...chips.querySelectorAll('button')].some(b => b.textContent.trim() === 'Anime Linux')) {
+    if (chips && ![...chips.querySelectorAll('button')].some(b => b.textContent.trim().toLowerCase() === 'anime linux')) {
       const b = document.createElement('button'); b.className = 'chip'; b.textContent = 'Anime Linux';
-      b.addEventListener('click', () => { if (select) select.value = 'Anime Linux'; app.applyFilters?.(); }); chips.appendChild(b);
+      b.addEventListener('click', () => {
+        const filter = document.getElementById('typeFilter');
+        if (filter) filter.value = 'Anime Linux';
+        app.applyFilters?.();
+      });
+      chips.appendChild(b);
     }
+  }
+
+  function refresh(app) {
+    ensureEntries(app);
+    ensureUI(app);
+    app.setText?.('statTotal', `${app.systems.length}+`);
+    app.applyFilters?.();
   }
 
   function install() {
     const app = window.app;
     if (!app || !Array.isArray(app.systems) || !app.systems.length) return setTimeout(install, 120);
-    entries.forEach(raw => {
-      const found = app.systems.find(s => key(s.id) === key(raw.id) || key(s.name) === key(raw.name));
-      if (found) Object.assign(found, raw); else app.systems.push(app.normalize ? app.normalize(raw, 'Linux') : raw);
-    });
+
+    // renderTypes() rebuilds the chip row. Re-add the custom Anime Linux chip afterwards.
     if (!app.__animeTypesPatched && typeof app.renderTypes === 'function') {
-      const original = app.renderTypes.bind(app);
-      app.renderTypes = function(){ original(); ensureUI(app); };
+      const originalRenderTypes = app.renderTypes.bind(app);
+      app.renderTypes = function() { originalRenderTypes(); ensureUI(app); };
       app.__animeTypesPatched = true;
     }
-    ensureUI(app);
-    app.applyFilters?.(); app.updateStats?.(); app.setText?.('statTotal', `${app.systems.length}+`);
+
+    // Some OSPulse modules call renderAll() after this script loads. That can replace
+    // the systems array and make Nyarch/lainOS disappear while leaving the filter visible.
+    // Keep the entries installed before every full render.
+    if (!app.__animeRenderAllPatched && typeof app.renderAll === 'function') {
+      const originalRenderAll = app.renderAll.bind(app);
+      app.renderAll = function() {
+        ensureEntries(app);
+        const result = originalRenderAll();
+        ensureUI(app);
+        return result;
+      };
+      app.__animeRenderAllPatched = true;
+    }
+
+    refresh(app);
+    requestAnimationFrame(() => refresh(app));
+    // One delayed pass covers late-loading catalog bridges without polling forever.
+    setTimeout(() => refresh(app), 700);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, {once:true}); else install();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install, {once:true});
+  else install();
 })();
