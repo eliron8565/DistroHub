@@ -1,128 +1,8 @@
 [
   {
-    "id": "auto-1252155824",
-    "name": "AnduinOS-2",
-    "description": "AnduinOS is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "GPL-3.0",
-    "openSource": true,
-    "website": "https://www.anduinos.com/",
-    "download": "https://github.com/AiursoftWeb/AnduinOS-2",
-    "docs": "https://github.com/AiursoftWeb/AnduinOS-2",
-    "sourceRepository": "https://github.com/AiursoftWeb/AnduinOS-2",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-12T02:31:02Z",
-    "discoveryScore": 7,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-24905898",
-    "name": "build",
-    "description": "The official build framework for the Armbian Linux distribution. This repository contains the complete toolchain and scripts required to compile custom OS images from source, including kernel configuration, U-Boot handling, and board-specific tweaks for various ARM and ARM64 single-board computers.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "GPL-2.0",
-    "openSource": true,
-    "website": "https://www.armbian.com",
-    "download": "https://github.com/armbian/build",
-    "docs": "https://github.com/armbian/build",
-    "sourceRepository": "https://github.com/armbian/build",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-13T08:22:04Z",
-    "discoveryScore": 7,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-1160885886",
-    "name": "Droidspaces-OSS",
-    "description": "A lightweight, LXC-like container runtime for Android and Linux. Run full Linux distributions natively with zero performance penalty",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "GPL-3.0",
-    "openSource": true,
-    "website": "https://t.me/Droidspaces",
-    "download": "https://github.com/ravindu644/Droidspaces-OSS",
-    "docs": "https://github.com/ravindu644/Droidspaces-OSS",
-    "sourceRepository": "https://github.com/ravindu644/Droidspaces-OSS",
-    "discoveredAt": "2026-09-13T08:23:45.278Z",
-    "lastActivity": "2026-09-13T06:06:18Z",
-    "discoveryScore": 7,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-1126310966",
-    "name": "IconSet-Tahoe-Style-Linux-Mac",
-    "description": "Icon Set Linux, Windows and Mac; built in Tahoe Style Liquid Glass Effects",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "MIT",
-    "openSource": true,
-    "website": "https://chris1111.github.io/IconSet-Tahoe-Style-Linux-Mac/",
-    "download": "https://github.com/chris1111/IconSet-Tahoe-Style-Linux-Mac",
-    "docs": "https://github.com/chris1111/IconSet-Tahoe-Style-Linux-Mac",
-    "sourceRepository": "https://github.com/chris1111/IconSet-Tahoe-Style-Linux-Mac",
-    "discoveredAt": "2026-09-13T08:23:44.391Z",
-    "lastActivity": "2026-09-05T13:04:39Z",
-    "discoveryScore": 7,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-391127422",
-    "name": "kairos",
-    "description": "The immutable Linux meta-distribution for edge Kubernetes.",
+    "id": "auto-843334795",
+    "name": "extra-platforms",
+    "description": "🔎 Detect architectures, platforms, shells, terminals, CI systems and agents, grouped by family",
     "type": "Linux",
     "category": [
       "Linux",
@@ -140,19 +20,19 @@
     "difficulty": "Intermediate",
     "license": "Apache-2.0",
     "openSource": true,
-    "website": "https://kairos.io",
-    "download": "https://github.com/kairos-io/kairos",
-    "docs": "https://github.com/kairos-io/kairos",
-    "sourceRepository": "https://github.com/kairos-io/kairos",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-12T05:14:52Z",
+    "website": "https://kdeldycke.github.io/extra-platforms/",
+    "download": "https://github.com/kdeldycke/extra-platforms",
+    "docs": "https://github.com/kdeldycke/extra-platforms",
+    "sourceRepository": "https://github.com/kdeldycke/extra-platforms",
+    "discoveredAt": "2026-09-20T08:40:03.573Z",
+    "lastActivity": "2026-09-20T07:42:24Z",
     "discoveryScore": 7,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-396859463",
-    "name": "MassOS",
-    "description": "Main source repository for the MassOS operating system.",
+    "id": "auto-1288682586",
+    "name": "agent-box",
+    "description": "Reproducible, multi-user coding-agent sandboxes - one click on AWS, on bare metal, or as a VM image, from one declarative config. Runs as a full NixOS system or as a Nix profile on any Linux distro.",
     "type": "Linux",
     "category": [
       "Linux",
@@ -168,21 +48,21 @@
       "x86_64"
     ],
     "difficulty": "Intermediate",
-    "license": "NOASSERTION",
+    "license": "MIT",
     "openSource": true,
-    "website": "https://massos.org",
-    "download": "https://github.com/MassOS-Linux/MassOS",
-    "docs": "https://github.com/MassOS-Linux/MassOS",
-    "sourceRepository": "https://github.com/MassOS-Linux/MassOS",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-11T18:13:37Z",
-    "discoveryScore": 7,
+    "website": "https://defangdevs.github.io/agent-box/",
+    "download": "https://github.com/defangdevs/agent-box",
+    "docs": "https://github.com/defangdevs/agent-box",
+    "sourceRepository": "https://github.com/defangdevs/agent-box",
+    "discoveredAt": "2026-09-20T08:40:06.353Z",
+    "lastActivity": "2026-09-20T00:14:49Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-1190232889",
-    "name": "openRuyi",
-    "description": "openRuyi is an open source, rolling release Linux distribution for RISC-V, optimized for performance, security, AI, and cloud-native workloads.",
+    "id": "auto-1348284427",
+    "name": "Azen_dev",
+    "description": "Welcome你好! Azen is a project that have two parts right now,one is the AzenOS, it's is a OS that base on Arch linux, second is ALRM Tech,a Tech that improves laptop power resoureces management,we are still working on this project, Thanks for supporting!",
     "type": "Linux",
     "category": [
       "Linux",
@@ -198,21 +78,21 @@
       "x86_64"
     ],
     "difficulty": "Intermediate",
-    "license": "MulanPSL-2.0",
+    "license": "GPL-3.0",
     "openSource": true,
-    "website": "https://openruyi.cn/",
-    "download": "https://github.com/openRuyi-Project/openRuyi",
-    "docs": "https://github.com/openRuyi-Project/openRuyi",
-    "sourceRepository": "https://github.com/openRuyi-Project/openRuyi",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-11T15:48:24Z",
-    "discoveryScore": 7,
+    "website": "https://azen.dev",
+    "download": "https://github.com/AzenOS/Azen_dev",
+    "docs": "https://github.com/AzenOS/Azen_dev",
+    "sourceRepository": "https://github.com/AzenOS/Azen_dev",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-19T02:38:22Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-682389437",
-    "name": "OS1337",
-    "description": "OS/1337 Project",
+    "id": "auto-1353150867",
+    "name": "bluetooth-autoconnect",
+    "description": "Automatically reconnect trusted Bluetooth devices on Linux using BlueZ D-Bus. Supports multiple adapters, systemd integration, daemon mode, automatic retries, and major Linux distributions.",
     "type": "Linux",
     "category": [
       "Linux",
@@ -228,21 +108,81 @@
       "x86_64"
     ],
     "difficulty": "Intermediate",
-    "license": "NOASSERTION",
+    "license": "MIT",
     "openSource": true,
-    "website": "https://os1337.com",
-    "download": "https://github.com/OS-1337/OS1337",
-    "docs": "https://github.com/OS-1337/OS1337",
-    "sourceRepository": "https://github.com/OS-1337/OS1337",
-    "discoveredAt": "2026-09-13T08:23:44.391Z",
-    "lastActivity": "2026-09-09T20:12:43Z",
-    "discoveryScore": 7,
+    "website": "https://pypi.org/project/bluetooth-autoconnect/",
+    "download": "https://github.com/Zero-day-Exploit-np/bluetooth-autoconnect",
+    "docs": "https://github.com/Zero-day-Exploit-np/bluetooth-autoconnect",
+    "sourceRepository": "https://github.com/Zero-day-Exploit-np/bluetooth-autoconnect",
+    "discoveredAt": "2026-09-20T08:40:05.383Z",
+    "lastActivity": "2026-09-20T03:44:56Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-394680538",
-    "name": "Packages",
-    "description": "Aim to be the bioinformatics repository with more and newer packages https://doi.org/10.1093/bioinformatics/btaf106",
+    "id": "auto-392846259",
+    "name": "bp",
+    "description": "A mini linux distribution.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-2.0",
+    "openSource": true,
+    "website": "https://1g4.org",
+    "download": "https://github.com/jopamo/bp",
+    "docs": "https://github.com/jopamo/bp",
+    "sourceRepository": "https://github.com/jopamo/bp",
+    "discoveredAt": "2026-09-20T08:40:05.383Z",
+    "lastActivity": "2026-09-20T08:37:14Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1371228415",
+    "name": "Corium",
+    "description": "An immutable Kubernetes node, built as an OCI image. Fedora bootc, k0s baked into a read-only /usr, configured with cloud-init.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://corium-os.github.io/Corium/",
+    "download": "https://github.com/Corium-OS/Corium",
+    "docs": "https://github.com/Corium-OS/Corium",
+    "sourceRepository": "https://github.com/Corium-OS/Corium",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-20T06:16:03Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1204291512",
+    "name": "GenesiOS",
+    "description": "A CachyOS-based, developer-first Linux distribution that retunes itself for local inference — dressed in a glass KDE Plasma desktop.",
     "type": "Linux",
     "category": [
       "Linux",
@@ -260,19 +200,19 @@
     "difficulty": "Intermediate",
     "license": "AGPL-3.0",
     "openSource": true,
-    "website": "https://bioarchlinux.org/packages",
-    "download": "https://github.com/BioArchLinux/Packages",
-    "docs": "https://github.com/BioArchLinux/Packages",
-    "sourceRepository": "https://github.com/BioArchLinux/Packages",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-13T07:28:23Z",
-    "discoveryScore": 7,
+    "website": "https://www.genesios.org",
+    "download": "https://github.com/Genesi-OS/GenesiOS",
+    "docs": "https://github.com/Genesi-OS/GenesiOS",
+    "sourceRepository": "https://github.com/Genesi-OS/GenesiOS",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-20T05:35:20Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-1123861468",
-    "name": "redroselinux",
-    "description": "An independent systemd-free FOSS-only EU-based x86_64 linux distro (ISO/docker builds, base rootfs, issue tracker, installer and mkfstab)",
+    "id": "auto-1365262825",
+    "name": "genesis",
+    "description": "A Linux desktop whose AI assistant runs on your own machine: it builds small apps from a sentence, reads your files, and never phones home.",
     "type": "Linux",
     "category": [
       "Linux",
@@ -288,21 +228,21 @@
       "x86_64"
     ],
     "difficulty": "Intermediate",
-    "license": "GPL-3.0",
+    "license": "Apache-2.0",
     "openSource": true,
-    "website": "https://redroselinux.org",
-    "download": "https://github.com/redroselinux/redroselinux",
-    "docs": "https://github.com/redroselinux/redroselinux",
-    "sourceRepository": "https://github.com/redroselinux/redroselinux",
-    "discoveredAt": "2026-09-13T08:23:44.391Z",
-    "lastActivity": "2026-09-10T19:05:20Z",
-    "discoveryScore": 7,
+    "website": "https://matijagorsek.github.io/genesis/",
+    "download": "https://github.com/matijagorsek/genesis",
+    "docs": "https://github.com/matijagorsek/genesis",
+    "sourceRepository": "https://github.com/matijagorsek/genesis",
+    "discoveredAt": "2026-09-20T08:40:03.573Z",
+    "lastActivity": "2026-09-20T08:39:00Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-1031389984",
-    "name": "RegicideOS",
-    "description": "Immutable Linux distribution based on Gentoo, BtrFS, and Cosmic-Desktop.",
+    "id": "auto-278723047",
+    "name": "grepo",
+    "description": "GKISS - A fork of KISS Linux that uses the GNU C library, mirror of https://codeberg.org/kiss-community/grepo",
     "type": "Linux",
     "category": [
       "Linux",
@@ -320,19 +260,79 @@
     "difficulty": "Intermediate",
     "license": "MIT",
     "openSource": true,
-    "website": "https://vibecodingagency.com/resources/white-papers/regicide-os/",
-    "download": "https://github.com/awdemos/RegicideOS",
-    "docs": "https://github.com/awdemos/RegicideOS",
-    "sourceRepository": "https://github.com/awdemos/RegicideOS",
-    "discoveredAt": "2026-09-13T08:23:45.278Z",
-    "lastActivity": "2026-09-13T00:56:48Z",
-    "discoveryScore": 7,
+    "website": "https://github.com/kiss-community/grepo",
+    "download": "https://github.com/kiss-community/grepo",
+    "docs": "https://github.com/kiss-community/grepo",
+    "sourceRepository": "https://github.com/kiss-community/grepo",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-18T23:07:16Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-1254183039",
-    "name": "SkillFishOS",
-    "description": "Steampunk gaming Linux distro for the AMD BC-250 (BC250, gfx1013 / Cyan Skillfish). Debian + KDE Plasma, live 40-CU control and overclocking, Steam/EmuDeck, on-device AI.",
+    "id": "auto-1330224103",
+    "name": "Interactive-Linux-distribution-recommendation-app",
+    "description": "Drag in the games, tools, and preferences you actually use  rank them, pick your GPU, and watch live match scores for 25 Linux distros update with honest, reasoned tradeoffs.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://andrew-most-likely.github.io/Interactive-Linux-distribution-recommendation-app/",
+    "download": "https://github.com/Andrew-most-likely/Interactive-Linux-distribution-recommendation-app",
+    "docs": "https://github.com/Andrew-most-likely/Interactive-Linux-distribution-recommendation-app",
+    "sourceRepository": "https://github.com/Andrew-most-likely/Interactive-Linux-distribution-recommendation-app",
+    "discoveredAt": "2026-09-20T08:40:04.517Z",
+    "lastActivity": "2026-08-12T15:44:17Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1296674358",
+    "name": "liken",
+    "description": "Linux + Kubernetes",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://liken.sh",
+    "download": "https://github.com/liken-sh/liken",
+    "docs": "https://github.com/liken-sh/liken",
+    "sourceRepository": "https://github.com/liken-sh/liken",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-19T14:11:39Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-440839604",
+    "name": "linuxloops",
+    "description": "Generic / declarative Linux distribution installer",
     "type": "Linux",
     "category": [
       "Linux",
@@ -350,19 +350,19 @@
     "difficulty": "Intermediate",
     "license": "GPL-3.0",
     "openSource": true,
-    "website": "https://skillfishos.com",
-    "download": "https://github.com/MTSistemi/SkillFishOS",
-    "docs": "https://github.com/MTSistemi/SkillFishOS",
-    "sourceRepository": "https://github.com/MTSistemi/SkillFishOS",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-13T07:39:00Z",
-    "discoveryScore": 7,
+    "website": "https://github.com/sebanc/linuxloops",
+    "download": "https://github.com/sebanc/linuxloops",
+    "docs": "https://github.com/sebanc/linuxloops",
+    "sourceRepository": "https://github.com/sebanc/linuxloops",
+    "discoveredAt": "2026-09-20T08:40:05.383Z",
+    "lastActivity": "2026-09-20T05:45:08Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-109451092",
-    "name": "talos",
-    "description": "Talos Linux is a modern Linux distribution built for Kubernetes.",
+    "id": "auto-835587648",
+    "name": "loongarch-packages",
+    "description": "Arch Linux for Loong64's Patch Set",
     "type": "Linux",
     "category": [
       "Linux",
@@ -378,21 +378,21 @@
       "x86_64"
     ],
     "difficulty": "Intermediate",
-    "license": "MPL-2.0",
+    "license": "GPL-3.0",
     "openSource": true,
-    "website": "https://siderolabs.com/talos-linux",
-    "download": "https://github.com/siderolabs/talos",
-    "docs": "https://github.com/siderolabs/talos",
-    "sourceRepository": "https://github.com/siderolabs/talos",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-12T17:12:26Z",
-    "discoveryScore": 7,
+    "website": "https://github.com/lcpu-club/loongarch-packages",
+    "download": "https://github.com/lcpu-club/loongarch-packages",
+    "docs": "https://github.com/lcpu-club/loongarch-packages",
+    "sourceRepository": "https://github.com/lcpu-club/loongarch-packages",
+    "discoveredAt": "2026-09-20T08:40:03.573Z",
+    "lastActivity": "2026-09-20T08:38:46Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-37346186",
-    "name": "termux-packages",
-    "description": "A package build system for Termux.",
+    "id": "auto-1307204323",
+    "name": "mission-os",
+    "description": "A privacy-first, security-first, USB-first Linux operating system built on Debian Stable.",
     "type": "Linux",
     "category": [
       "Linux",
@@ -410,19 +410,19 @@
     "difficulty": "Intermediate",
     "license": "NOASSERTION",
     "openSource": true,
-    "website": "https://termux.dev",
-    "download": "https://github.com/termux/termux-packages",
-    "docs": "https://github.com/termux/termux-packages",
-    "sourceRepository": "https://github.com/termux/termux-packages",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-13T07:39:25Z",
-    "discoveryScore": 7,
+    "website": "https://github.com/p4inz-code/mission-os",
+    "download": "https://github.com/p4inz-code/mission-os",
+    "docs": "https://github.com/p4inz-code/mission-os",
+    "sourceRepository": "https://github.com/p4inz-code/mission-os",
+    "discoveredAt": "2026-09-20T08:40:04.517Z",
+    "lastActivity": "2026-08-09T10:35:07Z",
+    "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-54922952",
-    "name": "AdaGate",
-    "description": "AdaGate is a kid-friendly 3D dungeon escape game within a Stargate fantasy setting for Windows, OSX & most Linux distros. A tribute to Narbacular Drop with mind bending spacial interconnections.",
+    "id": "auto-734797411",
+    "name": "Monkey-Head-Project",
+    "description": "Huey is a prototype robotic A.I./O.S. under the Monkey-Head-Project",
     "type": "Linux",
     "category": [
       "Linux",
@@ -440,139 +440,19 @@
     "difficulty": "Intermediate",
     "license": "GPL-3.0",
     "openSource": true,
-    "website": "https://github.com/fastrgv/AdaGate",
-    "download": "https://github.com/fastrgv/AdaGate",
-    "docs": "https://github.com/fastrgv/AdaGate",
-    "sourceRepository": "https://github.com/fastrgv/AdaGate",
-    "discoveredAt": "2026-09-13T08:23:46.144Z",
-    "lastActivity": "2026-09-12T21:40:39Z",
+    "website": "http://www.dlrp.ca",
+    "download": "https://github.com/DylanLRPollock/Monkey-Head-Project",
+    "docs": "https://github.com/DylanLRPollock/Monkey-Head-Project",
+    "sourceRepository": "https://github.com/DylanLRPollock/Monkey-Head-Project",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-18T22:30:15Z",
     "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   },
   {
-    "id": "auto-1294833790",
-    "name": "AureonOS",
-    "description": "A Debian-based Linux distribution with GNOME and Calamares, designed for cybersecurity professionals, ethical hackers, penetration testers, and Linux enthusiasts.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "GPL-3.0",
-    "openSource": true,
-    "website": "https://arureon-web.vercel.app/",
-    "download": "https://github.com/meherazhosensiam/AureonOS",
-    "docs": "https://github.com/meherazhosensiam/AureonOS",
-    "sourceRepository": "https://github.com/meherazhosensiam/AureonOS",
-    "discoveredAt": "2026-09-13T08:23:44.391Z",
-    "lastActivity": "2026-09-08T07:58:39Z",
-    "discoveryScore": 5,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-1268723387",
-    "name": "bloom",
-    "description": "a secure, beautiful, pre-configured arch-based linux distro built around a hyprland workflow.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "MIT",
-    "openSource": true,
-    "website": "https://bloom.cloudlull.fyi",
-    "download": "https://github.com/auth1ery/bloom",
-    "docs": "https://github.com/auth1ery/bloom",
-    "sourceRepository": "https://github.com/auth1ery/bloom",
-    "discoveredAt": "2026-09-13T08:23:44.391Z",
-    "lastActivity": "2026-08-26T02:30:54Z",
-    "discoveryScore": 5,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-1367332079",
-    "name": "DecodiumOS",
-    "description": "DecodiumOS - Linux distribution for amateur radio operators, based on AnduinOS 2 (Ubuntu 26.04). Decodium, WSJT-X, Fldigi, Hamlib, SDR tools ready to use.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "GPL-3.0",
-    "openSource": true,
-    "website": "https://www.ft2.it/",
-    "download": "https://github.com/iu8lmc/DecodiumOS",
-    "docs": "https://github.com/iu8lmc/DecodiumOS",
-    "sourceRepository": "https://github.com/iu8lmc/DecodiumOS",
-    "discoveredAt": "2026-09-13T08:23:45.278Z",
-    "lastActivity": "2026-09-13T02:39:31Z",
-    "discoveryScore": 5,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-879672737",
-    "name": "freedv-rade-build",
-    "description": "Scripts to simplify installation and updating of FreeDV-RADE in most Linux distributions.",
-    "type": "Linux",
-    "category": [
-      "Linux",
-      "Discovery Candidate"
-    ],
-    "useCases": [
-      "Linux"
-    ],
-    "base": "Unknown",
-    "desktop": "Unknown",
-    "packageManager": "Unknown",
-    "architecture": [
-      "x86_64"
-    ],
-    "difficulty": "Intermediate",
-    "license": "MIT",
-    "openSource": true,
-    "website": "https://github.com/barjac/freedv-rade-build",
-    "download": "https://github.com/barjac/freedv-rade-build",
-    "docs": "https://github.com/barjac/freedv-rade-build",
-    "sourceRepository": "https://github.com/barjac/freedv-rade-build",
-    "discoveredAt": "2026-09-13T08:23:45.278Z",
-    "lastActivity": "2026-09-12T23:20:42Z",
-    "discoveryScore": 5,
-    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
-  },
-  {
-    "id": "auto-1366319926",
-    "name": "FYRwall",
-    "description": "FYRwall gives administrators a clean GUI over UFW and iptables without ever running the web server as root, without shell interpolation anywhere, and without a single firewall mutation that lacks a restore point and rollback path.",
+    "id": "auto-1078871959",
+    "name": "muak",
+    "description": "Purpose built minimal OS to run your workflows securely",
     "type": "Linux",
     "category": [
       "Linux",
@@ -590,12 +470,132 @@
     "difficulty": "Intermediate",
     "license": "NOASSERTION",
     "openSource": true,
-    "website": "https://fyrwall.docs.potenfyr.in",
-    "download": "https://github.com/PotenFYR-Studios/FYRwall",
-    "docs": "https://github.com/PotenFYR-Studios/FYRwall",
-    "sourceRepository": "https://github.com/PotenFYR-Studios/FYRwall",
-    "discoveredAt": "2026-09-13T08:23:43.014Z",
-    "lastActivity": "2026-09-13T02:18:07Z",
+    "website": "https://muak.dev",
+    "download": "https://github.com/muak-os/muak",
+    "docs": "https://github.com/muak-os/muak",
+    "sourceRepository": "https://github.com/muak-os/muak",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-19T22:05:56Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1269436204",
+    "name": "noid-privacy-workstation",
+    "description": "🛡️ Fully-hardened Security & Privacy OS based on Fedora 44 + GNOME · for Dev, Admin, Creator, and AI workflows · 41 modules.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://noid-privacy.com/hardened-linux-privacy-os.html",
+    "download": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "docs": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "sourceRepository": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "discoveredAt": "2026-09-20T08:40:04.517Z",
+    "lastActivity": "2026-09-17T07:53:54Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1087893579",
+    "name": "Onyx-Intelligence",
+    "description": "Onyx Intelligence is a premium, zero-server vulnerability intelligence platform that transforms how security teams monitor and respond to threats. Built with enterprise-grade features and a stunning glassmorphism interface, it aggregates real-time security advisories from CISA KEV, Red Hat, major Linux distributions, databases, and packages.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Apache-2.0",
+    "openSource": true,
+    "website": "https://secbyshresth.github.io/Onyx-Intelligence/",
+    "download": "https://github.com/SecByShresth/Onyx-Intelligence",
+    "docs": "https://github.com/SecByShresth/Onyx-Intelligence",
+    "sourceRepository": "https://github.com/SecByShresth/Onyx-Intelligence",
+    "discoveredAt": "2026-09-20T08:40:05.383Z",
+    "lastActivity": "2026-09-20T02:45:12Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1291091708",
+    "name": "os-build",
+    "description": "A Steam Deck–style gaming OS for Qualcomm Snapdragon handhelds — boots straight into Steam, with Windows games via Proton and FEX.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-2.0",
+    "openSource": true,
+    "website": "https://discord.com/invite/fqVfmjWc9y",
+    "download": "https://github.com/Nova-Deck/os-build",
+    "docs": "https://github.com/Nova-Deck/os-build",
+    "sourceRepository": "https://github.com/Nova-Deck/os-build",
+    "discoveredAt": "2026-09-20T08:40:03.574Z",
+    "lastActivity": "2026-09-19T13:28:18Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1285485422",
+    "name": "OxyohanOS",
+    "description": "Ecossistema de distribuições Linux  baseadas em Debian, focadas em desempenho, leveza e modularidade. Inclui as edições Oxys os / base  e OxyhanOS.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://johnzin-wakawaka.github.io/OxyohanOS/",
+    "download": "https://github.com/linux-oxy-retro-cyber/OxyohanOS",
+    "docs": "https://github.com/linux-oxy-retro-cyber/OxyohanOS",
+    "sourceRepository": "https://github.com/linux-oxy-retro-cyber/OxyohanOS",
+    "discoveredAt": "2026-09-20T08:40:04.517Z",
+    "lastActivity": "2026-09-03T21:07:35Z",
     "discoveryScore": 5,
     "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
   }
