@@ -12,7 +12,7 @@
       useCases: ['Anime', 'Desktop', 'Customization', 'Manga', 'Multimedia', 'Dual Boot'],
       license: 'Open Source', openSource: true,
       website: 'https://nyarchlinux.moe/', download: 'https://nyarchlinux.moe/', downloadUrl: 'https://nyarchlinux.moe/',
-      docs: 'https://wiki.nyarchlinux.moe/', source: 'https://github.com/NyarchLinux/NyarchLinux',
+      docs: 'https://wiki.nyarchlinux.moe/',
       logo: 'https://www.google.com/s2/favicons?domain=nyarchlinux.moe&sz=128',
       tags: ['anime', 'weeb', 'otaku', 'manga', 'nyarch', 'arch', 'kde', 'gnome']
     },
@@ -25,7 +25,6 @@
       useCases: ['Anime', 'Desktop', 'Customization', 'Beginners', 'Multimedia'],
       license: 'Free / Open', openSource: true,
       website: 'https://uwuntuos.com/', download: 'https://uwuntuos.com/en/downloads', downloadUrl: 'https://uwuntuos.com/en/downloads',
-      source: 'https://github.com/Duxi4/UwUntu',
       logo: 'https://www.google.com/s2/favicons?domain=uwuntuos.com&sz=128',
       tags: ['anime', 'weeb', 'otaku', 'uwuntu', 'ubuntu', 'budgie', 'beginner']
     }
