@@ -1,3 +1,40 @@
+/* OSPulse final catalog guard: never render GitHub-sourced Linux discovery entries. */
+(() => {
+  'use strict';
+  const bad = s => {
+    if (!s || String(s.type || '').toLowerCase() !== 'linux') return false;
+    const text = JSON.stringify(s).toLowerCase();
+    return text.includes('github.com') || text.includes('github.io') || text.includes('githubusercontent') ||
+      text.includes('discovery candidate') || String(s.id || '').startsWith('auto-');
+  };
+  const clean = () => {
+    const app = window.app;
+    if (!app || !Array.isArray(app.systems)) return;
+    const before = app.systems.length;
+    app.systems = app.systems.filter(s => !bad(s));
+    if (Array.isArray(app.filtered)) app.filtered = app.filtered.filter(s => !bad(s));
+    if (before !== app.systems.length) {
+      if (typeof app.applyFilters === 'function') app.applyFilters();
+      if (typeof app.populateCompare === 'function') app.populateCompare();
+      if (typeof app.updateStats === 'function') app.updateStats();
+    }
+    document.querySelectorAll('.system-card').forEach(card => {
+      const text = (card.textContent || '').toLowerCase();
+      const hrefs = [...card.querySelectorAll('a[href]')].map(a => a.href.toLowerCase()).join(' ');
+      const imgs = [...card.querySelectorAll('img[src]')].map(i => i.src.toLowerCase()).join(' ');
+      if (text.includes('discovery candidate') || /github\.com|github\.io|githubusercontent/.test(hrefs + ' ' + imgs)) card.remove();
+    });
+  };
+  const start = () => {
+    clean();
+    const observer = new MutationObserver(clean);
+    observer.observe(document.body, {childList:true, subtree:true});
+    [100,300,750,1500,3000,6000].forEach(ms => setTimeout(clean, ms));
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
+  else start();
+})();
+
 /* OSPulse runtime health checks and small UI hardening. */
 (() => {
   'use strict';
