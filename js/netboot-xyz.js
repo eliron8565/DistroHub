@@ -12,7 +12,6 @@
     download: 'https://netboot.xyz/downloads/',
     downloadUrl: 'https://netboot.xyz/downloads/',
     docs: 'https://netboot.xyz/docs/',
-    source: 'https://github.com/netbootxyz/netboot.xyz',
     license: 'Open Source',
     openSource: true,
     architecture: ['x86_64', 'ARM64'],
