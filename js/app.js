@@ -20,7 +20,11 @@ class DistroHubApp {
         this.getJson('data/distros.json'),this.getJson('data/extra-distros.json'),this.getJson('data/gaming-os.json'),this.getJson('data/operating-systems.json')
       ]);
       const map=new Map();
-      [...linux,...extra].map(x=>this.normalize(x,'Linux')).filter(Boolean).forEach(x=>map.set(x.name,x));
+      const noGitHubLinux = s => {
+        const text = JSON.stringify(s || {}).toLowerCase();
+        return !text.includes('github.com') && !text.includes('github.io') && !text.includes('githubusercontent') && !text.includes('discovery candidate') && !String(s?.id || '').startsWith('auto-');
+      };
+      [...linux,...extra].filter(noGitHubLinux).map(x=>this.normalize(x,'Linux')).filter(Boolean).forEach(x=>map.set(x.name,x));
       open.map(x=>this.normalize(x)).filter(Boolean).forEach(x=>{if(!map.has(x.name))map.set(x.name,x)});
       this.systems=[...map.values()];
       this.gaming=gaming.map(x=>this.normalize(x,'Gaming')).filter(Boolean);
