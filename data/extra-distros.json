@@ -396,42 +396,6 @@
     "wiki": "https://discovery.endeavouros.com/"
   },
   {
-    "name": "Puppy Linux",
-    "icon": "🐶",
-    "category": "Lightweight",
-    "base": "Multiple",
-    "release": "Rolling/Stable",
-    "support": "Community",
-    "packageManager": "Multiple",
-    "desktopEnvironment": "JWM/Openbox",
-    "alternativeTo": "Old PCs",
-    "difficulty": "Beginner",
-    "description": "Extremely lightweight Linux family designed to run well on older hardware and from removable media.",
-    "fullDescription": "Puppy Linux is a family of small Linux distributions designed for low-resource computers. It can run from USB or RAM and is useful for rescue, testing and older PCs.",
-    "useCases": [
-      "Old Hardware",
-      "Rescue",
-      "Portable Linux",
-      "Learning",
-      "Lightweight Desktop"
-    ],
-    "pros": [
-      "Extremely lightweight",
-      "Portable",
-      "Fast on old PCs",
-      "Runs from RAM"
-    ],
-    "cons": [
-      "Unusual workflow",
-      "Smaller ecosystem",
-      "Not ideal for every modern workload"
-    ],
-    "guide": "Perfect for reviving an old laptop. Boot from USB first and test hardware compatibility before installing.",
-    "downloadUrl": "https://puppylinux-woof-ce.github.io/",
-    "website": "https://puppylinux-woof-ce.github.io/",
-    "wiki": "https://wikka.puppylinux.com/"
-  },
-  {
     "name": "Tails",
     "icon": "🕵️",
     "category": "Privacy",
