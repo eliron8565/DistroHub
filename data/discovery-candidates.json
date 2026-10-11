@@ -1,1 +1,1502 @@
-[]
+[
+  {
+    "id": "auto-1197954354",
+    "name": "KognogOS",
+    "description": "Arch-based, semi-rolling, tier-aware Linux distribution: nog (tier-aware package manager) plus the Forge Suite, with hypeForge on Sway as its desktop.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://kognogos.org",
+    "download": "https://github.com/jetomev/KognogOS",
+    "docs": "https://github.com/jetomev/KognogOS",
+    "sourceRepository": "https://github.com/jetomev/KognogOS",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-11T04:14:45Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1384081937",
+    "name": "lupios",
+    "description": "LupiOS: a hardened, rollback-safe everyday Linux desktop (Fedora Atomic, KDE), with Kali's hacking tools one command away.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Apache-2.0",
+    "openSource": true,
+    "website": "https://lupios.org",
+    "download": "https://github.com/vukkz/lupios",
+    "docs": "https://github.com/vukkz/lupios",
+    "sourceRepository": "https://github.com/vukkz/lupios",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-10T21:56:23Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1269436204",
+    "name": "noid-privacy-workstation",
+    "description": "🛡️ Fully-hardened Security & Privacy OS based on Fedora 44 + GNOME · for Dev, Admin, Creator, and AI workflows · 41 modules.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://noid-privacy.com/hardened-linux-privacy-os.html",
+    "download": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "docs": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "sourceRepository": "https://github.com/NexusOne23/noid-privacy-workstation",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-10T10:09:42Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1400345147",
+    "name": "OS",
+    "description": "Raytolfas OS — An open-source operating system based on Linux.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://os.raytolfas.com",
+    "download": "https://github.com/Raytolfas/OS",
+    "docs": "https://github.com/Raytolfas/OS",
+    "sourceRepository": "https://github.com/Raytolfas/OS",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-10T21:24:45Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1285485422",
+    "name": "OxyohanOS",
+    "description": "linuxs baseadas em Debian, focadas em desempenho, leveza e modularidade.   OxyhanOS.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://johnzin-wakawaka.github.io/OxyohanOS/",
+    "download": "https://github.com/gabriel-rb-devc/OxyohanOS",
+    "docs": "https://github.com/gabriel-rb-devc/OxyohanOS",
+    "sourceRepository": "https://github.com/gabriel-rb-devc/OxyohanOS",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-09T23:28:54Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1145154182",
+    "name": "prism",
+    "description": "A fully configured, stable-by-design, opinionated Linux. Powered by Nix. Refracts your system into isolated personas (Dev, Gamer, Custom) with atomic updates.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://prism.talesign.com/",
+    "download": "https://github.com/otaleghani/prism",
+    "docs": "https://github.com/otaleghani/prism",
+    "sourceRepository": "https://github.com/otaleghani/prism",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-07T05:58:11Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1333443162",
+    "name": "Proton-Drive-Utility-App",
+    "description": "Proton Drive Utility App - [PDUA] Works only with  the [CLI].  the CLI was built by Proton AG Services. This app can execute commands that are supported, their are plenty of options in the GUI within the app. so you don't have to use the Termanal.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://cybercrime-stoppers.github.io/Proton-Drive-Utility-App/",
+    "download": "https://github.com/CyberCrime-Stoppers/Proton-Drive-Utility-App",
+    "docs": "https://github.com/CyberCrime-Stoppers/Proton-Drive-Utility-App",
+    "sourceRepository": "https://github.com/CyberCrime-Stoppers/Proton-Drive-Utility-App",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-10T18:35:03Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1239107718",
+    "name": "pyinfra-dev-machine-setup",
+    "description": "A Pyinfra managed repository to setup a development machine. The repository uses package managers and technologies that are cross platform on unix based systems, making it easy to roll out on both MacOS and Linux distros. The only prerequisites needed is ZSH and Homebrew. This is a mirror of codeberg.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unlicense",
+    "openSource": true,
+    "website": "https://codeberg.org/wardgielis/pyinfra-dev-machine-setup",
+    "download": "https://github.com/wardgielis/pyinfra-dev-machine-setup",
+    "docs": "https://github.com/wardgielis/pyinfra-dev-machine-setup",
+    "sourceRepository": "https://github.com/wardgielis/pyinfra-dev-machine-setup",
+    "discoveredAt": "2026-10-11T10:06:48.981Z",
+    "lastActivity": "2026-10-11T07:40:38Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1338986049",
+    "name": "ReyOS",
+    "description": "ReyOS - a calm, dependable KDE Linux distribution",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MPL-2.0",
+    "openSource": true,
+    "website": "https://reyos.reyapps.com",
+    "download": "https://github.com/Reypaulino/ReyOS",
+    "docs": "https://github.com/Reypaulino/ReyOS",
+    "sourceRepository": "https://github.com/Reypaulino/ReyOS",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-10T23:09:10Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1397932361",
+    "name": "SereinGram",
+    "description": "SereinGram is an open-source Telegram client inspired by Nagram and AyuGram, designed for desktop platforms with support for macOS, Windows, and major Linux distributions.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/eltavine/SereinGram",
+    "download": "https://github.com/eltavine/SereinGram",
+    "docs": "https://github.com/eltavine/SereinGram",
+    "sourceRepository": "https://github.com/eltavine/SereinGram",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T06:55:18Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1322937509",
+    "name": "shomsky-linux",
+    "description": "Linux distro as a Docker container with an LLM agent shell",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/mtshomskyieee/shomsky-linux",
+    "download": "https://github.com/mtshomskyieee/shomsky-linux",
+    "docs": "https://github.com/mtshomskyieee/shomsky-linux",
+    "sourceRepository": "https://github.com/mtshomskyieee/shomsky-linux",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T05:58:38Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1154189910",
+    "name": "smplos",
+    "description": "A minimal Arch Linux distribution with cross-compositor support",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/smpl-os/smplos",
+    "download": "https://github.com/smpl-os/smplos",
+    "docs": "https://github.com/smpl-os/smplos",
+    "sourceRepository": "https://github.com/smpl-os/smplos",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T07:49:29Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1177294167",
+    "name": "SYNAPSE",
+    "description": "Where the kernel thinks. An Arch-based OS with a local LLM wired into the system layer: AI-native shell, wlroots/scenefx compositor, security monitor, and kernel module.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-2.0",
+    "openSource": true,
+    "website": "https://soslinux.org/",
+    "download": "https://github.com/velle999/SYNAPSE",
+    "docs": "https://github.com/velle999/SYNAPSE",
+    "sourceRepository": "https://github.com/velle999/SYNAPSE",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T09:21:41Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-210068163",
+    "name": "systemrescue-zfs",
+    "description": "A fork of SystemRescue (formerly SystemRescueCd) with ZFS built-in and serial console access enabled for all boot options. Download bootable ISOs from the releases page.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/nchevsky/systemrescue-zfs",
+    "download": "https://github.com/nchevsky/systemrescue-zfs",
+    "docs": "https://github.com/nchevsky/systemrescue-zfs",
+    "sourceRepository": "https://github.com/nchevsky/systemrescue-zfs",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-10T21:59:39Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1043132918",
+    "name": "TLCL-Persian",
+    "description": "📘 ترجمه فارسی کتاب The Linux Command Line (TLCL)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/hemansadeghi/TLCL-Persian",
+    "download": "https://github.com/hemansadeghi/TLCL-Persian",
+    "docs": "https://github.com/hemansadeghi/TLCL-Persian",
+    "sourceRepository": "https://github.com/hemansadeghi/TLCL-Persian",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T08:29:54Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1279015667",
+    "name": "Vantum",
+    "description": "A lightweight Linux distro built on Woof-CE",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://hammad-hab.github.io/vantum-website/index.html",
+    "download": "https://github.com/Hammad-hab/Vantum",
+    "docs": "https://github.com/Hammad-hab/Vantum",
+    "sourceRepository": "https://github.com/Hammad-hab/Vantum",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-11T06:15:54Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1393256033",
+    "name": "VoidStation",
+    "description": "A Void Linux based Distro for multimedia purposes on TVs and Home Theatres",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://voidstation.de",
+    "download": "https://github.com/Panther92/VoidStation",
+    "docs": "https://github.com/Panther92/VoidStation",
+    "sourceRepository": "https://github.com/Panther92/VoidStation",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-07T15:03:26Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-149803623",
+    "name": "yoe-distro",
+    "description": "Embedded Linux distribution optimized for product development (based on OE/Yocto)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/YoeDistro/yoe-distro",
+    "download": "https://github.com/YoeDistro/yoe-distro",
+    "docs": "https://github.com/YoeDistro/yoe-distro",
+    "sourceRepository": "https://github.com/YoeDistro/yoe-distro",
+    "discoveredAt": "2026-10-11T10:06:46.568Z",
+    "lastActivity": "2026-10-11T08:07:02Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1385272332",
+    "name": "zoth-os",
+    "description": "The Sovereign Alchemical Intelligence & Offensive Security Operating System (KDE Plasma 6, Kali + Parrot Dual Parity, Frontier AI, Ghostmode Tor)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://nullai.tech",
+    "download": "https://github.com/NullAITech/zoth-os",
+    "docs": "https://github.com/NullAITech/zoth-os",
+    "sourceRepository": "https://github.com/NullAITech/zoth-os",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T08:13:11Z",
+    "discoveryScore": 5,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1405339448",
+    "name": "askfinz-os",
+    "description": "askFinz OS: a Linux distribution that turns a workstation, server or device into a managed askFinz machine.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unknown",
+    "openSource": false,
+    "website": "https://askfinz.com/os",
+    "download": "https://github.com/askFinz/askfinz-os",
+    "docs": "https://github.com/askFinz/askfinz-os",
+    "sourceRepository": "https://github.com/askFinz/askfinz-os",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T06:32:56Z",
+    "discoveryScore": 4,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1380086055",
+    "name": "copperlinux",
+    "description": "Copper Linux is a Linux distro made for daily-driving for coders, students or just people who like distro hopping. Its development was started in 21st of September, the leader is 12hrformat. Do check out Deadlight Linux too!",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unknown",
+    "openSource": false,
+    "website": "https://12hrformat.github.io/copperlinux-site/",
+    "download": "https://github.com/12hrformat/copperlinux",
+    "docs": "https://github.com/12hrformat/copperlinux",
+    "sourceRepository": "https://github.com/12hrformat/copperlinux",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T09:49:21Z",
+    "discoveryScore": 4,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1397691991",
+    "name": "linux-atlas",
+    "description": "Linux Atlas v6 is a personal, unofficial, non-commercial offline catalog of 215 Linux systems and related projects. Search, filter and compare systems, explore technical data and guides, and find options for different hardware. Includes RU/EN support, responsive design, and standalone HTML versions from full to ultra-light. No server required.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unknown",
+    "openSource": false,
+    "website": "https://atlasgithib-ui.github.io/linux-atlas/",
+    "download": "https://github.com/atlasgithib-ui/linux-atlas",
+    "docs": "https://github.com/atlasgithib-ui/linux-atlas",
+    "sourceRepository": "https://github.com/atlasgithib-ui/linux-atlas",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-02T13:50:26Z",
+    "discoveryScore": 4,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-90179636",
+    "name": "Linux-on-Android",
+    "description": "🔥 Install and manage Linux distributions on Android without root, using a fully automated script for easy and safe setups in Termux.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unknown",
+    "openSource": false,
+    "website": "https://emanuevov.github.io",
+    "download": "https://github.com/emanuevov/Linux-on-Android",
+    "docs": "https://github.com/emanuevov/Linux-on-Android",
+    "sourceRepository": "https://github.com/emanuevov/Linux-on-Android",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T07:15:35Z",
+    "discoveryScore": 4,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1295708464",
+    "name": "moos-image",
+    "description": "MoOS — a personal, Nova-branded Fedora Atomic (bootc) Linux distribution by Moalfarras",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Unknown",
+    "openSource": false,
+    "website": "https://github.com/moalfarras-sys/moos-image",
+    "download": "https://github.com/moalfarras-sys/moos-image",
+    "docs": "https://github.com/moalfarras-sys/moos-image",
+    "sourceRepository": "https://github.com/moalfarras-sys/moos-image",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T09:30:58Z",
+    "discoveryScore": 4,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-720947941",
+    "name": ".github",
+    "description": "The LainOS development team",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/The-LainOS-Project/.github",
+    "download": "https://github.com/The-LainOS-Project/.github",
+    "docs": "https://github.com/The-LainOS-Project/.github",
+    "sourceRepository": "https://github.com/The-LainOS-Project/.github",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-10T15:35:30Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-606908919",
+    "name": "ansible-workstation",
+    "description": "Workstation configuration with ansible",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/RicNord/ansible-workstation",
+    "download": "https://github.com/RicNord/ansible-workstation",
+    "docs": "https://github.com/RicNord/ansible-workstation",
+    "sourceRepository": "https://github.com/RicNord/ansible-workstation",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-02T18:40:11Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1237306283",
+    "name": "avalos",
+    "description": "AvalOS is an Arch-based distro created by me (Jefferson Stanley), it's focused on gaming and day to day work, it'll be a minimalist and easy-to-use distro (It'll use Hyprland by default)  (still in development and evolving day by day)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/jeffreysama/avalos",
+    "download": "https://github.com/jeffreysama/avalos",
+    "docs": "https://github.com/jeffreysama/avalos",
+    "sourceRepository": "https://github.com/jeffreysama/avalos",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-11T02:16:38Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1169817177",
+    "name": "blue-build",
+    "description": "Custom images of image-based Linux distributions.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Apache-2.0",
+    "openSource": true,
+    "website": "https://github.com/Mahagon/blue-build",
+    "download": "https://github.com/Mahagon/blue-build",
+    "docs": "https://github.com/Mahagon/blue-build",
+    "sourceRepository": "https://github.com/Mahagon/blue-build",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T09:16:33Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1411348213",
+    "name": "build-your-own-distro",
+    "description": "Build your own Linux distro: a hands-on course + Go CLI from an empty folder to a bootable system",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/arcnosixta/build-your-own-distro",
+    "download": "https://github.com/arcnosixta/build-your-own-distro",
+    "docs": "https://github.com/arcnosixta/build-your-own-distro",
+    "sourceRepository": "https://github.com/arcnosixta/build-your-own-distro",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T07:09:23Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1413343997",
+    "name": "bunyip",
+    "description": "Offline vulnerability correlation engine: maps Nmap/httpx/CPE identities to candidate CVEs, enriched with CISA KEV, EPSS, public-exploit references (Metasploit/Exploit-DB) and Linux-distro backport verdicts. A single self-contained Go binary that builds its own database.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Apache-2.0",
+    "openSource": true,
+    "website": "https://github.com/joda32/bunyip",
+    "download": "https://github.com/joda32/bunyip",
+    "docs": "https://github.com/joda32/bunyip",
+    "sourceRepository": "https://github.com/joda32/bunyip",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T06:31:22Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1377165617",
+    "name": "cuckoo-linux",
+    "description": "This repo has an arch-based Linux distro customized for developers, DevOps and infrastructure engineers.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/Samubarboza/cuckoo-linux",
+    "download": "https://github.com/Samubarboza/cuckoo-linux",
+    "docs": "https://github.com/Samubarboza/cuckoo-linux",
+    "sourceRepository": "https://github.com/Samubarboza/cuckoo-linux",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T01:14:56Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1347059917",
+    "name": "DaemonCore-Linux-Distro",
+    "description": "Team Foxtrot /DC",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/DaemoncoreApps/DaemonCore-Linux-Distro",
+    "download": "https://github.com/DaemoncoreApps/DaemonCore-Linux-Distro",
+    "docs": "https://github.com/DaemoncoreApps/DaemonCore-Linux-Distro",
+    "sourceRepository": "https://github.com/DaemoncoreApps/DaemonCore-Linux-Distro",
+    "discoveredAt": "2026-10-11T10:06:48.981Z",
+    "lastActivity": "2026-10-11T07:28:27Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1363436547",
+    "name": "darknode-os-distro",
+    "description": "Darknode OS (distro) — Debian/Ubuntu/Kali-based security workstation image builder with the Darknode platform and a custom desktop; full edition ships 80+ tools.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "NOASSERTION",
+    "openSource": true,
+    "website": "https://github.com/Darknode-Official/darknode-os-distro",
+    "download": "https://github.com/Darknode-Official/darknode-os-distro",
+    "docs": "https://github.com/Darknode-Official/darknode-os-distro",
+    "sourceRepository": "https://github.com/Darknode-Official/darknode-os-distro",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-08T00:49:16Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1398626962",
+    "name": "distroquest",
+    "description": "Stop distro-hopping before it starts. A playful Linux distribution recommendation quiz.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/Frentan/distroquest",
+    "download": "https://github.com/Frentan/distroquest",
+    "docs": "https://github.com/Frentan/distroquest",
+    "sourceRepository": "https://github.com/Frentan/distroquest",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-09T22:52:03Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1033183989",
+    "name": "dotfiles",
+    "description": "My dotfiles managed by Chezmoi on Windows(The best Linux distribution)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/JackTheMico/dotfiles",
+    "download": "https://github.com/JackTheMico/dotfiles",
+    "docs": "https://github.com/JackTheMico/dotfiles",
+    "sourceRepository": "https://github.com/JackTheMico/dotfiles",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T08:51:09Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1380825710",
+    "name": "ECO_OS",
+    "description": "A baremetal Linux distro / DAW OS optimized for audio production.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/deastrobooking/ECO_OS",
+    "download": "https://github.com/deastrobooking/ECO_OS",
+    "docs": "https://github.com/deastrobooking/ECO_OS",
+    "sourceRepository": "https://github.com/deastrobooking/ECO_OS",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T01:02:44Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1313195509",
+    "name": "Fenrir",
+    "description": "A polished, ready-to-use Linux desktop — set up so you don't have to.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/lawki2/Fenrir",
+    "download": "https://github.com/lawki2/Fenrir",
+    "docs": "https://github.com/lawki2/Fenrir",
+    "sourceRepository": "https://github.com/lawki2/Fenrir",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-05T11:53:34Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1413647490",
+    "name": "Garyu-OS",
+    "description": "A lightweight, security-focused Linux distribution based on Debian 13 \"Trixie\" with the LXQt desktop.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "NOASSERTION",
+    "openSource": true,
+    "website": "https://github.com/LucidPolaris/Garyu-OS",
+    "download": "https://github.com/LucidPolaris/Garyu-OS",
+    "docs": "https://github.com/LucidPolaris/Garyu-OS",
+    "sourceRepository": "https://github.com/LucidPolaris/Garyu-OS",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T08:36:40Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1413493712",
+    "name": "GPScreen",
+    "description": "GPScreen is an ultra-fast, GPU-accelerated desktop recorder engineered natively in Rust. Built on the Zed project's GPUI framework, it pairs a responsive, zero-bloat user interface with native Wayland and PipeWire pipelines to deliver seamless screen capture on modern Linux distros with zero frame drops and near-zero idle resource overhead.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "Apache-2.0",
+    "openSource": true,
+    "website": "https://github.com/AhmedTrooper/GPScreen",
+    "download": "https://github.com/AhmedTrooper/GPScreen",
+    "docs": "https://github.com/AhmedTrooper/GPScreen",
+    "sourceRepository": "https://github.com/AhmedTrooper/GPScreen",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-10T22:49:05Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-631367472",
+    "name": "helper-com",
+    "description": "Linux Helper command",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/shuvo-halder/helper-com",
+    "download": "https://github.com/shuvo-halder/helper-com",
+    "docs": "https://github.com/shuvo-halder/helper-com",
+    "sourceRepository": "https://github.com/shuvo-halder/helper-com",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T08:17:10Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1381580228",
+    "name": "Janus",
+    "description": "An ultra-light, immutable, API-driven Linux distribution built from scratch (LFS-style), centered on HAProxy as the primary reverse-proxy/load-balancer",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/swenske/Janus",
+    "download": "https://github.com/swenske/Janus",
+    "docs": "https://github.com/swenske/Janus",
+    "sourceRepository": "https://github.com/swenske/Janus",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T09:55:19Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1382192634",
+    "name": "kaal-os",
+    "description": "KAAL OS — a Fedora 44 distro built around one idea: an OS you can shape (Kaal Spaces). Being designed with an AI control plane: local or policy-restricted cloud AI, autonomous tasks, AI-heuristic detection. Design intent, not built yet — see VISION.md. Full live ISO builds green; desktop in progress.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/pujariseema93-beep/kaal-os",
+    "download": "https://github.com/pujariseema93-beep/kaal-os",
+    "docs": "https://github.com/pujariseema93-beep/kaal-os",
+    "sourceRepository": "https://github.com/pujariseema93-beep/kaal-os",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T09:54:05Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1403553241",
+    "name": "Kernora-OS-",
+    "description": "Kernora OS — a Debian 13 desktop OS with a complete Material 3 design on KDE Plasma: its own shell, apps, live wallpapers and installer. Reproducible builds, ISO in Releases.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/commywork9282-dotcom/Kernora-OS-",
+    "download": "https://github.com/commywork9282-dotcom/Kernora-OS-",
+    "docs": "https://github.com/commywork9282-dotcom/Kernora-OS-",
+    "sourceRepository": "https://github.com/commywork9282-dotcom/Kernora-OS-",
+    "discoveredAt": "2026-10-11T10:06:46.567Z",
+    "lastActivity": "2026-10-11T06:24:00Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1411179865",
+    "name": "kOS",
+    "description": "This is kOS- a custom linux distro. (in v0.9.2)",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/KaiDevious/kOS",
+    "download": "https://github.com/KaiDevious/kOS",
+    "docs": "https://github.com/KaiDevious/kOS",
+    "sourceRepository": "https://github.com/KaiDevious/kOS",
+    "discoveredAt": "2026-10-11T10:06:48.982Z",
+    "lastActivity": "2026-10-11T04:21:51Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-202790442",
+    "name": "leaf-linux",
+    "description": "Leaf Linux Distribution Kernel Sources (Leaf Linux is an approved trademark sublicense granted by the Linux Foundation).",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "NOASSERTION",
+    "openSource": true,
+    "website": "https://github.com/jeffmerkey/leaf-linux",
+    "download": "https://github.com/jeffmerkey/leaf-linux",
+    "docs": "https://github.com/jeffmerkey/leaf-linux",
+    "sourceRepository": "https://github.com/jeffmerkey/leaf-linux",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T07:01:21Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1371011815",
+    "name": "Linux-Live-Usb-Creator",
+    "description": "Create a LiveUSB with Linux Live USB Creator, a powerful tool for Windows that makes it easy to create bootable USB drives from any Linux distribution. Enjoy the convenience of portable Linux with just a few clicks. Install and start in minutes.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/feralberry896/Linux-Live-Usb-Creator",
+    "download": "https://github.com/feralberry896/Linux-Live-Usb-Creator",
+    "docs": "https://github.com/feralberry896/Linux-Live-Usb-Creator",
+    "sourceRepository": "https://github.com/feralberry896/Linux-Live-Usb-Creator",
+    "discoveredAt": "2026-10-11T10:06:47.404Z",
+    "lastActivity": "2026-10-11T05:14:33Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1361164967",
+    "name": "Linux-Live-Usb-Creator-Full-Version",
+    "description": "Linux Live USB Creator is a free full-version tool for Windows that enables you to create LiveUSBs for any Linux distribution from ISO images or LiveCDs. Easily carry your favorite Linux distro on a USB drive with simple device selection. Download the latest version free.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/blistermoldranz7/Linux-Live-Usb-Creator-Full-Version",
+    "download": "https://github.com/blistermoldranz7/Linux-Live-Usb-Creator-Full-Version",
+    "docs": "https://github.com/blistermoldranz7/Linux-Live-Usb-Creator-Full-Version",
+    "sourceRepository": "https://github.com/blistermoldranz7/Linux-Live-Usb-Creator-Full-Version",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T08:05:43Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1404788069",
+    "name": "meccanicos",
+    "description": "My Custom Nix OS Linux Distribution",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "NOASSERTION",
+    "openSource": true,
+    "website": "https://github.com/unofficialtools/meccanicos",
+    "download": "https://github.com/unofficialtools/meccanicos",
+    "docs": "https://github.com/unofficialtools/meccanicos",
+    "sourceRepository": "https://github.com/unofficialtools/meccanicos",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T09:03:21Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1407443143",
+    "name": "mnOS",
+    "description": "A minimal Linux distribution built from scratch: Linux 6.13.3 + busybox + GRUB, bootable BIOS/UEFI ISO.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "GPL-3.0",
+    "openSource": true,
+    "website": "https://github.com/gtl-m/mnOS",
+    "download": "https://github.com/gtl-m/mnOS",
+    "docs": "https://github.com/gtl-m/mnOS",
+    "sourceRepository": "https://github.com/gtl-m/mnOS",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T03:36:27Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  },
+  {
+    "id": "auto-1374559737",
+    "name": "Multibootusb",
+    "description": "Get MultiBootUSB — a versatile tool for Windows that allows you to create a multi-system USB drive for easy Linux distribution testing. With a user-friendly interface, you can quickly boot multiple operating systems. Download the latest release today.",
+    "type": "Linux",
+    "category": [
+      "Linux",
+      "Discovery Candidate"
+    ],
+    "useCases": [
+      "Linux"
+    ],
+    "base": "Unknown",
+    "desktop": "Unknown",
+    "packageManager": "Unknown",
+    "architecture": [
+      "x86_64"
+    ],
+    "difficulty": "Intermediate",
+    "license": "MIT",
+    "openSource": true,
+    "website": "https://github.com/mrkat1907/Multibootusb",
+    "download": "https://github.com/mrkat1907/Multibootusb",
+    "docs": "https://github.com/mrkat1907/Multibootusb",
+    "sourceRepository": "https://github.com/mrkat1907/Multibootusb",
+    "discoveredAt": "2026-10-11T10:06:48.195Z",
+    "lastActivity": "2026-10-11T09:28:35Z",
+    "discoveryScore": 3,
+    "discoveryNote": "Automatically discovered. Metadata is not a substitute for manual verification."
+  }
+]
