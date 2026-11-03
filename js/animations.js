@@ -134,14 +134,15 @@
     frame.style.setProperty('--color',color);
     const label=document.createElement('span');label.className='osp-cargo-label';label.textContent='[ '+item.label+' ]';frame.appendChild(label);
     overlay.appendChild(frame);
-    const movingFrames=paths.map(p=>({offset:p.offset,transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)'}));
+    const movingFrames=paths.map(p=>({offset:p.offset,transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)',transformOrigin:'0 0'}));
     const outlineAnimation=frame.animate(movingFrames,timing);active.push(outlineAnimation);
     el.classList.add('osp-built');
     const elementFrames=paths.map((p,j)=>({
       offset:p.offset,
       opacity:j===0?0:j===1?.98:1,
       filter:j===0?'blur(10px)':j===1?'blur(2px)':'blur(0)',
-      transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)'
+      transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)',
+      transformOrigin:'0 0'
     }));
     const movement=el.animate(elementFrames,timing);active.push(movement);
     movement.onfinish=()=>{
