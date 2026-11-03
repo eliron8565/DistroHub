@@ -4,7 +4,7 @@
   if (document.getElementById('ospulse-intro') || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return;
   const style = document.createElement('style');
   style.id = 'ospulse-intro-style';
-  style.textContent = \`
+  style.textContent = `
     #ospulse-intro{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;isolation:isolate;background:#030711;color:#f0faff;font-family:Inter,system-ui,sans-serif;transition:opacity .85s cubic-bezier(.16,1,.3,1),visibility .85s}
     #ospulse-intro.intro-exit{opacity:0;visibility:hidden;pointer-events:none}
     #ospulse-intro canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
@@ -35,7 +35,7 @@
     #ospulse-intro .intro-skip:hover,#ospulse-intro .intro-skip:focus-visible{background:#16365a;border-color:#65eaff;outline-offset:3px}
     #ospulse-intro .intro-flash{position:absolute;inset:0;background:#c4faff;opacity:0;pointer-events:none;z-index:4}
     #ospulse-intro.intro-exit .intro-flash{animation:osFlash .6s ease-out both}
-    @keyframes osNebula{to{transform:translate3%(-1%);filter:blur(38px) hue-rotate(18deg)}}
+    @keyframes osNebula{to{transform:translateX(-1%);filter:blur(38px) hue-rotate(18deg)}}
     @keyframes osGrid{to{background-position:0 130px,130px 0}}
     @keyframes osScan{to{background-position:0 160px}}
     @keyframes osSweep{from{top:-30%;opacity:0}25%{opacity:1}to{top:120%;opacity:0}}
@@ -49,7 +49,7 @@
     @keyframes osFlash{0%{opacity:0}18%{opacity:.5}100%{opacity:0}}
     @media(max-width:600px){#ospulse-intro .intro-corner{font-size:8px}#ospulse-intro .intro-subtitle{font-size:9px;letter-spacing:.15em}#ospulse-intro .intro-skip{bottom:18px;left:18px}}
     @media(prefers-reduced-motion:reduce){#ospulse-intro{display:none!important}}
-  \`.replace('translate3%(-1%)','translateX(-1%)');
+  `;
   document.head.appendChild(style);
   const intro = document.createElement('div');
   intro.id='ospulse-intro';
