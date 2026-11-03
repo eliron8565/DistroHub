@@ -5,7 +5,7 @@
   const style=document.createElement('style');style.id='osp-construction-style';
   style.textContent=`
     body.osp-constructing{overflow:hidden}
-    body.osp-constructing .site-header,body.osp-constructing #home .hero-copy>*,body.osp-constructing #home .hero-orbit,body.osp-constructing #home .family-card,body.osp-constructing #home .feature-strip>div{opacity:0!important}body.osp-constructing .osp-built{opacity:1!important}
+    body.osp-constructing .site-header,body.osp-constructing #home .hero-copy>*,body.osp-constructing #home .hero-orbit,body.osp-constructing #home .family-card,body.osp-constructing #home .feature-strip>div{opacity:0}body.osp-constructing .osp-built{opacity:1}
     #osp-construction{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;transition:opacity .7s ease}
     #osp-construction.finished{opacity:0}
     #osp-construction .osp-tint{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(3,18,39,.15),rgba(2,8,21,.42));transition:opacity .6s}
