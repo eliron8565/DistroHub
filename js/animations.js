@@ -1,3 +1,72 @@
+/* OSPulse futuristic intro — lightweight, skippable, motion-accessible. */
+(() => {
+  'use strict';
+  if (document.getElementById('ospulse-intro') || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return;
+  const css = document.createElement('style');
+  css.id = 'ospulse-intro-style';
+  css.textContent = `
+    #ospulse-intro{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,#10294a 0%,#080e22 45%,#040812 100%);color:#eafaff;isolation:isolate;transition:opacity .7s ease,visibility .7s ease}
+    #ospulse-intro.intro-exit{opacity:0;visibility:hidden;pointer-events:none}
+    #ospulse-intro::before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(0deg,transparent 0 49px,rgba(64,200,255,.06) 50px),repeating-linear-gradient(90deg,transparent 0 49px,rgba(64,200,255,.06) 50px);transform:perspective(650px) rotateX(58deg) scale(1.5);opacity:.28;animation:ospGrid 3s ease-out both}
+    #ospulse-intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 49%,rgba(75,216,255,.07) 50%,transparent 51%);background-size:100% 7px;opacity:.3}
+    .osp-intro-particles{position:absolute;inset:0;pointer-events:none}
+    .osp-intro-particle{position:absolute;width:var(--size);height:var(--size);border-radius:50%;background:#7deaff;box-shadow:0 0 10px #21d6ff,0 0 22px #6d69ff;opacity:0;animation:ospFloat var(--dur) ease-out var(--delay) both}
+    .osp-intro-center{position:relative;text-align:center;padding:32px;z-index:1;animation:ospReveal .85s cubic-bezier(.2,.8,.2,1) both}
+    .osp-intro-halo{position:absolute;width:min(70vw,370px);aspect-ratio:1;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(74,216,255,.27);border-radius:50%;box-shadow:0 0 40px rgba(22,196,255,.14),inset 0 0 40px rgba(103,78,255,.12);animation:ospHalo 2.3s ease-in-out infinite alternate;pointer-events:none}
+    .osp-intro-halo::before,.osp-intro-halo::after{content:"";position:absolute;inset:13%;border:1px dashed rgba(130,119,255,.35);border-radius:50%;animation:ospSpin 10s linear infinite}
+    .osp-intro-halo::after{inset:25%;border-color:rgba(66,218,255,.45);animation-direction:reverse;animation-duration:7s}
+    .osp-intro-mark{position:relative;display:inline-grid;place-items:center;width:78px;height:78px;margin-bottom:22px;border:1px solid rgba(90,230,255,.55);border-radius:22px;background:linear-gradient(135deg,rgba(32,190,255,.18),rgba(112,73,255,.22));box-shadow:0 0 38px rgba(34,211,238,.3),inset 0 0 24px rgba(34,211,238,.1);font:800 42px 'Space Grotesk',system-ui,sans-serif;color:#fff;text-shadow:0 0 20px #32ddff}
+    .osp-intro-title{position:relative;font:800 clamp(38px,9vw,72px)/1 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.065em;text-shadow:0 0 36px rgba(70,206,255,.4)}
+    .osp-intro-title span{color:#4fe4ff}
+    .osp-intro-sub{position:relative;margin:18px 0 28px;font:600 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.32em;color:#8ba8ca;text-transform:uppercase}
+    .osp-intro-track{position:relative;margin:auto;width:min(240px,65vw);height:3px;border-radius:9px;overflow:hidden;background:rgba(120,190,255,.14)}
+    .osp-intro-track i{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#695bff,#32dcff,#d6ffff);box-shadow:0 0 16px #32dcff;animation:ospLoad 2s ease-in-out .15s forwards}
+    .osp-intro-skip{position:absolute;right:clamp(18px,4vw,44px);bottom:clamp(18px,4vw,40px);z-index:2;background:rgba(14,27,49,.7);color:#bcd5eb;border:1px solid rgba(112,190,255,.25);border-radius:99px;padding:10px 17px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer}
+    .osp-intro-skip:hover,.osp-intro-skip:focus-visible{color:#fff;border-color:#50dcff;outline-offset:3px}
+    @keyframes ospFloat{0%{opacity:0;transform:translate3d(0,40px,0) scale(.2)}25%{opacity:.75}85%{opacity:.5}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) scale(1.3)}}
+    @keyframes ospReveal{from{opacity:0;filter:blur(12px);transform:translateY(24px) scale(.92)}to{opacity:1;filter:none;transform:none}}
+    @keyframes ospHalo{from{opacity:.5;box-shadow:0 0 20px rgba(34,211,238,.12)}to{opacity:1;box-shadow:0 0 65px rgba(34,211,238,.28)}}
+    @keyframes ospSpin{to{transform:rotate(360deg)}}
+    @keyframes ospLoad{to{transform:scaleX(1)}}
+    @keyframes ospGrid{from{opacity:0;transform:perspective(650px) rotateX(58deg) scale(1.7)}to{opacity:.28;transform:perspective(650px) rotateX(58deg) scale(1.5)}}
+    @media(prefers-reduced-motion:reduce){#ospulse-intro{display:none!important}}
+  `;
+  document.head.appendChild(css);
+  const layer = document.createElement('div');
+  layer.id = 'ospulse-intro';
+  layer.setAttribute('role','status');
+  layer.setAttribute('aria-label','Loading OSPulse');
+  layer.innerHTML = '<div class="osp-intro-particles" aria-hidden="true"></div><div class="osp-intro-center"><div class="osp-intro-halo" aria-hidden="true"></div><div class="osp-intro-mark" aria-hidden="true">O</div><div class="osp-intro-title">OS<span>Pulse</span></div><div class="osp-intro-sub">Initializing your next OS</div><div class="osp-intro-track" aria-hidden="true"><i></i></div></div><button class="osp-intro-skip" type="button" aria-label="Skip intro">Skip intro →</button>';
+  const particles = layer.querySelector('.osp-intro-particles');
+  const count = Math.min(48, Math.max(18, Math.floor(window.innerWidth / 27)));
+  for(let i=0;i<count;i++){
+    const p=document.createElement('i');
+    p.className='osp-intro-particle';
+    p.style.left=(Math.random()*100)+'%';
+    p.style.top=(Math.random()*100)+'%';
+    p.style.setProperty('--size',(1+Math.random()*3)+'px');
+    p.style.setProperty('--dx',((Math.random()-.5)*180)+'px');
+    p.style.setProperty('--dy',(-60-Math.random()*190)+'px');
+    p.style.setProperty('--dur',(1.6+Math.random()*1.2)+'s');
+    p.style.setProperty('--delay',(Math.random()*.7)+'s');
+    particles.appendChild(p);
+  }
+  document.body.appendChild(layer);
+  let finished=false;
+  let timer;
+  const finish=()=>{
+    if(finished)return;
+    finished=true;
+    clearTimeout(timer);
+    layer.classList.add('intro-exit');
+    layer.addEventListener('transitionend',()=>layer.remove(),{once:true});
+    setTimeout(()=>layer.remove(),850);
+  };
+  layer.querySelector('.osp-intro-skip').addEventListener('click',finish);
+  timer=setTimeout(finish,2350);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')finish()},{once:true});
+})();
+
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
 (() => {
   const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
