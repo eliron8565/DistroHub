@@ -15,15 +15,15 @@
     ['#home .hero-copy .hero-actions',2.00,'ACTIONS'],
     ['#home .hero-orbit',2.48,'DISCOVERY CORE'],
     ['#home .hero-copy .hero-metrics',2.96,'LIVE METRICS'],
-    ['#home .family-card:nth-child(1)',3.52,'LINUX'],
-    ['#home .family-card:nth-child(2)',3.81,'GAMING'],
-    ['#home .family-card:nth-child(3)',4.10,'BSD'],
-    ['#home .family-card:nth-child(4)',4.39,'MOBILE'],
-    ['#home .family-card:nth-child(5)',4.68,'ALTERNATIVE'],
-    ['#home .family-card:nth-child(6)',4.97,'MEDIA'],
-    ['#home .feature-strip>div:nth-child(1)',5.36,'TRUST'],
-    ['#home .feature-strip>div:nth-child(2)',5.64,'SPEED'],
-    ['#home .feature-strip>div:nth-child(3)',5.92,'PRIVACY']
+    ['#home .family-card:nth-child(1)',4.75,'LINUX'],
+    ['#home .family-card:nth-child(2)',5.07,'GAMING'],
+    ['#home .family-card:nth-child(3)',5.39,'BSD'],
+    ['#home .family-card:nth-child(4)',5.71,'MOBILE'],
+    ['#home .family-card:nth-child(5)',6.03,'ALTERNATIVE'],
+    ['#home .family-card:nth-child(6)',6.35,'MEDIA'],
+    ['#home .feature-strip>div:nth-child(1)',7.8,'TRUST'],
+    ['#home .feature-strip>div:nth-child(2)',8.2,'SPEED'],
+    ['#home .feature-strip>div:nth-child(3)',8.6,'PRIVACY']
   ];
   const items=definitions.map(([selector,time,label])=>({el:document.querySelector(selector),time,label})).filter(v=>v.el);
   if(items.length<6){releasePrebuild();return;}
@@ -76,6 +76,22 @@
   });
   let stopped=false,completed=0,catalogReady=Boolean(window.app && window.app.systems && window.app.systems.length),minimumDone=false;
   const timers=[],active=[];
+  const initialScroll=window.scrollY||0;
+  let cameraMoved=false,cameraRestored=false;
+  const focusSection=(selector,ratio)=>{
+    if(stopped || typeof window.scrollTo!=='function')return;
+    const section=document.querySelector(selector);if(!section)return;
+    const rect=section.getBoundingClientRect();
+    const current=window.scrollY||0;
+    const wanted=Math.max(0,current+rect.top-innerHeight*ratio);
+    if(Math.abs(wanted-current)<95)return;
+    cameraMoved=true;window.scrollTo({top:wanted,behavior:'smooth'});
+  };
+  const restoreCamera=(behavior)=>{
+    if(cameraMoved && !cameraRestored && typeof window.scrollTo==='function'){
+      cameraRestored=true;window.scrollTo({top:initialScroll,behavior});
+    }
+  };
   const later=(fn,ms)=>{const id=setTimeout(()=>{if(!stopped)fn();},ms);timers.push(id);};
   const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
   const addAt=(className,x,y,color)=>{
@@ -97,7 +113,7 @@
     overlay.querySelector('.osp-progress i').style.transform='scaleX('+(completed/items.length)+')';
     overlay.querySelector('.osp-percentage').textContent=String(percentage).padStart(2,'0')+'%';
     overlay.querySelector('.osp-status').textContent=completed===items.length?'ALL COMPONENTS DOCKED':'DRAGGING COMPONENTS · '+completed+'/'+items.length;
-    if(completed===items.length && minimumDone && catalogReady)later(finish,850);
+    if(completed===items.length){restoreCamera('smooth');if(minimumDone && catalogReady)later(finish,850);}
   };
   const completedItem=()=>{
     completed++;updateProgress();
@@ -163,6 +179,7 @@
     window.removeEventListener('resize',finish);
     document.removeEventListener('keydown',onKey);
     document.removeEventListener('visibilitychange',onHidden);
+    restoreCamera('instant');
     active.forEach(a=>{try{a.cancel();}catch(e){}});
     document.body.classList.remove('osp-constructing');releasePrebuild();
     items.forEach(item=>item.el.classList.remove('osp-built'));
@@ -180,8 +197,10 @@
   document.addEventListener('keydown',onKey);
   document.addEventListener('visibilitychange',onHidden);
   items.forEach((item,index)=>later(()=>build(item,index),item.time*1000));
-  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,850);},6400);
-  later(finish,9300);
+  later(()=>focusSection('#home .family-grid',.20),4100);
+  later(()=>focusSection('#home .feature-strip',.21),7230);
+  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,850);},9500);
+  later(finish,11500);
 })();
 
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
