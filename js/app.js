@@ -6,7 +6,7 @@ class DistroHubApp {
     this.authMode='login'; this.user=null; this.init();
   }
   safeJson(key,fallback){try{const v=JSON.parse(localStorage.getItem(key)||'null');return v??fallback}catch{return fallback}}
-  async init(){this.bindNavigation();this.bindUI();await this.loadData();this.renderAll();await this.initAuth()}
+  async init(){this.bindNavigation();this.bindUI();await this.loadData();this.renderAll();window.dispatchEvent(new Event('ospulse:catalog-ready'));await this.initAuth()}
   async getJson(path){const url=new URL(path,document.baseURI).href;const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(`${path}: ${r.status}`);const data=await r.json();return Array.isArray(data)?data:(Array.isArray(data?.data)?data.data:(Array.isArray(data?.systems)?data.systems:[]))}
   normalize(s,fallbackType='Linux'){
     if(!s||typeof s!=='object')return null;
