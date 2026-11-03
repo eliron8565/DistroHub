@@ -1,43 +1,51 @@
-/* Cursor-driven homepage assembly; the normal site remains interactive afterward. */
+/* Loading-only animation. Nothing in the real homepage is modified. */
 (() => {
-  if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches || (location.hash && location.hash !== '#home')) return;
-  const css=document.createElement('style');css.id='osp-build-css';
-  css.textContent=`
-  body.osp-building{overflow:hidden}
-  body.osp-building .site-header,body.osp-building #home .hero-copy,body.osp-building #home .hero-orbit,body.osp-building #home .family-grid,body.osp-building #home .feature-strip{opacity:0}
-  body.osp-building.osp-start .site-header{animation:ospBuild .65s ease .2s both}
-  body.osp-building.osp-start #home .hero-copy{animation:ospBuild .8s ease .8s both} body.osp-building.osp-start #home .hero-copy>*{animation:ospBuild .65s cubic-bezier(.16,1,.3,1) both} body.osp-building.osp-start #home .hero-copy>*:nth-child(1){animation-delay:.82s}body.osp-building.osp-start #home .hero-copy>*:nth-child(2){animation-delay:1.08s}body.osp-building.osp-start #home .hero-copy>*:nth-child(3){animation-delay:1.34s}body.osp-building.osp-start #home .hero-copy>*:nth-child(4){animation-delay:1.6s}body.osp-building.osp-start #home .hero-copy>*:nth-child(5){animation-delay:1.85s}
-  body.osp-building.osp-start #home .hero-orbit{animation:ospBuildCore 1s ease 1.3s both}
-  body.osp-building.osp-start #home .family-grid{animation:ospBuild .5s ease 2s both}body.osp-building.osp-start #home .family-card{animation:ospBuildCard .6s cubic-bezier(.16,1,.3,1) both}body.osp-building.osp-start #home .family-card:nth-child(1){animation-delay:2.1s}body.osp-building.osp-start #home .family-card:nth-child(2){animation-delay:2.25s}body.osp-building.osp-start #home .family-card:nth-child(3){animation-delay:2.4s}body.osp-building.osp-start #home .family-card:nth-child(4){animation-delay:2.55s}body.osp-building.osp-start #home .family-card:nth-child(5){animation-delay:2.7s}body.osp-building.osp-start #home .family-card:nth-child(6){animation-delay:2.85s}
-  body.osp-building.osp-start #home .feature-strip{animation:ospBuild .7s ease 3.1s both}body.osp-building.osp-start #home .feature-strip>div{animation:ospBuildCard .6s ease both}body.osp-building.osp-start #home .feature-strip>div:nth-child(1){animation-delay:3.15s}body.osp-building.osp-start #home .feature-strip>div:nth-child(2){animation-delay:3.35s}body.osp-building.osp-start #home .feature-strip>div:nth-child(3){animation-delay:3.55s}
-  #osp-build-layer{position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(9,39,73,.15),rgba(3,8,22,.32));transition:opacity .8s ease}
-  #osp-build-layer.done{opacity:0}
-  #osp-build-layer:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(40,220,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(40,220,255,.08) 1px,transparent 1px);background-size:45px 45px;animation:ospGrid 3.7s ease both}
-  .osp-build-cursor{position:absolute;left:var(--x);top:var(--y);width:20px;height:24px;opacity:0;filter:drop-shadow(0 0 12px var(--c));animation:ospCursor 1s ease var(--d) both}
-  .osp-build-cursor:before{content:'';position:absolute;inset:0;background:var(--c);clip-path:polygon(0 0,0 100%,6px 17px,19px 19px)}
-  .osp-build-cursor:after{content:attr(data-label);position:absolute;top:18px;left:17px;background:#0c1b32;color:#e2faff;border:1px solid var(--c);padding:4px 7px;border-radius:5px;font:600 10px monospace;letter-spacing:.07em}
-  .osp-build-beam{position:absolute;top:var(--y);left:-30%;width:160%;height:2px;opacity:0;background:linear-gradient(90deg,transparent,#49dfff,#9775ff,transparent);box-shadow:0 0 20px #2adfff;animation:ospBeam .85s ease var(--d) both}
-  .osp-build-spark{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;border-radius:50%;background:#8efaff;box-shadow:0 0 12px #22ddff;animation:ospSpark .9s ease var(--d) both}
-  .osp-build-caption{position:absolute;bottom:7%;left:0;right:0;text-align:center;color:#7aeaff;font:600 11px monospace;letter-spacing:.2em;text-shadow:0 0 15px #25ccff}
-  .osp-build-skip{position:absolute;top:22px;right:22px;pointer-events:auto;border:1px solid #59c9ef;background:#0b1c36;color:#e9fbff;border-radius:99px;padding:10px 16px;cursor:pointer}
-  @keyframes ospBuildCard{from{opacity:0;clip-path:inset(0 100% 0 0);transform:scale(.9);filter:blur(10px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:none;filter:none}} @keyframes ospBuild{from{opacity:0;transform:translateY(38px) scale(.95);filter:blur(15px)}to{opacity:1;transform:none;filter:none}}
-  @keyframes ospBuildCore{from{opacity:0;transform:scale(.35) rotate(-90deg);filter:blur(18px)}to{opacity:1;transform:none;filter:none}}
-  @keyframes ospCursor{0%{opacity:0;transform:translate(-75px,-45px)}20%,75%{opacity:1}100%{opacity:0;transform:translate(95px,50px)}}
-  @keyframes ospBeam{0%{opacity:0;transform:translateX(-35%)}25%{opacity:1}100%{opacity:0;transform:translateX(40%)}}
-  @keyframes ospSpark{0%{opacity:0;transform:translate(0,0) scale(.2)}25%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.8)}}
-  @keyframes ospGrid{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
-  @media(prefers-reduced-motion:reduce){#osp-build-layer{display:none!important}}
+  'use strict';
+  const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  if(reduced)return;
+  const style=document.createElement('style');style.id='osp-loading-style';
+  style.textContent=`
+    #osp-loading{position:fixed;inset:0;z-index:2147483000;overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse at center,#132c53 0%,#080f24 48%,#030713 100%);color:#f2fbff;font-family:Inter,system-ui,sans-serif;transition:opacity .7s ease,visibility .7s ease}
+    #osp-loading.finished{opacity:0;visibility:hidden;pointer-events:none}
+    #osp-loading .osp-grid{position:absolute;inset:-30%;opacity:.28;background:linear-gradient(rgba(65,207,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(65,207,255,.13) 1px,transparent 1px);background-size:50px 50px;transform:perspective(600px) rotateX(55deg);animation:ospGridMove 5s linear infinite}
+    #osp-loading .osp-stars{position:absolute;inset:0;pointer-events:none}
+    #osp-loading .osp-star{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:#8eefff;box-shadow:0 0 14px #39dfff;animation:ospStar var(--speed) ease-in-out infinite alternate}
+    #osp-loading .osp-content{position:relative;text-align:center;z-index:1;width:min(90vw,420px)}
+    #osp-loading .osp-frame{width:205px;height:205px;margin:0 auto 25px;position:relative;display:grid;place-items:center}
+    #osp-loading .osp-ring{position:absolute;inset:0;border:2px solid rgba(65,218,255,.4);border-top-color:#69efff;border-radius:50%;box-shadow:0 0 28px rgba(40,204,255,.15);animation:ospSpin 4s linear infinite}
+    #osp-loading .osp-ring.r2{inset:19px;border-style:dashed;border-color:rgba(166,119,255,.65);animation-direction:reverse;animation-duration:6s}
+    #osp-loading .osp-ring.r3{inset:41px;border-color:rgba(83,239,225,.4);border-right-color:#9efaff;animation-duration:2.5s}
+    #osp-loading .osp-module{position:absolute;width:26px;height:26px;border:1px solid #66eaff;border-radius:5px;background:rgba(30,148,255,.18);box-shadow:0 0 15px rgba(61,227,255,.55);animation:ospModule 2.4s ease-in-out infinite alternate}
+    #osp-loading .osp-module.m1{top:0;left:0}#osp-loading .osp-module.m2{right:0;top:12px;animation-delay:.35s}#osp-loading .osp-module.m3{bottom:0;left:14px;animation-delay:.7s}#osp-loading .osp-module.m4{bottom:9px;right:0;animation-delay:1.05s}
+    #osp-loading .osp-logo{font:800 66px 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.1em;color:#e9fbff;text-shadow:0 0 25px #46dfff;animation:ospLogo 2s ease-in-out infinite alternate}
+    #osp-loading h2{margin:0;font:800 clamp(36px,8vw,56px) 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.06em}
+    #osp-loading h2 span{color:#5de9ff}
+    #osp-loading p{margin:13px 0 22px;color:#96b7d5;font:600 11px ui-monospace,monospace;letter-spacing:.15em}
+    #osp-loading .osp-bar{height:3px;width:min(250px,70vw);margin:auto;background:rgba(118,187,238,.2);overflow:hidden;border-radius:99px}
+    #osp-loading .osp-bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,transparent,#7b68ff,#48eaff,#e3ffff);box-shadow:0 0 14px #48eaff;animation:ospBar 1.2s ease-in-out infinite}
+    #osp-loading .osp-skip{position:absolute;bottom:24px;right:24px;z-index:3;border:1px solid rgba(106,220,255,.5);border-radius:99px;background:rgba(8,26,50,.9);color:#d9faff;padding:10px 16px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer}
+    @keyframes ospGridMove{to{background-position:0 100px,100px 0}}
+    @keyframes ospSpin{to{transform:rotate(360deg)}}
+    @keyframes ospStar{to{transform:translate(var(--dx),var(--dy)) scale(1.6);opacity:.25}}
+    @keyframes ospModule{to{transform:translateY(-13px) rotate(35deg);box-shadow:0 0 30px #45ddff}}
+    @keyframes ospLogo{to{transform:scale(1.08);filter:drop-shadow(0 0 22px #41ddff)}}
+    @keyframes ospBar{from{transform:translateX(-110%)}to{transform:translateX(340%)}}
+    @media(prefers-reduced-motion:reduce){#osp-loading{display:none!important}}
   `;
-  document.head.appendChild(css);document.body.classList.add('osp-building');
-  const layer=document.createElement('div');layer.id='osp-build-layer';layer.setAttribute('aria-hidden','true');
-  layer.innerHTML='<div class="osp-build-caption">ASSEMBLING OSPULSE INTERFACE // INITIALIZING MODULES</div><button type="button" class="osp-build-skip">Skip intro →</button>';document.body.appendChild(layer);
-  const steps=[['.site-header','NAV','#54eaff',.2],['#home .hero-copy h1','TYPOGRAPHY','#ac8aff',1.05],['#home .hero-copy .hero-actions','ACTIONS','#55ffd6',1.6],['#home .hero-orbit','CORE','#55ffff',1.3],['#home .family-card:nth-child(1)','LINUX','#83ffd6',2.1],['#home .family-card:nth-child(2)','GAMING','#b98bff',2.25],['#home .family-card:nth-child(3)','BSD','#54eaff',2.4],['#home .family-card:nth-child(4)','MOBILE','#83ffd6',2.55],['#home .family-card:nth-child(5)','ALT','#b98bff',2.7],['#home .family-card:nth-child(6)','MEDIA','#54eaff',2.85],['#home .feature-strip','READY','#b98bff',3.2]];
-  const add=(cls,vars)=>{const n=document.createElement('span');n.className=cls;Object.entries(vars).forEach(([k,v])=>n.style.setProperty(k,v));layer.appendChild(n);return n;};
-  steps.forEach(([selector,label,color,delay],i)=>{const el=document.querySelector(selector);if(!el)return;const r=el.getBoundingClientRect();const xx=Math.max(18,Math.min(innerWidth-110,r.left+r.width*(i%2?.7:.3))),yy=Math.max(35,Math.min(innerHeight-60,r.top+Math.min(75,r.height*.35)));const vars={'--x':xx+'px','--y':yy+'px','--c':color,'--d':delay+'s'};add('osp-build-beam',vars);add('osp-build-cursor',vars).dataset.label=label;for(let j=0;j<9;j++)add('osp-build-spark',{'--x':xx+(Math.random()-.5)*75+'px','--y':yy+(Math.random()-.5)*65+'px','--dx':(Math.random()-.5)*160+'px','--dy':(Math.random()-.5)*130+'px','--d':delay+Math.random()*.35+'s'});});
-  let finished=false;let timer;const key=e=>{if(e.key==='Escape')finish();};
-  function finish(){if(finished)return;finished=true;clearTimeout(timer);document.removeEventListener('keydown',key);document.body.classList.remove('osp-building','osp-start');layer.classList.add('done');setTimeout(()=>{layer.remove();css.remove();},850);}
-  layer.querySelector('button').addEventListener('click',finish);document.addEventListener('keydown',key);
-  requestAnimationFrame(()=>document.body.classList.add('osp-start'));timer=setTimeout(finish,4600);
+  document.head.appendChild(style);
+  const layer=document.createElement('div');layer.id='osp-loading';layer.setAttribute('role','status');layer.setAttribute('aria-label','Loading OSPulse');
+  layer.innerHTML='<div class="osp-grid"></div><div class="osp-stars" aria-hidden="true"></div><div class="osp-content"><div class="osp-frame"><div class="osp-ring"></div><div class="osp-ring r2"></div><div class="osp-ring r3"></div><i class="osp-module m1"></i><i class="osp-module m2"></i><i class="osp-module m3"></i><i class="osp-module m4"></i><div class="osp-logo">O</div></div><h2>OS<span>Pulse</span></h2><p>BUILDING YOUR DISCOVERY EXPERIENCE</p><div class="osp-bar"><i></i></div></div><button class="osp-skip" type="button">Skip intro →</button>';
+  const stars=layer.querySelector('.osp-stars');
+  for(let i=0;i<65;i++){const s=document.createElement('i');s.className='osp-star';s.style.setProperty('--x',Math.random()*100+'%');s.style.setProperty('--y',Math.random()*100+'%');s.style.setProperty('--size',1+Math.random()*2+'px');s.style.setProperty('--speed',1+Math.random()*3+'s');s.style.setProperty('--dx',(Math.random()-.5)*100+'px');s.style.setProperty('--dy',(Math.random()-.5)*100+'px');stars.appendChild(s);}
+  document.body.appendChild(layer);
+  let finished=false,ready=Boolean(window.app && window.app.systems && window.app.systems.length);
+  const start=performance.now();let minTimer,maxTimer;
+  function finish(){if(finished)return;finished=true;clearTimeout(minTimer);clearTimeout(maxTimer);window.removeEventListener('ospulse:catalog-ready',onReady);layer.classList.add('finished');setTimeout(()=>{layer.remove();style.remove();},750);}
+  function onReady(){ready=true;minTimer=setTimeout(finish,Math.max(0,1450-(performance.now()-start)));}
+  window.addEventListener('ospulse:catalog-ready',onReady);
+  layer.querySelector('.osp-skip').addEventListener('click',finish);
+  if(ready)onReady();
+  maxTimer=setTimeout(finish,5000);
 })();
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
 (() => {
