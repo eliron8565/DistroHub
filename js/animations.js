@@ -5,7 +5,7 @@
   const style=document.createElement('style');style.id='osp-construction-style';
   style.textContent=`
     body.osp-constructing{overflow:hidden}
-    body.osp-constructing .site-header,body.osp-constructing #home .hero-copy>*,body.osp-constructing #home .hero-orbit,body.osp-constructing #home .family-card,body.osp-constructing #home .feature-strip>div{visibility:hidden!important}
+    body.osp-constructing .site-header,body.osp-constructing #home .hero-copy>*,body.osp-constructing #home .hero-orbit,body.osp-constructing #home .family-card,body.osp-constructing #home .feature-strip>div{opacity:0!important}body.osp-constructing .osp-built{opacity:1!important}
     #osp-construction{position:fixed;inset:0;z-index:2147483000;pointer-events:none;overflow:hidden;transition:opacity .7s ease}
     #osp-construction.finished{opacity:0}
     #osp-construction .osp-tint{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(3,18,39,.15),rgba(2,8,21,.42));transition:opacity .6s}
@@ -35,18 +35,18 @@
   const later=(fn,ms)=>timers.push(setTimeout(()=>{if(!stopped)fn();},ms));
   const sparks=(x,y,color)=>{for(let j=0;j<8;j++){const s=document.createElement('i');s.className='osp-spark';s.style.setProperty('--x',x+'px');s.style.setProperty('--y',y+'px');s.style.setProperty('--color',color);s.style.setProperty('--dx',(Math.random()-.5)*110+'px');s.style.setProperty('--dy',(Math.random()-.5)*110+'px');overlay.appendChild(s);s.addEventListener('animationend',()=>s.remove(),{once:true});}};
   document.body.classList.add('osp-constructing');
-  const reveal=(item,i)=>{const el=item.el,r=el.getBoundingClientRect(),color=colors[i%3],cursor=cursors[i%3];
+  const reveal=(item,i)=>{const el=item.el,r=el.getBoundingClientRect(),color=colors[i%3],cursor=cursors[i%3];if(!r.width||!r.height){el.classList.add('osp-built');return;}
     const x=Math.max(12,Math.min(innerWidth-115,r.left+Math.min(r.width*.3,85))),y=Math.max(30,Math.min(innerHeight-90,r.top+Math.min(r.height*.4,55)));
     cursor.style.opacity='1';const a=cursor.animate([{transform:'translate('+(x-110)+'px,'+(y-75)+'px)'},{transform:'translate('+x+'px,'+y+'px)'}],{duration:430,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});animations.push(a);
     const wire=document.createElement('div');wire.className='osp-outline';Object.assign(wire.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});wire.style.setProperty('--color',color);overlay.appendChild(wire);
     const w=wire.animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)',offset:.4},{opacity:0,clipPath:'inset(0 0 0 0)'}],{duration:750,easing:'ease-out'});animations.push(w);w.onfinish=()=>wire.remove();
-    sparks(x,y,color);el.style.visibility='visible';el.style.setProperty('visibility','visible','important');
+    sparks(x,y,color);el.classList.add('osp-built');
     const b=el.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',filter:'blur(9px)',transform:'translateY(18px) scale(.96)'},{opacity:1,clipPath:'inset(0 0 0 0)',filter:'blur(0)',transform:'none'}],{duration:680,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});animations.push(b);
     later(()=>{cursor.style.opacity='0';},560);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';
   };
   items.forEach((item,i)=>later(()=>reveal(item,i),item.at*1000));
   const finish=()=>{if(stopped)return;stopped=true;timers.forEach(clearTimeout);window.removeEventListener('ospulse:catalog-ready',onReady);document.removeEventListener('keydown',onKey);
-    animations.forEach(a=>{try{a.cancel();}catch{}});document.body.classList.remove('osp-constructing');items.forEach(v=>v.el.style.removeProperty('visibility'));
+    animations.forEach(a=>{try{a.cancel();}catch{}});document.body.classList.remove('osp-constructing');items.forEach(v=>{v.el.classList.remove('osp-built');v.el.style.removeProperty('visibility');});
     overlay.classList.add('finished');setTimeout(()=>{overlay.remove();style.remove();},750);};
   const onReady=()=>{ready=true;if(minimumDone)finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
