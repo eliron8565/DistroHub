@@ -6,11 +6,11 @@
   body.osp-building{overflow:hidden}
   body.osp-building .site-header,body.osp-building #home .hero-copy,body.osp-building #home .hero-orbit,body.osp-building #home .family-grid,body.osp-building #home .feature-strip{opacity:0}
   body.osp-building.osp-start .site-header{animation:ospBuild .65s ease .2s both}
-  body.osp-building.osp-start #home .hero-copy{animation:ospBuild .8s ease .8s both}
+  body.osp-building.osp-start #home .hero-copy{animation:ospBuild .8s ease .8s both} body.osp-building.osp-start #home .hero-copy>*{animation:ospBuild .65s cubic-bezier(.16,1,.3,1) both} body.osp-building.osp-start #home .hero-copy>*:nth-child(1){animation-delay:.82s}body.osp-building.osp-start #home .hero-copy>*:nth-child(2){animation-delay:1.08s}body.osp-building.osp-start #home .hero-copy>*:nth-child(3){animation-delay:1.34s}body.osp-building.osp-start #home .hero-copy>*:nth-child(4){animation-delay:1.6s}body.osp-building.osp-start #home .hero-copy>*:nth-child(5){animation-delay:1.85s}
   body.osp-building.osp-start #home .hero-orbit{animation:ospBuildCore 1s ease 1.3s both}
-  body.osp-building.osp-start #home .family-grid{animation:ospBuild .85s ease 2s both}
-  body.osp-building.osp-start #home .feature-strip{animation:ospBuild .75s ease 2.7s both}
-  #osp-build-layer{position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(9,39,73,.5),rgba(3,8,22,.8));transition:opacity .8s ease}
+  body.osp-building.osp-start #home .family-grid{animation:ospBuild .5s ease 2s both}body.osp-building.osp-start #home .family-card{animation:ospBuildCard .6s cubic-bezier(.16,1,.3,1) both}body.osp-building.osp-start #home .family-card:nth-child(1){animation-delay:2.1s}body.osp-building.osp-start #home .family-card:nth-child(2){animation-delay:2.25s}body.osp-building.osp-start #home .family-card:nth-child(3){animation-delay:2.4s}body.osp-building.osp-start #home .family-card:nth-child(4){animation-delay:2.55s}body.osp-building.osp-start #home .family-card:nth-child(5){animation-delay:2.7s}body.osp-building.osp-start #home .family-card:nth-child(6){animation-delay:2.85s}
+  body.osp-building.osp-start #home .feature-strip{animation:ospBuild .7s ease 3.1s both}body.osp-building.osp-start #home .feature-strip>div{animation:ospBuildCard .6s ease both}body.osp-building.osp-start #home .feature-strip>div:nth-child(1){animation-delay:3.15s}body.osp-building.osp-start #home .feature-strip>div:nth-child(2){animation-delay:3.35s}body.osp-building.osp-start #home .feature-strip>div:nth-child(3){animation-delay:3.55s}
+  #osp-build-layer{position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(9,39,73,.15),rgba(3,8,22,.32));transition:opacity .8s ease}
   #osp-build-layer.done{opacity:0}
   #osp-build-layer:before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(40,220,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(40,220,255,.08) 1px,transparent 1px);background-size:45px 45px;animation:ospGrid 3.7s ease both}
   .osp-build-cursor{position:absolute;left:var(--x);top:var(--y);width:20px;height:24px;opacity:0;filter:drop-shadow(0 0 12px var(--c));animation:ospCursor 1s ease var(--d) both}
@@ -20,7 +20,7 @@
   .osp-build-spark{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;border-radius:50%;background:#8efaff;box-shadow:0 0 12px #22ddff;animation:ospSpark .9s ease var(--d) both}
   .osp-build-caption{position:absolute;bottom:7%;left:0;right:0;text-align:center;color:#7aeaff;font:600 11px monospace;letter-spacing:.2em;text-shadow:0 0 15px #25ccff}
   .osp-build-skip{position:absolute;top:22px;right:22px;pointer-events:auto;border:1px solid #59c9ef;background:#0b1c36;color:#e9fbff;border-radius:99px;padding:10px 16px;cursor:pointer}
-  @keyframes ospBuild{from{opacity:0;transform:translateY(38px) scale(.95);filter:blur(15px)}to{opacity:1;transform:none;filter:none}}
+  @keyframes ospBuildCard{from{opacity:0;clip-path:inset(0 100% 0 0);transform:scale(.9);filter:blur(10px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:none;filter:none}} @keyframes ospBuild{from{opacity:0;transform:translateY(38px) scale(.95);filter:blur(15px)}to{opacity:1;transform:none;filter:none}}
   @keyframes ospBuildCore{from{opacity:0;transform:scale(.35) rotate(-90deg);filter:blur(18px)}to{opacity:1;transform:none;filter:none}}
   @keyframes ospCursor{0%{opacity:0;transform:translate(-75px,-45px)}20%,75%{opacity:1}100%{opacity:0;transform:translate(95px,50px)}}
   @keyframes ospBeam{0%{opacity:0;transform:translateX(-35%)}25%{opacity:1}100%{opacity:0;transform:translateX(40%)}}
@@ -31,13 +31,13 @@
   document.head.appendChild(css);document.body.classList.add('osp-building');
   const layer=document.createElement('div');layer.id='osp-build-layer';layer.setAttribute('aria-hidden','true');
   layer.innerHTML='<div class="osp-build-caption">ASSEMBLING OSPULSE INTERFACE // INITIALIZING MODULES</div><button type="button" class="osp-build-skip">Skip intro →</button>';document.body.appendChild(layer);
-  const steps=[['.site-header','NAV','#54eaff',.2],['#home .hero-copy','HERO','#ac8aff',.8],['#home .hero-orbit','CORE','#55ffff',1.3],['#home .family-grid','MODULES','#83ffd6',2],['#home .feature-strip','READY','#b98bff',2.7]];
+  const steps=[['.site-header','NAV','#54eaff',.2],['#home .hero-copy h1','TYPOGRAPHY','#ac8aff',1.05],['#home .hero-copy .hero-actions','ACTIONS','#55ffd6',1.6],['#home .hero-orbit','CORE','#55ffff',1.3],['#home .family-card:nth-child(1)','LINUX','#83ffd6',2.1],['#home .family-card:nth-child(2)','GAMING','#b98bff',2.25],['#home .family-card:nth-child(3)','BSD','#54eaff',2.4],['#home .family-card:nth-child(4)','MOBILE','#83ffd6',2.55],['#home .family-card:nth-child(5)','ALT','#b98bff',2.7],['#home .family-card:nth-child(6)','MEDIA','#54eaff',2.85],['#home .feature-strip','READY','#b98bff',3.2]];
   const add=(cls,vars)=>{const n=document.createElement('span');n.className=cls;Object.entries(vars).forEach(([k,v])=>n.style.setProperty(k,v));layer.appendChild(n);return n;};
-  steps.forEach(([selector,label,color,delay],i)=>{const el=document.querySelector(selector);if(!el)return;const r=el.getBoundingClientRect();const xx=Math.max(18,Math.min(innerWidth-110,r.left+r.width*(i%2?.7:.3))),yy=Math.max(35,Math.min(innerHeight-60,r.top+Math.min(75,r.height*.35)));const vars={'--x':xx+'px','--y':yy+'px','--c':color,'--d':delay+'s'};add('osp-build-beam',vars);add('osp-build-cursor',vars).dataset.label=label;for(let j=0;j<14;j++)add('osp-build-spark',{'--x':xx+(Math.random()-.5)*75+'px','--y':yy+(Math.random()-.5)*65+'px','--dx':(Math.random()-.5)*160+'px','--dy':(Math.random()-.5)*130+'px','--d':delay+Math.random()*.35+'s'});});
+  steps.forEach(([selector,label,color,delay],i)=>{const el=document.querySelector(selector);if(!el)return;const r=el.getBoundingClientRect();const xx=Math.max(18,Math.min(innerWidth-110,r.left+r.width*(i%2?.7:.3))),yy=Math.max(35,Math.min(innerHeight-60,r.top+Math.min(75,r.height*.35)));const vars={'--x':xx+'px','--y':yy+'px','--c':color,'--d':delay+'s'};add('osp-build-beam',vars);add('osp-build-cursor',vars).dataset.label=label;for(let j=0;j<9;j++)add('osp-build-spark',{'--x':xx+(Math.random()-.5)*75+'px','--y':yy+(Math.random()-.5)*65+'px','--dx':(Math.random()-.5)*160+'px','--dy':(Math.random()-.5)*130+'px','--d':delay+Math.random()*.35+'s'});});
   let finished=false;let timer;const key=e=>{if(e.key==='Escape')finish();};
   function finish(){if(finished)return;finished=true;clearTimeout(timer);document.removeEventListener('keydown',key);document.body.classList.remove('osp-building','osp-start');layer.classList.add('done');setTimeout(()=>{layer.remove();css.remove();},850);}
   layer.querySelector('button').addEventListener('click',finish);document.addEventListener('keydown',key);
-  requestAnimationFrame(()=>document.body.classList.add('osp-start'));timer=setTimeout(finish,3750);
+  requestAnimationFrame(()=>document.body.classList.add('osp-start'));timer=setTimeout(finish,4600);
 })();
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
 (() => {
