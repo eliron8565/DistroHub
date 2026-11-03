@@ -1,70 +1,112 @@
-/* OSPulse futuristic intro — lightweight, skippable, motion-accessible. */
+/* OSPulse cinematic boot sequence — layered neon motion, canvas particles, and an accessible skip. */
 (() => {
   'use strict';
   if (document.getElementById('ospulse-intro') || window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return;
-  const css = document.createElement('style');
-  css.id = 'ospulse-intro-style';
-  css.textContent = `
-    #ospulse-intro{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 50% 48%,#10294a 0%,#080e22 45%,#040812 100%);color:#eafaff;isolation:isolate;transition:opacity .7s ease,visibility .7s ease}
+  const style = document.createElement('style');
+  style.id = 'ospulse-intro-style';
+  style.textContent = \`
+    #ospulse-intro{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:center;overflow:hidden;isolation:isolate;background:#030711;color:#f0faff;font-family:Inter,system-ui,sans-serif;transition:opacity .85s cubic-bezier(.16,1,.3,1),visibility .85s}
     #ospulse-intro.intro-exit{opacity:0;visibility:hidden;pointer-events:none}
-    #ospulse-intro::before{content:"";position:absolute;inset:-50%;background:repeating-linear-gradient(0deg,transparent 0 49px,rgba(64,200,255,.06) 50px),repeating-linear-gradient(90deg,transparent 0 49px,rgba(64,200,255,.06) 50px);transform:perspective(650px) rotateX(58deg) scale(1.5);opacity:.28;animation:ospGrid 3s ease-out both}
-    #ospulse-intro::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 49%,rgba(75,216,255,.07) 50%,transparent 51%);background-size:100% 7px;opacity:.3}
-    .osp-intro-particles{position:absolute;inset:0;pointer-events:none}
-    .osp-intro-particle{position:absolute;width:var(--size);height:var(--size);border-radius:50%;background:#7deaff;box-shadow:0 0 10px #21d6ff,0 0 22px #6d69ff;opacity:0;animation:ospFloat var(--dur) ease-out var(--delay) both}
-    .osp-intro-center{position:relative;text-align:center;padding:32px;z-index:1;animation:ospReveal .85s cubic-bezier(.2,.8,.2,1) both}
-    .osp-intro-halo{position:absolute;width:min(70vw,370px);aspect-ratio:1;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid rgba(74,216,255,.27);border-radius:50%;box-shadow:0 0 40px rgba(22,196,255,.14),inset 0 0 40px rgba(103,78,255,.12);animation:ospHalo 2.3s ease-in-out infinite alternate;pointer-events:none}
-    .osp-intro-halo::before,.osp-intro-halo::after{content:"";position:absolute;inset:13%;border:1px dashed rgba(130,119,255,.35);border-radius:50%;animation:ospSpin 10s linear infinite}
-    .osp-intro-halo::after{inset:25%;border-color:rgba(66,218,255,.45);animation-direction:reverse;animation-duration:7s}
-    .osp-intro-mark{position:relative;display:inline-grid;place-items:center;width:78px;height:78px;margin-bottom:22px;border:1px solid rgba(90,230,255,.55);border-radius:22px;background:linear-gradient(135deg,rgba(32,190,255,.18),rgba(112,73,255,.22));box-shadow:0 0 38px rgba(34,211,238,.3),inset 0 0 24px rgba(34,211,238,.1);font:800 42px 'Space Grotesk',system-ui,sans-serif;color:#fff;text-shadow:0 0 20px #32ddff}
-    .osp-intro-title{position:relative;font:800 clamp(38px,9vw,72px)/1 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.065em;text-shadow:0 0 36px rgba(70,206,255,.4)}
-    .osp-intro-title span{color:#4fe4ff}
-    .osp-intro-sub{position:relative;margin:18px 0 28px;font:600 11px/1.5 Inter,system-ui,sans-serif;letter-spacing:.32em;color:#8ba8ca;text-transform:uppercase}
-    .osp-intro-track{position:relative;margin:auto;width:min(240px,65vw);height:3px;border-radius:9px;overflow:hidden;background:rgba(120,190,255,.14)}
-    .osp-intro-track i{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#695bff,#32dcff,#d6ffff);box-shadow:0 0 16px #32dcff;animation:ospLoad 2s ease-in-out .15s forwards}
-    .osp-intro-skip{position:absolute;right:clamp(18px,4vw,44px);bottom:clamp(18px,4vw,40px);z-index:2;background:rgba(14,27,49,.7);color:#bcd5eb;border:1px solid rgba(112,190,255,.25);border-radius:99px;padding:10px 17px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer}
-    .osp-intro-skip:hover,.osp-intro-skip:focus-visible{color:#fff;border-color:#50dcff;outline-offset:3px}
-    @keyframes ospFloat{0%{opacity:0;transform:translate3d(0,40px,0) scale(.2)}25%{opacity:.75}85%{opacity:.5}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0) scale(1.3)}}
-    @keyframes ospReveal{from{opacity:0;filter:blur(12px);transform:translateY(24px) scale(.92)}to{opacity:1;filter:none;transform:none}}
-    @keyframes ospHalo{from{opacity:.5;box-shadow:0 0 20px rgba(34,211,238,.12)}to{opacity:1;box-shadow:0 0 65px rgba(34,211,238,.28)}}
-    @keyframes ospSpin{to{transform:rotate(360deg)}}
-    @keyframes ospLoad{to{transform:scaleX(1)}}
-    @keyframes ospGrid{from{opacity:0;transform:perspective(650px) rotateX(58deg) scale(1.7)}to{opacity:.28;transform:perspective(650px) rotateX(58deg) scale(1.5)}}
+    #ospulse-intro canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+    #ospulse-intro .intro-nebula{position:absolute;inset:-35%;background:radial-gradient(ellipse at 50% 48%,rgba(20,156,237,.25),transparent 28%),radial-gradient(ellipse at 25% 40%,rgba(110,58,255,.18),transparent 40%),radial-gradient(ellipse at 75% 60%,rgba(17,224,234,.15),transparent 38%);filter:blur(25px);animation:osNebula 5s ease-in-out infinite alternate}
+    #ospulse-intro .intro-grid{position:absolute;inset:-60%;opacity:.22;background:linear-gradient(rgba(40,192,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(40,192,255,.15) 1px,transparent 1px);background-size:65px 65px;transform:perspective(500px) rotateX(64deg) translateY(15%);animation:osGrid 3.7s linear infinite}
+    #ospulse-intro .intro-scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 6px,rgba(60,205,255,.025) 7px 8px);animation:osScan 4s linear infinite}
+    #ospulse-intro .intro-sweep{position:absolute;left:-20%;top:-20%;width:140%;height:12%;background:linear-gradient(transparent,rgba(45,215,255,.13),transparent);filter:blur(12px);transform:rotate(-15deg);animation:osSweep 3.4s ease-in-out both}
+    #ospulse-intro .intro-content{position:relative;z-index:2;text-align:center;padding:36px 18px;width:min(96vw,680px);animation:osContent .8s cubic-bezier(.16,1,.3,1) both}
+    #ospulse-intro .intro-orbit{position:relative;width:clamp(170px,34vw,245px);aspect-ratio:1;margin:0 auto 10px;display:grid;place-items:center}
+    #ospulse-intro .intro-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(58,223,255,.42);box-shadow:0 0 35px rgba(31,203,255,.15),inset 0 0 28px rgba(60,114,255,.12);animation:osRing 5s linear infinite}
+    #ospulse-intro .intro-ring.r2{inset:13%;border:2px dashed rgba(130,103,255,.65);animation-direction:reverse;animation-duration:3.8s}
+    #ospulse-intro .intro-ring.r3{inset:26%;border:2px dotted rgba(95,239,255,.75);animation-duration:2.8s}
+    #ospulse-intro .intro-ring.r1::before,#ospulse-intro .intro-ring.r1::after{content:"";position:absolute;width:11px;height:11px;border-radius:50%;background:#a2ffff;box-shadow:0 0 15px #27dfff,0 0 40px #27dfff;top:12%;left:12%}
+    #ospulse-intro .intro-ring.r1::after{top:auto;left:auto;right:12%;bottom:12%;background:#a38cff;box-shadow:0 0 20px #8c6cff}
+    #ospulse-intro .intro-core{position:relative;display:grid;place-items:center;width:80px;height:80px;border-radius:23px;border:1px solid #66eaff;background:linear-gradient(145deg,#142e57,#211044);font:800 48px 'Space Grotesk',system-ui,sans-serif;box-shadow:0 0 20px #23d6ff,0 0 65px rgba(80,81,255,.45),inset 0 0 20px rgba(68,221,255,.2);text-shadow:0 0 25px #50e6ff;animation:osCore 1.5s ease-in-out infinite alternate}
+    #ospulse-intro .intro-kicker{font-size:10px;letter-spacing:.38em;color:#79e7ff;font-weight:700;margin-bottom:10px;animation:osBlink 1.1s steps(2) infinite}
+    #ospulse-intro .intro-title{font:800 clamp(45px,11vw,88px)/1 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.07em;position:relative;filter:drop-shadow(0 0 20px rgba(49,217,255,.3));animation:osTitle 1.15s cubic-bezier(.16,1,.3,1) both}
+    #ospulse-intro .intro-title span{color:#4ee9ff}
+    #ospulse-intro .intro-title::after{content:attr(data-title);position:absolute;inset:0;color:#ae83ff;opacity:0;clip-path:inset(28% 0 42% 0);animation:osGlitch 3s steps(1) 1}
+    #ospulse-intro .intro-subtitle{margin:15px 0 22px;color:#8faec8;letter-spacing:.25em;font-size:11px;font-weight:600;text-transform:uppercase}
+    #ospulse-intro .intro-status{min-height:20px;color:#65eaff;font:600 11px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.11em}
+    #ospulse-intro .intro-status::before{content:"› ";color:#a98dff}
+    #ospulse-intro .intro-progress{height:3px;width:min(270px,75vw);margin:14px auto 0;background:rgba(90,165,230,.18);border-radius:20px;overflow:hidden;box-shadow:0 0 15px rgba(36,201,255,.1)}
+    #ospulse-intro .intro-progress i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#8055ff,#21d9ff,#d7ffff);box-shadow:0 0 18px #24dcff;animation:osProgress 3.5s ease-in-out forwards}
+    #ospulse-intro .intro-corner{position:absolute;z-index:2;color:rgba(129,198,228,.58);font:10px ui-monospace,monospace;letter-spacing:.15em}
+    #ospulse-intro .intro-corner.tl{top:24px;left:25px}#ospulse-intro .intro-corner.br{bottom:25px;right:25px}
+    #ospulse-intro .intro-skip{position:absolute;z-index:3;bottom:25px;left:25px;background:rgba(10,30,54,.8);border:1px solid rgba(73,203,255,.4);border-radius:999px;padding:11px 17px;color:#d6f5ff;cursor:pointer;font:600 12px Inter,system-ui,sans-serif;transition:background .2s,border-color .2s}
+    #ospulse-intro .intro-skip:hover,#ospulse-intro .intro-skip:focus-visible{background:#16365a;border-color:#65eaff;outline-offset:3px}
+    #ospulse-intro .intro-flash{position:absolute;inset:0;background:#c4faff;opacity:0;pointer-events:none;z-index:4}
+    #ospulse-intro.intro-exit .intro-flash{animation:osFlash .6s ease-out both}
+    @keyframes osNebula{to{transform:translate3%(-1%);filter:blur(38px) hue-rotate(18deg)}}
+    @keyframes osGrid{to{background-position:0 130px,130px 0}}
+    @keyframes osScan{to{background-position:0 160px}}
+    @keyframes osSweep{from{top:-30%;opacity:0}25%{opacity:1}to{top:120%;opacity:0}}
+    @keyframes osRing{to{transform:rotate(360deg)}}
+    @keyframes osCore{to{transform:scale(1.09);box-shadow:0 0 40px #23d6ff,0 0 100px rgba(80,81,255,.55),inset 0 0 28px rgba(68,221,255,.35)}}
+    @keyframes osBlink{50%{opacity:.35}}
+    @keyframes osContent{from{opacity:0;transform:scale(.8) translateY(25px);filter:blur(14px)}to{opacity:1;transform:none;filter:none}}
+    @keyframes osTitle{from{opacity:0;transform:translateY(18px);letter-spacing:.08em}to{opacity:1;transform:none;letter-spacing:-.07em}}
+    @keyframes osGlitch{0%,13%,17%,46%,50%,100%{opacity:0;transform:none}14%,47%{opacity:.9;transform:translateX(5px)}15%,48%{opacity:.7;transform:translateX(-7px)}}
+    @keyframes osProgress{to{transform:scaleX(1)}}
+    @keyframes osFlash{0%{opacity:0}18%{opacity:.5}100%{opacity:0}}
+    @media(max-width:600px){#ospulse-intro .intro-corner{font-size:8px}#ospulse-intro .intro-subtitle{font-size:9px;letter-spacing:.15em}#ospulse-intro .intro-skip{bottom:18px;left:18px}}
     @media(prefers-reduced-motion:reduce){#ospulse-intro{display:none!important}}
-  `;
-  document.head.appendChild(css);
-  const layer = document.createElement('div');
-  layer.id = 'ospulse-intro';
-  layer.setAttribute('role','status');
-  layer.setAttribute('aria-label','Loading OSPulse');
-  layer.innerHTML = '<div class="osp-intro-particles" aria-hidden="true"></div><div class="osp-intro-center"><div class="osp-intro-halo" aria-hidden="true"></div><div class="osp-intro-mark" aria-hidden="true">O</div><div class="osp-intro-title">OS<span>Pulse</span></div><div class="osp-intro-sub">Initializing your next OS</div><div class="osp-intro-track" aria-hidden="true"><i></i></div></div><button class="osp-intro-skip" type="button" aria-label="Skip intro">Skip intro →</button>';
-  const particles = layer.querySelector('.osp-intro-particles');
-  const count = Math.min(48, Math.max(18, Math.floor(window.innerWidth / 27)));
-  for(let i=0;i<count;i++){
-    const p=document.createElement('i');
-    p.className='osp-intro-particle';
-    p.style.left=(Math.random()*100)+'%';
-    p.style.top=(Math.random()*100)+'%';
-    p.style.setProperty('--size',(1+Math.random()*3)+'px');
-    p.style.setProperty('--dx',((Math.random()-.5)*180)+'px');
-    p.style.setProperty('--dy',(-60-Math.random()*190)+'px');
-    p.style.setProperty('--dur',(1.6+Math.random()*1.2)+'s');
-    p.style.setProperty('--delay',(Math.random()*.7)+'s');
-    particles.appendChild(p);
-  }
-  document.body.appendChild(layer);
-  let finished=false;
-  let timer;
-  const finish=()=>{
-    if(finished)return;
-    finished=true;
-    clearTimeout(timer);
-    layer.classList.add('intro-exit');
-    layer.addEventListener('transitionend',()=>layer.remove(),{once:true});
-    setTimeout(()=>layer.remove(),850);
+  \`.replace('translate3%(-1%)','translateX(-1%)');
+  document.head.appendChild(style);
+  const intro = document.createElement('div');
+  intro.id='ospulse-intro';
+  intro.setAttribute('role','status');
+  intro.setAttribute('aria-label','OSPulse loading');
+  intro.innerHTML='<div class="intro-nebula"></div><div class="intro-grid"></div><div class="intro-scan"></div><div class="intro-sweep"></div><canvas aria-hidden="true"></canvas><span class="intro-corner tl">OS//PULSE — SYSTEM BOOT</span><span class="intro-corner br">SECURE CONNECTION · 2026</span><div class="intro-content"><div class="intro-orbit"><div class="intro-ring r1"></div><div class="intro-ring r2"></div><div class="intro-ring r3"></div><div class="intro-core">O</div></div><div class="intro-kicker">INITIALIZING DISCOVERY ENGINE</div><div class="intro-title" data-title="OSPulse">OS<span>Pulse</span></div><div class="intro-subtitle">Explore beyond the ordinary</div><div class="intro-status" aria-live="off">Booting interface...</div><div class="intro-progress"><i></i></div></div><button type="button" class="intro-skip" aria-label="Skip opening animation">Skip intro →</button><div class="intro-flash"></div>';
+  document.body.appendChild(intro);
+  const canvas=intro.querySelector('canvas');
+  const ctx=canvas.getContext('2d',{alpha:true});
+  let width=0,height=0,dpr=1,particles=[],frame=0,raf=0,done=false;
+  const resize=()=>{
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    width=window.innerWidth;height=window.innerHeight;
+    canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
+    if(ctx)ctx.setTransform(dpr,0,0,dpr,0,0);
+    const count=Math.min(125,Math.max(40,Math.round(width*height/8500)));
+    particles=Array.from({length:count},()=>({x:Math.random()*width,y:Math.random()*height,r:.6+Math.random()*2,v:.25+Math.random()*1.4,phase:Math.random()*6.28,alpha:.2+Math.random()*.7}));
   };
-  layer.querySelector('.osp-intro-skip').addEventListener('click',finish);
-  timer=setTimeout(finish,2350);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')finish()},{once:true});
+  const draw=()=>{
+    if(done||!ctx)return;
+    frame++;
+    ctx.clearRect(0,0,width,height);
+    for(const p of particles){
+      p.y-=p.v;p.x+=Math.sin(frame*.009+p.phase)*.25;
+      if(p.y< -10){p.y=height+10;p.x=Math.random()*width;}
+      ctx.beginPath();ctx.fillStyle='rgba(99,225,255,'+p.alpha+')';ctx.shadowBlur=12;ctx.shadowColor='#22d8ff';ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+    }
+    ctx.shadowBlur=0;
+    const cx=width/2,cy=height/2-45;
+    for(let k=0;k<3;k++){
+      const radius=130+k*62+Math.sin(frame*.03+k)*9;
+      ctx.beginPath();ctx.strokeStyle='rgba('+(k%2?'142,105,255':'48,217,255')+','+(.13-k*.025)+')';
+      ctx.lineWidth=1.1;ctx.arc(cx,cy,radius,frame*.006+k,frame*.006+k+Math.PI*1.25);ctx.stroke();
+    }
+    raf=requestAnimationFrame(draw);
+  };
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  if(ctx)raf=requestAnimationFrame(draw);
+  const statuses=['Booting interface...','Syncing starfield particles...','Calibrating neon core...','Mapping operating systems...','OSPulse ready.'];
+  const status=intro.querySelector('.intro-status');
+  const timeouts=[];
+  statuses.forEach((label,i)=>timeouts.push(setTimeout(()=>{if(!done)status.textContent=label;},i*720)));
+  const finish=()=>{
+    if(done)return;
+    done=true;
+    timeouts.forEach(clearTimeout);
+    clearTimeout(auto);
+    cancelAnimationFrame(raf);
+    window.removeEventListener('resize',resize);
+    intro.classList.add('intro-exit');
+    setTimeout(()=>{intro.remove();style.remove();},900);
+  };
+  intro.querySelector('.intro-skip').addEventListener('click',finish);
+  const key=e=>{if(e.key==='Escape'){finish();document.removeEventListener('keydown',key);}};
+  document.addEventListener('keydown',key);
+  const auto=setTimeout(()=>{finish();document.removeEventListener('keydown',key);},3650);
 })();
 
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
