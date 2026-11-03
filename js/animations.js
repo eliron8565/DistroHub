@@ -21,6 +21,19 @@
     #osp-construction .osp-status{position:absolute;left:22px;bottom:30px;color:#7ddff4;font:700 10px monospace;letter-spacing:.13em;text-shadow:0 0 12px #36dfff}
     @keyframes ospScan{0%{opacity:0;transform:scaleX(0)}30%{opacity:1}100%{opacity:0;transform:scaleX(1)}}
     @keyframes ospFlash{0%{opacity:.9;transform:translate(-50%,-50%) scale(.15)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}} 
+    #osp-construction .osp-halo{position:absolute;left:var(--x);top:var(--y);width:160px;height:160px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,color-mix(in srgb,var(--color) 32%,transparent),transparent 68%);filter:blur(12px);animation:ospHalo .85s ease-out both;mix-blend-mode:screen}
+    #osp-construction .osp-trail{position:absolute;left:var(--x);top:var(--y);height:2px;width:var(--len);transform:rotate(var(--angle));transform-origin:left;background:linear-gradient(90deg,transparent,var(--color));box-shadow:0 0 12px var(--color);opacity:0;animation:ospTrail .85s ease-out both;pointer-events:none}
+    #osp-construction .osp-crosshair{position:absolute;left:var(--x);top:var(--y);width:22px;height:22px;border:1px solid var(--color);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 16px var(--color);animation:ospCrosshair .7s ease-out both}
+    #osp-construction .osp-crosshair:before,#osp-construction .osp-crosshair:after{content:'';position:absolute;background:var(--color)}
+    #osp-construction .osp-crosshair:before{width:1px;height:34px;top:-7px;left:10px}#osp-construction .osp-crosshair:after{height:1px;width:34px;left:-7px;top:10px}
+    #osp-construction .osp-caption{animation:ospCaptionGlow 2.3s ease-in-out infinite alternate}
+    #osp-construction .osp-cursor{transition:opacity .2s ease}
+    #osp-construction .osp-skip:hover{background:#123355;box-shadow:0 0 22px rgba(76,226,255,.24)}
+    @keyframes ospHalo{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}25%{opacity:.8}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}
+    @keyframes ospTrail{0%{opacity:0;transform:rotate(var(--angle)) scaleX(.2)}25%{opacity:.8}100%{opacity:0;transform:rotate(var(--angle)) scaleX(1.1)}}
+    @keyframes ospCrosshair{0%{opacity:0;transform:translate(-50%,-50%) scale(2) rotate(-50deg)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(.6) rotate(0)}}
+    @keyframes ospCaptionGlow{to{opacity:.55;text-shadow:0 0 26px #69eaff}}
+    @media(max-width:600px){#osp-construction .osp-caption{font-size:9px;bottom:64px;letter-spacing:.06em}#osp-construction .osp-status{bottom:18px;left:12px;font-size:9px}#osp-construction .osp-progress{bottom:43px}#osp-construction .osp-cursor:after{font-size:8px;padding:3px 5px}}
     #osp-construction .osp-spark{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;border-radius:50%;background:var(--color);box-shadow:0 0 12px var(--color);animation:ospConstructSpark .65s ease-out forwards}
     #osp-construction .osp-caption{position:absolute;bottom:52px;left:0;right:0;text-align:center;color:#84e9ff;text-shadow:0 0 18px #23c8ff;font:700 11px monospace;letter-spacing:.15em}
     #osp-construction .osp-progress{position:absolute;bottom:37px;left:50%;width:min(300px,70vw);height:3px;transform:translateX(-50%);border-radius:9px;overflow:hidden;background:rgba(86,179,238,.2)}
@@ -47,6 +60,9 @@
     const w=wire.animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)',offset:.4},{opacity:0,clipPath:'inset(0 0 0 0)'}],{duration:750,easing:'ease-out'});animations.push(w);w.onfinish=()=>wire.remove();
     const scan=document.createElement('i');scan.className='osp-scan';scan.style.setProperty('--left',r.left+'px');scan.style.setProperty('--top',Math.max(0,r.top)+'px');scan.style.setProperty('--width',Math.max(0,r.width)+'px');scan.style.setProperty('--color',color);overlay.appendChild(scan);scan.addEventListener('animationend',()=>scan.remove(),{once:true});
     const flash=document.createElement('i');flash.className='osp-flash';flash.style.setProperty('--x',x+'px');flash.style.setProperty('--y',y+'px');flash.style.setProperty('--color',color);overlay.appendChild(flash);flash.addEventListener('animationend',()=>flash.remove(),{once:true});
+    const halo=document.createElement('i');halo.className='osp-halo';halo.style.setProperty('--x',x+'px');halo.style.setProperty('--y',y+'px');halo.style.setProperty('--color',color);overlay.appendChild(halo);halo.addEventListener('animationend',()=>halo.remove(),{once:true});
+    const cross=document.createElement('i');cross.className='osp-crosshair';cross.style.setProperty('--x',x+'px');cross.style.setProperty('--y',y+'px');cross.style.setProperty('--color',color);overlay.appendChild(cross);cross.addEventListener('animationend',()=>cross.remove(),{once:true});
+    const sx=x-110,sy=y-75,dx=x-sx,dy=y-sy,trail=document.createElement('i');trail.className='osp-trail';trail.style.setProperty('--x',sx+'px');trail.style.setProperty('--y',sy+'px');trail.style.setProperty('--len',Math.hypot(dx,dy)+'px');trail.style.setProperty('--angle',Math.atan2(dy,dx)+'rad');trail.style.setProperty('--color',color);overlay.appendChild(trail);trail.addEventListener('animationend',()=>trail.remove(),{once:true});
     sparks(x,y,color);el.classList.add('osp-built');
     const b=el.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',filter:'blur(9px)',transform:'translateY(18px) scale(.96)'},{opacity:1,clipPath:'inset(0 0 0 0)',filter:'blur(0)',transform:'none'}],{duration:850,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});animations.push(b);
     later(()=>{cursor.style.opacity='0';},780);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';overlay.querySelector('.osp-status').textContent='ASSEMBLING COMPONENTS · '+String(Math.round((i+1)/items.length*100)).padStart(2,'0')+'%';
