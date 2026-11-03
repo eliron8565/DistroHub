@@ -55,7 +55,11 @@
   document.body.classList.add('osp-constructing');document.documentElement.classList.remove('osp-prebuild');
   const reveal=(item,i)=>{const el=item.el,r=el.getBoundingClientRect(),color=colors[i%3],cursor=cursors[i%3];if(!r.width||!r.height){el.classList.add('osp-built');return;}
     const x=Math.max(12,Math.min(innerWidth-115,r.left+Math.min(r.width*.3,85))),y=Math.max(30,Math.min(innerHeight-90,r.top+Math.min(r.height*.4,55)));
-    cursor.style.opacity='1';const a=cursor.animate([{transform:'translate('+(x-110)+'px,'+(y-75)+'px)'},{transform:'translate('+x+'px,'+y+'px)'}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});animations.push(a);
+    // The cursor physically carries the actual DOM element from its staging point into place.
+    const sourceX=(i%3===0?-1:1)*Math.min(230,innerWidth*.28),sourceY=(i%3===1?100:65);
+    const duration=950,ease='cubic-bezier(.22,1,.36,1)';
+    cursor.style.opacity='1';
+    const a=cursor.animate([{transform:'translate('+(x+sourceX)+'px,'+(y+sourceY)+'px)'},{transform:'translate('+(x+sourceX*.42)+'px,'+(y+sourceY*.42)+'px)',offset:.65},{transform:'translate('+x+'px,'+y+'px)'}],{duration,easing:ease,fill:'forwards'});animations.push(a);
     const wire=document.createElement('div');wire.className='osp-outline';Object.assign(wire.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});wire.style.setProperty('--color',color);overlay.appendChild(wire);
     const w=wire.animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)',offset:.4},{opacity:0,clipPath:'inset(0 0 0 0)'}],{duration:750,easing:'ease-out'});animations.push(w);w.onfinish=()=>wire.remove();
     const scan=document.createElement('i');scan.className='osp-scan';scan.style.setProperty('--left',r.left+'px');scan.style.setProperty('--top',Math.max(0,r.top)+'px');scan.style.setProperty('--width',Math.max(0,r.width)+'px');scan.style.setProperty('--color',color);overlay.appendChild(scan);scan.addEventListener('animationend',()=>scan.remove(),{once:true});
@@ -64,8 +68,12 @@
     const cross=document.createElement('i');cross.className='osp-crosshair';cross.style.setProperty('--x',x+'px');cross.style.setProperty('--y',y+'px');cross.style.setProperty('--color',color);overlay.appendChild(cross);cross.addEventListener('animationend',()=>cross.remove(),{once:true});
     const sx=x-110,sy=y-75,dx=x-sx,dy=y-sy,trail=document.createElement('i');trail.className='osp-trail';trail.style.setProperty('--x',sx+'px');trail.style.setProperty('--y',sy+'px');trail.style.setProperty('--len',Math.hypot(dx,dy)+'px');trail.style.setProperty('--angle',Math.atan2(dy,dx)+'rad');trail.style.setProperty('--color',color);overlay.appendChild(trail);trail.addEventListener('animationend',()=>trail.remove(),{once:true});
     sparks(x,y,color);el.classList.add('osp-built');
-    const b=el.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',filter:'blur(9px)',transform:'translateY(18px) scale(.96)'},{opacity:1,clipPath:'inset(0 0 0 0)',filter:'blur(0)',transform:'none'}],{duration:850,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});animations.push(b);
-    later(()=>{cursor.style.opacity='0';},780);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';overlay.querySelector('.osp-status').textContent='ASSEMBLING COMPONENTS · '+String(Math.round((i+1)/items.length*100)).padStart(2,'0')+'%';
+    const b=el.animate([
+      {opacity:0,transform:'translate('+sourceX+'px,'+sourceY+'px) scale(.78) rotate('+(i%2?-5:5)+'deg)',filter:'blur(13px)',offset:0},
+      {opacity:.94,transform:'translate('+(sourceX*.42)+'px,'+(sourceY*.42)+'px) scale(.94) rotate(0deg)',filter:'blur(2px)',offset:.65},
+      {opacity:1,transform:'translate(0,0) scale(1) rotate(0deg)',filter:'blur(0)',offset:1}
+    ],{duration,easing:ease,fill:'both'});animations.push(b);
+    later(()=>{cursor.style.opacity='0';},1000);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';overlay.querySelector('.osp-status').textContent='ASSEMBLING COMPONENTS · '+String(Math.round((i+1)/items.length*100)).padStart(2,'0')+'%';
   };
   items.forEach((item,i)=>later(()=>reveal(item,i),item.at*1000));
   const finish=()=>{if(stopped)return;stopped=true;timers.forEach(clearTimeout);window.removeEventListener('ospulse:catalog-ready',onReady);document.removeEventListener('keydown',onKey);
@@ -74,7 +82,7 @@
   const onReady=()=>{ready=true;if(minimumDone)finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
   overlay.querySelector('.osp-skip').addEventListener('click',finish);document.addEventListener('keydown',onKey);window.addEventListener('ospulse:catalog-ready',onReady);
-  later(()=>{minimumDone=true;if(ready)finish();},4900);later(finish,7000);
+  later(()=>{minimumDone=true;if(ready)finish();},5200);later(finish,7500);
 })();
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
 (() => {
