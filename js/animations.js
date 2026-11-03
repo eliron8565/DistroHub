@@ -16,6 +16,11 @@
     #osp-construction .osp-outline{position:absolute;border:1px solid var(--color);border-radius:10px;box-shadow:0 0 23px var(--color),inset 0 0 15px rgba(64,200,255,.12);pointer-events:none}
     #osp-construction .osp-outline:before,#osp-construction .osp-outline:after{content:'';position:absolute;width:7px;height:7px;background:#0a1930;border:1px solid var(--color);box-shadow:0 0 12px var(--color)}
     #osp-construction .osp-outline:before{left:-4px;top:-4px}#osp-construction .osp-outline:after{right:-4px;bottom:-4px}
+    #osp-construction .osp-scan{position:absolute;height:2px;left:var(--left);top:var(--top);width:var(--width);background:linear-gradient(90deg,transparent,var(--color),#fff,transparent);box-shadow:0 0 16px var(--color);transform-origin:left;pointer-events:none;animation:ospScan .75s cubic-bezier(.16,1,.3,1) both}
+    #osp-construction .osp-flash{position:absolute;left:var(--x);top:var(--y);width:80px;height:80px;border:1px solid var(--color);border-radius:50%;box-shadow:0 0 28px var(--color);pointer-events:none;animation:ospFlash .7s ease-out both}
+    #osp-construction .osp-status{position:absolute;left:22px;bottom:30px;color:#7ddff4;font:700 10px monospace;letter-spacing:.13em;text-shadow:0 0 12px #36dfff}
+    @keyframes ospScan{0%{opacity:0;transform:scaleX(0)}30%{opacity:1}100%{opacity:0;transform:scaleX(1)}}
+    @keyframes ospFlash{0%{opacity:.9;transform:translate(-50%,-50%) scale(.15)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.7)}} 
     #osp-construction .osp-spark{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;border-radius:50%;background:var(--color);box-shadow:0 0 12px var(--color);animation:ospConstructSpark .65s ease-out forwards}
     #osp-construction .osp-caption{position:absolute;bottom:52px;left:0;right:0;text-align:center;color:#84e9ff;text-shadow:0 0 18px #23c8ff;font:700 11px monospace;letter-spacing:.15em}
     #osp-construction .osp-progress{position:absolute;bottom:37px;left:50%;width:min(300px,70vw);height:3px;transform:translateX(-50%);border-radius:9px;overflow:hidden;background:rgba(86,179,238,.2)}
@@ -25,7 +30,7 @@
   `;
   document.head.appendChild(style);
   const overlay=document.createElement('div');overlay.id='osp-construction';overlay.setAttribute('aria-hidden','true');
-  overlay.innerHTML='<div class="osp-tint"></div><div class="osp-grid"></div><div class="osp-caption">BUILDING OSPULSE // DESIGNING YOUR EXPERIENCE</div><div class="osp-progress"><i></i></div><button class="osp-skip" type="button">Skip intro →</button>';document.body.appendChild(overlay);
+  overlay.innerHTML='<div class="osp-tint"></div><div class="osp-grid"></div><div class="osp-caption">BUILDING OSPULSE // DESIGNING YOUR EXPERIENCE</div><div class="osp-status">INITIALIZING INTERFACE · 00%</div><div class="osp-progress"><i></i></div><button class="osp-skip" type="button">Skip intro →</button>';document.body.appendChild(overlay);
   const targets=[['.site-header',.12],['#home .hero-copy .eyebrow',.38],['#home .hero-copy h1',.65],['#home .hero-copy p',.94],['#home .hero-copy .hero-actions',1.25],['#home .hero-orbit',1.5],['#home .hero-copy .hero-metrics',1.83],['#home .family-card:nth-child(1)',2.05],['#home .family-card:nth-child(2)',2.22],['#home .family-card:nth-child(3)',2.39],['#home .family-card:nth-child(4)',2.56],['#home .family-card:nth-child(5)',2.73],['#home .family-card:nth-child(6)',2.9],['#home .feature-strip>div:nth-child(1)',3.15],['#home .feature-strip>div:nth-child(2)',3.35],['#home .feature-strip>div:nth-child(3)',3.55]];
   const items=targets.map(([selector,at])=>({el:document.querySelector(selector),at})).filter(v=>v.el);
   const colors=['#5ce9ff','#b18aff','#7df9d5'];
@@ -40,9 +45,11 @@
     cursor.style.opacity='1';const a=cursor.animate([{transform:'translate('+(x-110)+'px,'+(y-75)+'px)'},{transform:'translate('+x+'px,'+y+'px)'}],{duration:650,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'});animations.push(a);
     const wire=document.createElement('div');wire.className='osp-outline';Object.assign(wire.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});wire.style.setProperty('--color',color);overlay.appendChild(wire);
     const w=wire.animate([{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0 0 0)',offset:.4},{opacity:0,clipPath:'inset(0 0 0 0)'}],{duration:750,easing:'ease-out'});animations.push(w);w.onfinish=()=>wire.remove();
+    const scan=document.createElement('i');scan.className='osp-scan';scan.style.setProperty('--left',r.left+'px');scan.style.setProperty('--top',Math.max(0,r.top)+'px');scan.style.setProperty('--width',Math.max(0,r.width)+'px');scan.style.setProperty('--color',color);overlay.appendChild(scan);scan.addEventListener('animationend',()=>scan.remove(),{once:true});
+    const flash=document.createElement('i');flash.className='osp-flash';flash.style.setProperty('--x',x+'px');flash.style.setProperty('--y',y+'px');flash.style.setProperty('--color',color);overlay.appendChild(flash);flash.addEventListener('animationend',()=>flash.remove(),{once:true});
     sparks(x,y,color);el.classList.add('osp-built');
     const b=el.animate([{opacity:0,clipPath:'inset(0 100% 0 0)',filter:'blur(9px)',transform:'translateY(18px) scale(.96)'},{opacity:1,clipPath:'inset(0 0 0 0)',filter:'blur(0)',transform:'none'}],{duration:850,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});animations.push(b);
-    later(()=>{cursor.style.opacity='0';},780);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';
+    later(()=>{cursor.style.opacity='0';},780);overlay.querySelector('.osp-progress i').style.transform='scaleX('+((i+1)/items.length)+')';overlay.querySelector('.osp-status').textContent='ASSEMBLING COMPONENTS · '+String(Math.round((i+1)/items.length*100)).padStart(2,'0')+'%';
   };
   items.forEach((item,i)=>later(()=>reveal(item,i),item.at*1000));
   const finish=()=>{if(stopped)return;stopped=true;timers.forEach(clearTimeout);window.removeEventListener('ospulse:catalog-ready',onReady);document.removeEventListener('keydown',onKey);
@@ -51,7 +58,7 @@
   const onReady=()=>{ready=true;if(minimumDone)finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
   overlay.querySelector('.osp-skip').addEventListener('click',finish);document.addEventListener('keydown',onKey);window.addEventListener('ospulse:catalog-ready',onReady);
-  later(()=>{minimumDone=true;if(ready)finish();},4300);later(finish,6500);
+  later(()=>{minimumDone=true;if(ready)finish();},4900);later(finish,7000);
 })();
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
 (() => {
