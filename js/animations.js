@@ -123,8 +123,7 @@
     if(rect.width<3 || rect.height<3 || rect.top>innerHeight+25 || rect.bottom<0){
       el.classList.add('osp-built');completedItem();return;
     }
-    const color=colors[index%3],operator=cursorData[index%3],ticket=++operator.ticket;
-    if(operator.animation){try{operator.animation.cancel();}catch(e){}}
+    const color=colors[index%3],operator=cursorData[index%3];
     const vw=window.innerWidth,side=index%3===0?-1:1;
     const fromX=side*Math.min(Math.max(135,vw*.19),235);
     const fromY=index%3===1?-Math.min(95,innerHeight*.10):Math.min(85,innerHeight*.09);
@@ -141,6 +140,8 @@
     const operatorReady=operator.readyAt||0;
     if(Date.now()<operatorReady){later(()=>build(item,index),Math.max(35,operatorReady-Date.now()));return;}
     operator.readyAt=Date.now()+duration+145;
+    const ticket=++operator.ticket;
+    if(operator.animation){try{operator.animation.cancel();}catch(e){}}
     const cursor=operator.el;
     cursor.style.left=gripX+'px';cursor.style.top=gripY+'px';cursor.style.opacity='1';
     cursor.style.setProperty('--beam',Math.atan2(fromY,fromX)+'rad');
