@@ -8,22 +8,22 @@
     releasePrebuild();return;
   }
   const definitions=[
-    ['.site-header',.12,'NAVIGATION'],
-    ['#home .hero-copy .eyebrow',.58,'STATUS'],
-    ['#home .hero-copy h1',1.06,'HEADLINE'],
-    ['#home .hero-copy>p',1.53,'DESCRIPTION'],
-    ['#home .hero-copy .hero-actions',2.00,'ACTIONS'],
-    ['#home .hero-orbit',2.48,'DISCOVERY CORE'],
-    ['#home .hero-copy .hero-metrics',2.96,'LIVE METRICS'],
-    ['#home .family-card:nth-child(1)',4.75,'LINUX'],
-    ['#home .family-card:nth-child(2)',5.07,'GAMING'],
-    ['#home .family-card:nth-child(3)',5.39,'BSD'],
-    ['#home .family-card:nth-child(4)',5.71,'MOBILE'],
-    ['#home .family-card:nth-child(5)',6.03,'ALTERNATIVE'],
-    ['#home .family-card:nth-child(6)',6.35,'MEDIA'],
-    ['#home .feature-strip>div:nth-child(1)',7.8,'TRUST'],
-    ['#home .feature-strip>div:nth-child(2)',8.2,'SPEED'],
-    ['#home .feature-strip>div:nth-child(3)',8.6,'PRIVACY']
+    ['.site-header',0.10,'NAVIGATION'],
+    ['#home .hero-copy .eyebrow',0.40,'STATUS'],
+    ['#home .hero-copy h1',0.70,'HEADLINE'],
+    ['#home .hero-copy>p',1.00,'DESCRIPTION'],
+    ['#home .hero-copy .hero-actions',1.30,'ACTIONS'],
+    ['#home .hero-orbit',1.60,'DISCOVERY CORE'],
+    ['#home .hero-copy .hero-metrics',1.90,'LIVE METRICS'],
+    ['#home .family-card:nth-child(1)',3.50,'LINUX'],
+    ['#home .family-card:nth-child(2)',3.74,'GAMING'],
+    ['#home .family-card:nth-child(3)',3.98,'BSD'],
+    ['#home .family-card:nth-child(4)',4.22,'MOBILE'],
+    ['#home .family-card:nth-child(5)',4.46,'ALTERNATIVE'],
+    ['#home .family-card:nth-child(6)',4.70,'MEDIA'],
+    ['#home .feature-strip>div:nth-child(1)',5.98,'TRUST'],
+    ['#home .feature-strip>div:nth-child(2)',6.25,'SPEED'],
+    ['#home .feature-strip>div:nth-child(3)',6.52,'PRIVACY']
   ];
   const items=definitions.map(([selector,time,label])=>({el:document.querySelector(selector),time,label})).filter(v=>v.el);
   if(items.length<6){releasePrebuild();return;}
@@ -50,6 +50,7 @@
     '#osp-construction .osp-snap{position:absolute;left:var(--x);top:var(--y);height:65px;width:65px;border-radius:50%;border:1px solid var(--color);box-shadow:0 0 30px var(--color);animation:ospSnap .6s ease-out both;pointer-events:none}',
     '#osp-construction .osp-spark{position:absolute;left:var(--x);top:var(--y);height:3px;width:3px;border-radius:50%;background:var(--color);box-shadow:0 0 12px var(--color);animation:ospSpark .65s ease-out both;pointer-events:none}',
     '#osp-construction .osp-caption{position:absolute;left:0;right:0;bottom:59px;text-align:center;color:#9defff;font:700 10px monospace;letter-spacing:.18em;text-shadow:0 0 15px #22e4ff;pointer-events:none}',
+    '#osp-construction .osp-phase{position:absolute;top:22px;left:22px;z-index:7;pointer-events:none;padding:8px 12px;border:1px solid rgba(98,233,255,.24);border-radius:9px;background:rgba(6,19,38,.72);color:#a8f5ff;font:700 10px monospace;letter-spacing:.12em;backdrop-filter:blur(8px)}',
     '#osp-construction .osp-progress{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);width:min(340px,62vw);height:3px;border-radius:9px;overflow:hidden;background:rgba(86,179,238,.22);pointer-events:none}',
     '#osp-construction .osp-progress>i{display:block;width:100%;height:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#8f6dff,#5eeaff,#a4ffe1);box-shadow:0 0 16px #5eeaff;transition:transform .6s cubic-bezier(.23,.7,.2,1)}',
     '#osp-construction .osp-status{position:absolute;left:22px;bottom:22px;color:#86dbea;font:700 10px monospace;letter-spacing:.11em;pointer-events:none}',
@@ -65,7 +66,7 @@
   document.head.appendChild(style);
   const overlay=document.createElement('div');
   overlay.id='osp-construction';
-  overlay.innerHTML='<div class="osp-shade"></div><div class="osp-mesh"></div><div class="osp-caption">OSPulse // BUILDING YOUR INTERFACE</div><div class="osp-progress"><i></i></div><div class="osp-status">INITIALIZING · CURSOR ASSEMBLY</div><div class="osp-percentage">00%</div><button class="osp-skip" type="button" aria-label="Skip introduction">Skip intro →</button>';
+  overlay.innerHTML='<div class="osp-shade"></div><div class="osp-mesh"></div><div class="osp-phase">01 / 03 · HERO</div><div class="osp-caption">OSPulse // BUILDING YOUR INTERFACE</div><div class="osp-progress"><i></i></div><div class="osp-status">INITIALIZING · CURSOR ASSEMBLY</div><div class="osp-percentage">00%</div><button class="osp-skip" type="button" aria-label="Skip introduction">Skip intro →</button>';
   document.body.appendChild(overlay);
   const cursorData=colors.map((color,i)=>{
     const el=document.createElement('div');el.className='osp-cursor';
@@ -113,20 +114,28 @@
     overlay.querySelector('.osp-progress i').style.transform='scaleX('+(completed/items.length)+')';
     overlay.querySelector('.osp-percentage').textContent=String(percentage).padStart(2,'0')+'%';
     overlay.querySelector('.osp-status').textContent=completed===items.length?'ALL COMPONENTS DOCKED':'DRAGGING COMPONENTS · '+completed+'/'+items.length;
-    if(completed===items.length){later(()=>restoreCamera('smooth'),320);if(minimumDone && catalogReady)later(finish,1570);}
+    if(completed===items.length){later(()=>restoreCamera('smooth'),200);if(minimumDone && catalogReady)later(finish,1170);}
   };
   const completedItem=()=>{
     completed++;updateProgress();
   };
+  let currentPhase=-1;
   const build=(item,index)=>{
+    const phase=index<7?0:index<13?1:2;
+    if(phase!==currentPhase){
+      currentPhase=phase;
+      const phaseNode=overlay.querySelector('.osp-phase');
+      phaseNode.textContent=['01 / 03 · HERO','02 / 03 · CATEGORIES','03 / 03 · FINISHING'][phase];
+      const fade=phaseNode.animate([{opacity:.4,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});active.push(fade);
+    }
     const el=item.el,rect=el.getBoundingClientRect();
     if(rect.width<3 || rect.height<3 || rect.top>innerHeight+25 || rect.bottom<0){
       el.classList.add('osp-built');completedItem();return;
     }
     const color=colors[index%3],operator=cursorData[index%3];
     const vw=window.innerWidth,side=index%3===0?-1:1;
-    const fromX=side*Math.min(Math.max(135,vw*.19),235);
-    const fromY=index%3===1?-Math.min(95,innerHeight*.10):Math.min(85,innerHeight*.09);
+    const fromX=side*Math.min(Math.max(125,vw*.17),215);
+    const fromY=index%3===1?-Math.min(80,innerHeight*.09):Math.min(75,innerHeight*.08);
     const gripX=rect.left+Math.min(29,rect.width*.15),gripY=rect.top+Math.min(24,rect.height*.20);
     // One shared, continuously eased motion curve keeps the cursor, its
     // holographic frame and the real DOM component perfectly synchronized.
@@ -135,11 +144,11 @@
       {dx:fromX,dy:fromY,factor:.955,rot:startRotation,offset:0},
       {dx:0,dy:0,factor:1,rot:0,offset:1}
     ];
-    const duration=index>=7?(index>=13?980:900):1120;
-    const timing={duration,easing:'cubic-bezier(.40,0,.18,1)',fill:'both'};
+    const duration=index>=13?640:(index>=7?610:760);
+    const timing={duration,easing:'cubic-bezier(.44,0,.20,1)',fill:'both'};
     const operatorReady=operator.readyAt||0;
     if(Date.now()<operatorReady){later(()=>build(item,index),Math.max(35,operatorReady-Date.now()));return;}
-    operator.readyAt=Date.now()+duration+145;
+    operator.readyAt=Date.now()+duration+75;
     const ticket=++operator.ticket;
     if(operator.animation){try{operator.animation.cancel();}catch(e){}}
     const cursor=operator.el;
@@ -192,7 +201,7 @@
     overlay.classList.add('finished');
     setTimeout(()=>{overlay.remove();style.remove();},670);
   };
-  const onCatalog=()=>{catalogReady=true;if(completed===items.length && minimumDone)later(finish,1570);};
+  const onCatalog=()=>{catalogReady=true;if(completed===items.length && minimumDone)later(finish,1170);};
   const onKey=e=>{if(e.key==='Escape')finish();};
   const onHidden=()=>{if(document.visibilityState==='hidden')finish();};
   overlay.querySelector('.osp-skip').addEventListener('click',finish);
@@ -203,10 +212,10 @@
   document.addEventListener('keydown',onKey);
   document.addEventListener('visibilitychange',onHidden);
   items.forEach((item,index)=>later(()=>build(item,index),item.time*1000));
-  later(()=>focusSection('#home .family-grid',.20),4100);
-  later(()=>focusSection('#home .feature-strip',.21),7230);
-  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,1570);},9500);
-  later(finish,12700);
+  later(()=>focusSection('#home .family-grid',.20),2820);
+  later(()=>focusSection('#home .feature-strip',.21),5400);
+  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,1170);},7400);
+  later(finish,10200);
 })();
 
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
