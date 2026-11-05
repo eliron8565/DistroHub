@@ -1,248 +1,200 @@
-/* OSPulse cinematic assembly — real homepage elements dragged into position by designer cursors. */
+/* OSPulse live homepage construction — build the real page, never a separate intro. */
 (() => {
   'use strict';
   const root=document.documentElement;
-  const releasePrebuild=()=>root.classList.remove('osp-prebuild');
-  const reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduced || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
-    releasePrebuild();return;
+  const normal=()=>root.classList.remove('osp-prebuild');
+  const motionOff=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(motionOff || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
+    normal();return;
   }
-  const definitions=[
-    ['.site-header',0.10,'NAVIGATION'],
-    ['#home .hero-copy .eyebrow',0.40,'STATUS'],
-    ['#home .hero-copy h1',0.70,'HEADLINE'],
-    ['#home .hero-copy>p',1.00,'DESCRIPTION'],
-    ['#home .hero-copy .hero-actions',1.30,'ACTIONS'],
-    ['#home .hero-orbit',1.60,'DISCOVERY CORE'],
-    ['#home .hero-copy .hero-metrics',1.90,'LIVE METRICS'],
-    ['#home .family-card:nth-child(1)',3.66,'LINUX'],
-    ['#home .family-card:nth-child(2)',3.96,'GAMING'],
-    ['#home .family-card:nth-child(3)',4.26,'BSD'],
-    ['#home .family-card:nth-child(4)',4.56,'MOBILE'],
-    ['#home .family-card:nth-child(5)',4.86,'ALTERNATIVE'],
-    ['#home .family-card:nth-child(6)',5.16,'MEDIA'],
-    ['#home .feature-strip>div:nth-child(1)',6.98,'TRUST'],
-    ['#home .feature-strip>div:nth-child(2)',7.30,'SPEED'],
-    ['#home .feature-strip>div:nth-child(3)',7.62,'PRIVACY']
+
+  const specs=[
+    ['.site-header','NAVIGATION'],
+    ['#home .hero-copy .eyebrow','STATUS'],
+    ['#home .hero-copy h1','HEADLINE'],
+    ['#home .hero-copy>p','DESCRIPTION'],
+    ['#home .hero-actions','BUTTONS'],
+    ['#home .hero-orbit','DISCOVERY'],
+    ['#home .hero-metrics','METRICS'],
+    ['#home .family-card:nth-child(1)','LINUX'],
+    ['#home .family-card:nth-child(2)','GAMING'],
+    ['#home .family-card:nth-child(3)','BSD'],
+    ['#home .family-card:nth-child(4)','MOBILE'],
+    ['#home .family-card:nth-child(5)','ALTERNATIVE'],
+    ['#home .family-card:nth-child(6)','MEDIA'],
+    ['#home .feature-strip>div:nth-child(1)','SOURCES'],
+    ['#home .feature-strip>div:nth-child(2)','SPEED'],
+    ['#home .feature-strip>div:nth-child(3)','PRIVACY']
   ];
-  const items=definitions.map(([selector,time,label])=>({el:document.querySelector(selector),time,label})).filter(v=>v.el);
-  if(items.length<6){releasePrebuild();return;}
-  const colors=['#62e9ff','#b793ff','#70f4c2'];
-  const style=document.createElement('style');style.id='osp-construction-style';
-  style.textContent=[
-    'body.osp-constructing{overflow:hidden}',
-    'body.osp-constructing .site-header:not(.osp-built),body.osp-constructing #home .hero-copy>*:not(.osp-built),body.osp-constructing #home .hero-orbit:not(.osp-built),body.osp-constructing #home .family-card:not(.osp-built),body.osp-constructing #home .feature-strip>div:not(.osp-built){opacity:0!important}',
-    'body.osp-constructing #home .osp-built{opacity:1}',
-    '#osp-construction{position:fixed;inset:0;z-index:2147483000;pointer-events:auto;overflow:hidden;isolation:isolate;transition:opacity .85s cubic-bezier(.23,.68,.25,1)}',
-    '#osp-construction.finished{opacity:0;pointer-events:none}',
-    '#osp-construction .osp-mesh{position:absolute;inset:0;pointer-events:none;background:linear-gradient(rgba(67,214,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(67,214,255,.04) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 90%)}',
-    '#osp-construction .osp-shade{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 25%,transparent 30%,rgba(3,10,28,.13) 100%)}',
-    '#osp-construction .osp-cursor{position:absolute;top:0;left:0;z-index:12;opacity:0;will-change:transform,opacity;transition:opacity .24s cubic-bezier(.25,.65,.35,1);filter:drop-shadow(0 0 8px var(--color))}',
-    '#osp-construction .osp-cursor:before{content:"";position:absolute;left:0;top:0;width:23px;height:29px;background:linear-gradient(130deg,#fff,var(--color) 58%);clip-path:polygon(0 0,0 100%,7px 20px,13px 30px,19px 27px,14px 17px,23px 16px);filter:drop-shadow(0 0 5px var(--color))}',
-    '#osp-construction .osp-grip{position:absolute;left:9px;top:12px;width:10px;height:10px;border:1px solid #fff;background:var(--color);border-radius:50%;box-shadow:0 0 0 5px color-mix(in srgb,var(--color) 15%,transparent),0 0 20px var(--color);animation:ospGrip .85s ease-in-out infinite alternate}',
-    '#osp-construction .osp-tag{position:absolute;top:28px;left:17px;white-space:nowrap;border:1px solid var(--color);border-radius:6px;background:rgba(5,15,32,.93);box-shadow:0 0 18px color-mix(in srgb,var(--color) 28%,transparent);padding:5px 9px;color:#f0feff;font:700 10px monospace;letter-spacing:.08em}',
-    '#osp-construction .osp-beam{position:absolute;left:8px;top:13px;width:75px;height:2px;transform-origin:0 50%;transform:rotate(var(--beam));background:linear-gradient(90deg,var(--color),transparent);box-shadow:0 0 12px var(--color);opacity:.8}',
-    '#osp-construction .osp-dock{position:absolute;box-sizing:border-box;border:1px dashed var(--color);border-radius:10px;opacity:.3;pointer-events:none;box-shadow:inset 0 0 20px color-mix(in srgb,var(--color) 10%,transparent);animation:ospDockPulse .95s ease-in-out infinite alternate}',
-    '#osp-construction .osp-cargo{position:absolute;box-sizing:border-box;border:1px solid var(--color);border-radius:10px;box-shadow:0 0 13px color-mix(in srgb,var(--color) 30%,transparent),inset 0 0 10px color-mix(in srgb,var(--color) 12%,transparent);pointer-events:none;will-change:transform,opacity}',
-    '#osp-construction .osp-cargo:before,#osp-construction .osp-cargo:after{content:"";position:absolute;width:8px;height:8px;background:#0b1934;border:1px solid var(--color);box-shadow:0 0 10px var(--color)}',
-    '#osp-construction .osp-cargo:before{top:-5px;left:-5px}#osp-construction .osp-cargo:after{bottom:-5px;right:-5px}',
-    '#osp-construction .osp-cargo-label{position:absolute;right:5px;top:-19px;color:var(--color);font:700 9px monospace;letter-spacing:.09em;text-shadow:0 0 8px var(--color)}',
-    '#osp-construction .osp-snap{position:absolute;left:var(--x);top:var(--y);height:65px;width:65px;border-radius:50%;border:1px solid var(--color);box-shadow:0 0 30px var(--color);animation:ospSnap .6s ease-out both;pointer-events:none}',
-    '#osp-construction .osp-spark{position:absolute;left:var(--x);top:var(--y);height:3px;width:3px;border-radius:50%;background:var(--color);box-shadow:0 0 12px var(--color);animation:ospSpark .65s ease-out both;pointer-events:none}',
-    '#osp-construction .osp-caption{position:absolute;left:0;right:0;bottom:59px;text-align:center;color:#9defff;font:700 10px monospace;letter-spacing:.18em;text-shadow:0 0 15px #22e4ff;pointer-events:none}',
-    '#osp-construction .osp-phase{position:absolute;top:22px;left:22px;z-index:7;pointer-events:none;padding:8px 12px;border:1px solid rgba(98,233,255,.24);border-radius:9px;background:rgba(6,19,38,.72);color:#a8f5ff;font:700 10px monospace;letter-spacing:.12em;backdrop-filter:blur(8px)}',
-    '#osp-construction .osp-progress{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);width:min(340px,62vw);height:3px;border-radius:9px;overflow:hidden;background:rgba(86,179,238,.22);pointer-events:none}',
-    '#osp-construction .osp-progress>i{display:block;width:100%;height:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#8f6dff,#5eeaff,#a4ffe1);box-shadow:0 0 16px #5eeaff;transition:transform .8s cubic-bezier(.22,.65,.22,1)}',
-    '#osp-construction .osp-status{position:absolute;left:22px;bottom:22px;color:#86dbea;font:700 10px monospace;letter-spacing:.11em;pointer-events:none}',
-    '#osp-construction .osp-percentage{position:absolute;right:23px;bottom:22px;color:#aef8ff;font:700 11px monospace;text-shadow:0 0 12px #3eeaff;pointer-events:none}',
-    '#osp-construction .osp-skip{position:absolute;right:20px;top:20px;border:1px solid #67dff4;border-radius:99px;background:rgba(5,20,40,.9);color:#eefbff;padding:10px 16px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer;z-index:20;transition:background .2s,box-shadow .2s}',
-    '#osp-construction .osp-skip:hover,#osp-construction .osp-skip:focus-visible{background:#16425c;box-shadow:0 0 24px rgba(70,226,255,.35)}',
-    '@keyframes ospGrip{to{transform:scale(1.25);box-shadow:0 0 0 8px color-mix(in srgb,var(--color) 12%,transparent),0 0 25px var(--color)}}',
-    '@keyframes ospDockPulse{to{opacity:.55}}',
-    '@keyframes ospSnap{from{opacity:.95;transform:translate(-50%,-50%) scale(.2)}to{opacity:0;transform:translate(-50%,-50%) scale(1.8)}}',
-    '@keyframes ospSpark{from{opacity:1;transform:translate(0,0) scale(.5)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.4)}}',
-    '@media(max-width:650px){#osp-construction .osp-caption{bottom:68px;font-size:8px;letter-spacing:.08em}#osp-construction .osp-progress{bottom:51px;width:68vw}#osp-construction .osp-status{left:10px;bottom:20px;font-size:8px}#osp-construction .osp-percentage{right:10px;bottom:20px}#osp-construction .osp-tag{font-size:8px;padding:4px 6px}}'
+  const items=specs.map(([selector,label])=>({el:document.querySelector(selector),label})).filter(x=>x.el);
+  if(items.length<6){normal();return;}
+
+  const css=document.createElement('style');
+  css.id='osp-build-css';
+  css.textContent=[
+    'html.osp-building .site-header:not(.osp-placed),html.osp-building #home .hero-copy>*:not(.osp-placed),html.osp-building #home .hero-orbit:not(.osp-placed),html.osp-building #home .family-card:not(.osp-placed),html.osp-building #home .feature-strip>div:not(.osp-placed){opacity:0!important}',
+    'html.osp-building #home.page.active,html.osp-building #home.page.active>*,html.osp-building #home .hero-copy>*,html.osp-building #home .hero-orbit,html.osp-building #home .family-card,html.osp-building #home .feature-strip>div,html.osp-building .site-header{animation:none!important;transition:none!important}',
+    'html.osp-building #home .hero-orbit *,html.osp-building #home .orbit,html.osp-building #home .core{animation-play-state:paused!important}',
+    'html.osp-building .ambient{opacity:.07}',
+    '#osp-live-build{position:fixed;inset:0;z-index:2147482000;overflow:hidden;pointer-events:none;contain:layout style;transition:opacity .35s ease}',
+    '#osp-live-build.osp-finished{opacity:0}',
+    '#osp-live-build .osp-worker{position:absolute;left:0;top:0;z-index:4;opacity:0;will-change:transform;transition:opacity .14s ease}',
+    '#osp-live-build .osp-worker:before{content:"";position:absolute;left:0;top:0;width:23px;height:28px;background:linear-gradient(140deg,#fff,var(--c));clip-path:polygon(0 0,0 100%,7px 19px,13px 29px,19px 26px,14px 17px,23px 16px);filter:drop-shadow(0 0 6px var(--c))}',
+    '#osp-live-build .osp-worker:after{content:"";position:absolute;left:8px;top:10px;width:9px;height:9px;border:1px solid white;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c)}',
+    '#osp-live-build .osp-tag{position:absolute;left:18px;top:28px;border:1px solid var(--c);border-radius:5px;padding:3px 7px;background:rgba(7,15,32,.88);color:#efffff;font:700 9px monospace;letter-spacing:.07em;white-space:nowrap}',
+    '#osp-live-build .osp-tail{position:absolute;left:11px;top:13px;width:var(--tail,75px);height:2px;transform-origin:0 50%;transform:rotate(var(--angle));background:linear-gradient(90deg,var(--c),transparent);opacity:.72}',
+    '#osp-live-build .osp-wire{position:absolute;border:1px solid var(--c);border-radius:10px;box-sizing:border-box;box-shadow:0 0 12px rgba(72,206,255,.24),inset 0 0 8px rgba(72,206,255,.1);pointer-events:none;will-change:transform}',
+    '#osp-live-build .osp-target{position:absolute;border:1px dashed var(--c);border-radius:10px;box-sizing:border-box;pointer-events:none;opacity:.18}',
+    '#osp-live-build .osp-impact{position:absolute;left:var(--x);top:var(--y);width:36px;height:36px;border-radius:50%;border:1px solid var(--c);transform:translate(-50%,-50%);animation:ospImpact .46s ease-out both;pointer-events:none}',
+    '#osp-live-build .osp-particle{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;background:var(--c);border-radius:50%;animation:ospBuildSpark .45s ease-out both;pointer-events:none}',
+    '@keyframes ospImpact{0%{opacity:.85;transform:translate(-50%,-50%) scale(.4)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.6)}}',
+    '@keyframes ospBuildSpark{0%{opacity:.95;transform:translate3d(0,0,0)}100%{opacity:0;transform:translate3d(var(--dx),var(--dy),0)}}',
+    '@media(max-width:680px){#osp-live-build .osp-tag{font-size:8px;padding:3px 5px}#osp-live-build .osp-tail{opacity:.5}}'
   ].join('\n');
-  document.head.appendChild(style);
-  const overlay=document.createElement('div');
-  overlay.id='osp-construction';
-  overlay.innerHTML='<div class="osp-shade"></div><div class="osp-mesh"></div><div class="osp-phase">01 / 03 · HERO</div><div class="osp-caption">OSPulse // BUILDING YOUR INTERFACE</div><div class="osp-progress"><i></i></div><div class="osp-status">INITIALIZING · CURSOR ASSEMBLY</div><div class="osp-percentage">00%</div><button class="osp-skip" type="button" aria-label="Skip introduction">Skip intro →</button>';
-  document.body.appendChild(overlay);
-  const cursorData=colors.map((color,i)=>{
-    const el=document.createElement('div');el.className='osp-cursor';
-    el.style.setProperty('--color',color);
-    el.innerHTML='<span class="osp-beam"></span><span class="osp-grip"></span><span class="osp-tag"></span>';
-    overlay.appendChild(el);
-    return {el,ticket:0,animation:null};
+  document.head.appendChild(css);
+  root.classList.add('osp-building');
+  normal();
+
+  const layer=document.createElement('div');
+  layer.id='osp-live-build';
+  layer.setAttribute('aria-hidden','true');
+  document.body.appendChild(layer);
+  const palette=['#60eaff','#b58dff','#72f3cc'];
+  const cursors=palette.map(color=>{
+    const el=document.createElement('div');
+    el.className='osp-worker';
+    el.style.setProperty('--c',color);
+    const tail=document.createElement('span');tail.className='osp-tail';
+    const tag=document.createElement('span');tag.className='osp-tag';
+    el.append(tail,tag);layer.appendChild(el);
+    return el;
   });
-  let stopped=false,completed=0,catalogReady=Boolean(window.app && window.app.systems && window.app.systems.length),minimumDone=false;
-  const timers=[],active=[];
-  const initialScroll=window.scrollY||0;
-  let cameraMoved=false,cameraRestored=false,cameraFrame=0;
-  const smoothCurve=t=>t*t*(3-2*t);
-  // Move the camera only between groups. The browser's default smooth scroll
-  // can still be moving as items spawn, making real DOM cargo jitter.
-  const moveCamera=(target,duration=850)=>{
-    if(typeof window.scrollTo!=='function')return;
-    const from=window.scrollY||0,to=Math.max(0,target);
-    if(Math.abs(from-to)<3)return;
-    cameraMoved=true;
-    if(cameraFrame&&typeof cancelAnimationFrame==='function')cancelAnimationFrame(cameraFrame);
-    if(typeof requestAnimationFrame!=='function'){
-      window.scrollTo({top:to,behavior:'instant'});return;
-    }
-    const start=performance.now();
-    const frame=now=>{
-      if(stopped)return;
-      const t=Math.max(0,Math.min(1,(now-start)/duration));
-      const current=from+(to-from)*smoothCurve(t);
-      window.scrollTo({top:current,behavior:'instant'});
-      if(t<1)cameraFrame=requestAnimationFrame(frame);else cameraFrame=0;
-    };
-    cameraFrame=requestAnimationFrame(frame);
+  let stopped=false;
+  const pendingAnimations=new Set();
+  const pendingTimers=new Set();
+  const later=(fn,ms)=>{
+    const id=setTimeout(()=>{pendingTimers.delete(id);fn();},ms);
+    pendingTimers.add(id);return id;
   };
-  const focusSection=(selector,ratio)=>{
-    if(stopped)return;
-    const section=document.querySelector(selector);if(!section)return;
-    const rect=section.getBoundingClientRect();
-    const current=window.scrollY||0;
-    const target=current+rect.top-innerHeight*ratio;
-    if(Math.abs(target-current)<70)return;
-    moveCamera(target,860);
-  };
-  const restoreCamera=(behavior)=>{
-    if(!cameraMoved)return;
-    if(behavior==='instant'){
-      if(cameraFrame&&typeof cancelAnimationFrame==='function')cancelAnimationFrame(cameraFrame);
-      cameraFrame=0;
-      if(typeof window.scrollTo==='function')window.scrollTo({top:initialScroll,behavior:'instant'});
-      cameraRestored=true;return;
-    }
-    if(!cameraRestored){cameraRestored=true;moveCamera(initialScroll,960);}
-  };
-  const later=(fn,ms)=>{const id=setTimeout(()=>{if(!stopped)fn();},ms);timers.push(id);};
-  const clamp=(n,min,max)=>Math.min(max,Math.max(min,n));
-  const addAt=(className,x,y,color)=>{
-    const e=document.createElement('i');e.className=className;
-    e.style.setProperty('--x',x+'px');e.style.setProperty('--y',y+'px');e.style.setProperty('--color',color);
-    overlay.appendChild(e);e.addEventListener('animationend',()=>e.remove(),{once:true});return e;
+  const wait=ms=>new Promise(resolve=>later(resolve,ms));
+  const animate=(el,frames,options)=>{
+    const anim=el.animate(frames,options);
+    pendingAnimations.add(anim);
+    return anim;
   };
   const burst=(x,y,color)=>{
-    addAt('osp-snap',x,y,color);
-    for(let j=0;j<6;j++){
-      const s=addAt('osp-spark',x,y,color),angle=(j/6)*Math.PI*2;
-      const distance=16+Math.random()*32;
-      s.style.setProperty('--dx',Math.cos(angle)*distance+'px');
-      s.style.setProperty('--dy',Math.sin(angle)*distance+'px');
+    const ring=document.createElement('i');
+    ring.className='osp-impact';
+    ring.style.setProperty('--x',x+'px');ring.style.setProperty('--y',y+'px');
+    ring.style.setProperty('--c',color);
+    layer.appendChild(ring);
+    ring.addEventListener('animationend',()=>ring.remove(),{once:true});
+    for(let k=0;k<3;k++){
+      const p=document.createElement('i');p.className='osp-particle';
+      p.style.setProperty('--x',x+'px');p.style.setProperty('--y',y+'px');p.style.setProperty('--c',color);
+      const a=(k*2*Math.PI/3)+(Math.random()*.32);
+      p.style.setProperty('--dx',(Math.cos(a)*28)+'px');
+      p.style.setProperty('--dy',(Math.sin(a)*28)+'px');
+      layer.appendChild(p);
+      p.addEventListener('animationend',()=>p.remove(),{once:true});
     }
   };
-  const updateProgress=()=>{
-    const percentage=Math.round(100*completed/items.length);
-    overlay.querySelector('.osp-progress i').style.transform='scaleX('+(completed/items.length)+')';
-    overlay.querySelector('.osp-percentage').textContent=String(percentage).padStart(2,'0')+'%';
-    overlay.querySelector('.osp-status').textContent=completed===items.length?'ALL COMPONENTS DOCKED':'DRAGGING COMPONENTS · '+completed+'/'+items.length;
-    if(completed===items.length){later(()=>restoreCamera('smooth'),150);if(minimumDone && catalogReady)later(finish,1470);}
-  };
-  const completedItem=()=>{
-    completed++;updateProgress();
-  };
-  let currentPhase=-1;
-  const build=(item,index)=>{
-    const phase=index<7?0:index<13?1:2;
-    if(phase!==currentPhase){
-      currentPhase=phase;
-      const phaseNode=overlay.querySelector('.osp-phase');
-      phaseNode.textContent=['01 / 03 · HERO','02 / 03 · CATEGORIES','03 / 03 · FINISHING'][phase];
-      const fade=phaseNode.animate([{opacity:.4,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:280,easing:'ease-out'});active.push(fade);
+
+  const deliver=(item,operator,ms,number)=>new Promise(resolve=>{
+    const el=item.el;
+    const r=el.getBoundingClientRect();
+    const visible=r.width>4 && r.height>4 && r.bottom>0 && r.top<innerHeight;
+    if(stopped || !visible){el.classList.add('osp-placed');resolve();return;}
+    const color=palette[operator],cursor=cursors[operator],isMobile=innerWidth<690;
+    const dir=number%2===0?-1:1;
+    const dx=dir*Math.min(isMobile?100:185,Math.max(70,innerWidth*.15));
+    const dy=(operator===1?-1:1)*(isMobile?29:54);
+    const anchorX=r.left+Math.min(24,r.width*.13);
+    const anchorY=r.top+Math.min(20,r.height*.18);
+    const motion={duration:ms,easing:'cubic-bezier(.42,0,.18,1)',fill:'both'};
+    const start='translate3d('+dx+'px,'+dy+'px,0)';
+    const end='translate3d(0,0,0)';
+    cursor.style.left=anchorX+'px';cursor.style.top=anchorY+'px';
+    cursor.style.setProperty('--angle',Math.atan2(dy,dx)+'rad');
+    cursor.querySelector('.osp-tag').textContent='DRAG · '+item.label;
+    cursor.style.opacity='1';
+
+    const target=document.createElement('div');
+    target.className='osp-target';
+    const wire=document.createElement('div');
+    wire.className='osp-wire';
+    for(const node of [target,wire]){
+      Object.assign(node.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+      node.style.setProperty('--c',color);
+      layer.appendChild(node);
     }
-    const el=item.el,rect=el.getBoundingClientRect();
-    if(rect.width<3 || rect.height<3 || rect.top>innerHeight+25 || rect.bottom<0){
-      el.classList.add('osp-built');completedItem();return;
-    }
-    const color=colors[index%3],operator=cursorData[index%3];
-    const vw=window.innerWidth,side=index%3===0?-1:1;
-    const fromX=side*Math.min(Math.max(125,vw*.17),215);
-    const fromY=index%3===1?-Math.min(80,innerHeight*.09):Math.min(75,innerHeight*.08);
-    const gripX=rect.left+Math.min(29,rect.width*.15),gripY=rect.top+Math.min(24,rect.height*.20);
-    // One shared, continuously eased motion curve keeps the cursor, its
-    // holographic frame and the real DOM component perfectly synchronized.
-    const startRotation=side*1.25;
-    const paths=[
-      {dx:fromX,dy:fromY,factor:.955,rot:startRotation,offset:0},
-      {dx:0,dy:0,factor:1,rot:0,offset:1}
-    ];
-    const duration=index>=13?690:(index>=7?680:790);
-    const timing={duration,easing:'cubic-bezier(.48,.04,.18,1)',fill:'both'};
-    const operatorReady=operator.readyAt||0;
-    if(Date.now()<operatorReady){later(()=>build(item,index),Math.max(35,operatorReady-Date.now()));return;}
-    operator.readyAt=Date.now()+duration+40;
-    const ticket=++operator.ticket;
-    if(operator.animation){try{operator.animation.cancel();}catch(e){}}
-    const cursor=operator.el;
-    cursor.style.left=gripX+'px';cursor.style.top=gripY+'px';cursor.style.opacity='1';
-    cursor.style.setProperty('--beam',Math.atan2(fromY,fromX)+'rad');
-    cursor.querySelector('.osp-tag').textContent='DRAGGING · '+item.label;
-    const pointerFrames=paths.map(p=>({offset:p.offset,transform:'translate('+p.dx+'px,'+p.dy+'px)'}));
-    operator.animation=cursor.animate(pointerFrames,timing);active.push(operator.animation);
-    const dock=document.createElement('div');dock.className='osp-dock';
-    Object.assign(dock.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
-    dock.style.setProperty('--color',color);overlay.appendChild(dock);
-    const dockFade=dock.animate([{opacity:0},{opacity:.38,offset:.3},{opacity:.22,offset:.8},{opacity:0}],{duration:duration+200,easing:'ease-in-out',fill:'both'});active.push(dockFade);
-    const frame=document.createElement('div');frame.className='osp-cargo';
-    Object.assign(frame.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
-    frame.style.setProperty('--color',color);
-    const label=document.createElement('span');label.className='osp-cargo-label';label.textContent='[ '+item.label+' ]';frame.appendChild(label);
-    overlay.appendChild(frame);
-    const movingFrames=paths.map(p=>({offset:p.offset,transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)',transformOrigin:'0 0'}));
-    const outlineAnimation=frame.animate(movingFrames,timing);active.push(outlineAnimation);
-    el.classList.add('osp-built');
-    const elementFrames=paths.map((p,j)=>({
-      offset:p.offset,
-      opacity:j===0?.76:1,
-      transform:'translate('+p.dx+'px,'+p.dy+'px) scale('+p.factor+') rotate('+p.rot+'deg)',
-      transformOrigin:'0 0'
-    }));
-    const movement=el.animate(elementFrames,timing);active.push(movement);
-    movement.onfinish=()=>{
-      if(stopped)return;
-      try{movement.cancel();outlineAnimation.cancel();}catch(e){}
-      frame.remove();dock.remove();
-      const px=clamp(gripX,12,innerWidth-12),py=clamp(gripY,12,innerHeight-12);
-      burst(px,py,color);
-      if(operator.ticket===ticket){cursor.style.opacity='0';}
-      completedItem();
+    const a=animate(cursor,[{transform:start},{transform:end}],motion);
+    const b=animate(wire,[{transform:start,opacity:.65},{transform:end,opacity:.35}],motion);
+    el.classList.add('osp-placed');
+    const d=animate(el,[{transform:start,opacity:.84},{transform:end,opacity:1}],motion);
+    const c=animate(target,[{opacity:0},{opacity:.2,offset:.55},{opacity:0}],motion);
+    const settle=()=>{
+      // Removing the final-keyframe animation returns the real element to its
+      // natural layout at exactly the position where the cursor dropped it.
+      for(const anim of [a,b,c,d]){try{anim.cancel();}catch(e){}pendingAnimations.delete(anim);}
+      wire.remove();target.remove();
+      cursor.style.opacity='0';
+      if(!stopped)burst(Math.max(10,Math.min(innerWidth-10,anchorX)),Math.max(10,Math.min(innerHeight-10,anchorY)),color);
+      resolve();
     };
+    later(settle,ms+15);
+  });
+
+  const run=async()=>{
+    // Real page construction, grouped by actual layout. No loading modal,
+    // no forced scrolling, and no artificial wait for the OS catalog.
+    const groups=[
+      {ids:[0],ms:450},
+      {ids:[1,2,3],ms:590},
+      {ids:[4,5,6],ms:590},
+      {ids:[7,8,9],ms:510},
+      {ids:[10,11,12],ms:510},
+      {ids:[13,14,15],ms:430}
+    ];
+    const list=specs.map(spec=>items.find(x=>x.label===spec[1])||null);
+    for(const group of groups){
+      if(stopped)return;
+      await Promise.all(group.ids.map((idx,slot)=>{
+        const item=list[idx];return item?deliver(item,slot,group.ms,idx):Promise.resolve();
+      }));
+      if(!stopped)await wait(45);
+    }
+    finish();
   };
   const finish=()=>{
-    if(stopped)return;stopped=true;
-    timers.forEach(clearTimeout);
-    window.removeEventListener('ospulse:catalog-ready',onCatalog);
+    if(stopped)return;
+    stopped=true;
+    for(const anim of pendingAnimations){try{anim.cancel();}catch(e){}}
+    pendingAnimations.clear();
+    for(const timer of pendingTimers)clearTimeout(timer);
+    pendingTimers.clear();
+    items.forEach(item=>item.el.classList.add('osp-placed'));
     window.removeEventListener('hashchange',finish);
-    window.removeEventListener('resize',finish);
+    window.removeEventListener('pagehide',finish);
+    document.removeEventListener('visibilitychange',onVisibility);
     document.removeEventListener('keydown',onKey);
-    document.removeEventListener('visibilitychange',onHidden);
-    restoreCamera('instant');
-    active.forEach(a=>{try{a.cancel();}catch(e){}});
-    document.body.classList.remove('osp-constructing');releasePrebuild();
-    items.forEach(item=>item.el.classList.remove('osp-built'));
-    overlay.classList.add('finished');
-    setTimeout(()=>{overlay.remove();style.remove();},900);
+    root.classList.add('osp-built-done');
+    root.classList.remove('osp-building');
+    css.textContent=[
+      'html.osp-built-done #home.page.active,html.osp-built-done #home.page.active>.hero-grid,html.osp-built-done #home.page.active>.family-grid,html.osp-built-done #home.page.active>.feature-strip,html.osp-built-done #home .hero-copy>*,html.osp-built-done #home .hero-orbit,html.osp-built-done #home .family-card{animation:none!important}'
+    ].join('');
+    layer.classList.add('osp-finished');
+    setTimeout(()=>layer.remove(),380);
   };
-  const onCatalog=()=>{catalogReady=true;if(completed===items.length && minimumDone)later(finish,1470);};
+  const onVisibility=()=>{if(document.visibilityState==='hidden')finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
-  const onHidden=()=>{if(document.visibilityState==='hidden')finish();};
-  overlay.querySelector('.osp-skip').addEventListener('click',finish);
-  document.body.classList.add('osp-constructing');releasePrebuild();
-  window.addEventListener('ospulse:catalog-ready',onCatalog);
   window.addEventListener('hashchange',finish);
-  window.addEventListener('resize',finish);
+  window.addEventListener('pagehide',finish);
+  document.addEventListener('visibilitychange',onVisibility);
   document.addEventListener('keydown',onKey);
-  document.addEventListener('visibilitychange',onHidden);
-  items.forEach((item,index)=>later(()=>build(item,index),item.time*1000));
-  later(()=>focusSection('#home .family-grid',.20),2690);
-  later(()=>focusSection('#home .feature-strip',.21),5920);
-  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,1470);},8500);
-  later(finish,11700);
+  // A watchdog guarantees a usable page even on throttled/older browsers.
+  later(finish,5300);
+  requestAnimationFrame(()=>{run().catch(finish);});
 })();
 
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
@@ -257,7 +209,7 @@
     .site-header,main{position:relative;z-index:1}.site-header{transition:padding .3s ease,box-shadow .3s ease,background .3s ease}.site-header.scrolled{padding-top:9px;padding-bottom:9px;box-shadow:0 12px 45px rgba(0,0,0,.25)}
     .page.active{animation:pageIn .5s var(--motion-ease) both}.page.active>*{animation:sectionIn .65s var(--motion-ease) both}.page.active>*:nth-child(2){animation-delay:.07s}.page.active>*:nth-child(3){animation-delay:.14s}.page.active>*:nth-child(4){animation-delay:.21s}@keyframes pageIn{from{opacity:.01;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes sectionIn{from{opacity:0;transform:translateY(18px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
     .hero-copy>*{animation:heroRise .8s var(--motion-ease) both;animation-delay:calc(var(--i,0)*80ms)}.hero-orbit{animation:orbitIn 1.1s var(--motion-ease) both}@keyframes heroRise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}@keyframes orbitIn{from{opacity:0;transform:scale(.78) rotate(-12deg)}to{opacity:1;transform:none}}
-    .system-card,.game-card,.family-card,.feature-strip>div,.dashboard-card,.oslab-card,.quiz-card,.search-panel,.compare-builder{will-change:transform;transition:transform .38s var(--motion-spring),box-shadow .38s ease,border-color .38s ease}.system-card:hover,.game-card:hover,.family-card:hover,.dashboard-card:hover,.oslab-card:hover,.quiz-card:hover,.compare-builder:hover{transform:translateY(-7px);box-shadow:0 22px 60px rgba(0,0,0,.3);border-color:rgba(100,210,255,.3)}
+    .system-card,.game-card,.family-card,.feature-strip>div,.dashboard-card,.oslab-card,.quiz-card,.search-panel,.compare-builder{transition:transform .38s var(--motion-spring),box-shadow .38s ease,border-color .38s ease}.system-card:hover,.game-card:hover,.family-card:hover,.dashboard-card:hover,.oslab-card:hover,.quiz-card:hover,.compare-builder:hover{transform:translateY(-7px);box-shadow:0 22px 60px rgba(0,0,0,.3);border-color:rgba(100,210,255,.3)}
     .system-card,.game-card,.family-card,.oslab-card{position:relative;overflow:hidden}.system-card::before,.game-card::before,.family-card::before,.oslab-card::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(300px circle at var(--card-x,50%) var(--card-y,0%),rgba(88,190,255,.17),transparent 58%);transition:opacity .3s ease}.system-card:hover::before,.game-card:hover::before,.family-card:hover::before,.oslab-card:hover::before{opacity:1}
     .system-grid .system-card,.gaming-grid .game-card{animation:cardIn .55s var(--motion-ease) both;animation-delay:calc(var(--card-index,0)*45ms)}.family-grid .family-card{animation:cardIn .6s var(--motion-ease) both;animation-delay:calc(var(--card-index,0)*70ms)}@keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.985)}to{opacity:1;transform:none}}
     .btn,.icon-btn,.account-btn,.game-chip,.chip,.oslab-badge,.fav-btn{transition:transform .22s var(--motion-spring),box-shadow .22s ease,filter .22s ease}.btn:hover,.icon-btn:hover,.account-btn:hover,.game-chip:hover,.chip:hover,.oslab-badge:hover{transform:translateY(-2px)}.btn:active,.icon-btn:active,.account-btn:active,.game-chip:active,.chip:active,.oslab-badge:active,.fav-btn:active{transform:scale(.94)}
@@ -270,11 +222,11 @@
     @media(max-width:700px){body::before{width:230px;height:230px}.page.active>*{animation-duration:.45s}.gaming-hero::after{display:none}.system-card:hover,.game-card:hover,.family-card:hover,.dashboard-card:hover,.oslab-card:hover,.quiz-card:hover,.compare-builder:hover{transform:translateY(-3px)}}
   `;document.head.appendChild(style);
 
-  const particleLayer=document.createElement('div');particleLayer.id='ospulse-particles';particleLayer.setAttribute('aria-hidden','true');const count=Math.min(55,Math.max(24,Math.floor(innerWidth/28)));for(let i=0;i<count;i++){const p=document.createElement('span');p.className='ospulse-particle';p.style.left=`${Math.random()*100}%`;p.style.top=`${Math.random()*100}%`;p.style.setProperty('--pd',`${4+Math.random()*8}s`);p.style.setProperty('--px',`${(Math.random()-.5)*80}px`);p.style.setProperty('--py',`${(Math.random()-.5)*100}px`);p.style.setProperty('--po',`${.18+Math.random()*.5}`);particleLayer.appendChild(p)}document.body.prepend(particleLayer);
+  const particleLayer=document.createElement('div');particleLayer.id='ospulse-particles';particleLayer.setAttribute('aria-hidden','true');const count=Math.min(18,Math.max(8,Math.floor(innerWidth/85)));for(let i=0;i<count;i++){const p=document.createElement('span');p.className='ospulse-particle';p.style.left=`${Math.random()*100}%`;p.style.top=`${Math.random()*100}%`;p.style.setProperty('--pd',`${4+Math.random()*8}s`);p.style.setProperty('--px',`${(Math.random()-.5)*80}px`);p.style.setProperty('--py',`${(Math.random()-.5)*100}px`);p.style.setProperty('--po',`${.18+Math.random()*.5}`);particleLayer.appendChild(p)}document.body.prepend(particleLayer);
   window.addEventListener('pointermove',e=>{root.style.setProperty('--mx',`${e.clientX}px`);root.style.setProperty('--my',`${e.clientY}px`);const card=e.target.closest?.('.system-card,.game-card,.family-card,.oslab-card');if(card){const r=card.getBoundingClientRect();card.style.setProperty('--card-x',`${e.clientX-r.left}px`);card.style.setProperty('--card-y',`${e.clientY-r.top}px`)}},{passive:true});
   const header=document.querySelector('.site-header');const onScroll=()=>header?.classList.toggle('scrolled',scrollY>24);addEventListener('scroll',onScroll,{passive:true});onScroll();
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});
   const stagger=()=>{document.querySelectorAll('.system-grid .system-card,.gaming-grid .game-card,.family-grid .family-card').forEach((el,i)=>el.style.setProperty('--card-index',Math.min(i,14)))};
-  const bind=()=>{document.querySelectorAll('.family-card,.feature-strip>div,.system-card,.game-card,.dashboard-card,.oslab-card,.compare-builder,.quiz-card').forEach(el=>{if(!el.classList.contains('reveal')){el.classList.add('reveal');observer.observe(el)}});stagger()};bind();new MutationObserver(bind).observe(document.body,{childList:true,subtree:true});
+  const bind=()=>{document.querySelectorAll('.family-card,.feature-strip>div,.system-card,.game-card,.dashboard-card,.oslab-card,.compare-builder,.quiz-card').forEach(el=>{if(!el.classList.contains('reveal')){el.classList.add('reveal');observer.observe(el)}});stagger()};bind();new MutationObserver(bind).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
   document.addEventListener('click',e=>{const b=e.target.closest?.('.btn,.icon-btn,.account-btn,.game-chip,.chip,.oslab-badge');if(!b)return;const r=b.getBoundingClientRect(),size=Math.max(r.width,r.height)*1.4,ring=document.createElement('span');ring.className='motion-ripple';ring.style.width=ring.style.height=`${size}px`;ring.style.left=`${e.clientX-r.left-size/2}px`;ring.style.top=`${e.clientY-r.top-size/2}px`;b.style.position=b.style.position||'relative';b.appendChild(ring);ring.addEventListener('animationend',()=>ring.remove(),{once:true})});
 })();
