@@ -21,9 +21,9 @@
     ['#home .family-card:nth-child(4)',4.56,'MOBILE'],
     ['#home .family-card:nth-child(5)',4.86,'ALTERNATIVE'],
     ['#home .family-card:nth-child(6)',5.16,'MEDIA'],
-    ['#home .feature-strip>div:nth-child(1)',6.60,'TRUST'],
-    ['#home .feature-strip>div:nth-child(2)',6.92,'SPEED'],
-    ['#home .feature-strip>div:nth-child(3)',7.24,'PRIVACY']
+    ['#home .feature-strip>div:nth-child(1)',6.98,'TRUST'],
+    ['#home .feature-strip>div:nth-child(2)',7.30,'SPEED'],
+    ['#home .feature-strip>div:nth-child(3)',7.62,'PRIVACY']
   ];
   const items=definitions.map(([selector,time,label])=>({el:document.querySelector(selector),time,label})).filter(v=>v.el);
   if(items.length<6){releasePrebuild();return;}
@@ -240,9 +240,9 @@
   document.addEventListener('visibilitychange',onHidden);
   items.forEach((item,index)=>later(()=>build(item,index),item.time*1000));
   later(()=>focusSection('#home .family-grid',.20),2690);
-  later(()=>focusSection('#home .feature-strip',.21),5650);
-  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,1470);},7850);
-  later(finish,10900);
+  later(()=>focusSection('#home .feature-strip',.21),5920);
+  later(()=>{minimumDone=true;if(completed===items.length && catalogReady)later(finish,1470);},8500);
+  later(finish,11700);
 })();
 
 /* OSPulse Living UI — ambient world, micro-interactions and lightweight motion. */
