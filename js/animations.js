@@ -162,7 +162,7 @@
       await Promise.all(group.ids.map((idx,slot)=>{
         const item=list[idx];return item?deliver(item,slot,group.ms,idx):Promise.resolve();
       }));
-      if(!stopped)await wait(45);
+      if(!stopped)await wait(170);
     }
     finish();
   };
