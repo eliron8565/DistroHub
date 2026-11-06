@@ -1,37 +1,53 @@
-/* OSPulse final catalog guard: never render GitHub-sourced Linux discovery entries. */
+/* Catalog guard: validate once when data changes, not on every DOM mutation. */
 (() => {
   'use strict';
   const bad = s => {
-    if (!s || String(s.type || '').toLowerCase() !== 'linux') return false;
-    const text = JSON.stringify(s).toLowerCase();
-    return text.includes('github.com') || text.includes('github.io') || text.includes('githubusercontent') ||
-      text.includes('discovery candidate') || String(s.id || '').startsWith('auto-');
+    if(!s || String(s.type||'').toLowerCase()!=='linux')return false;
+    const text=JSON.stringify(s).toLowerCase();
+    return text.includes('github.com')||text.includes('github.io')||
+      text.includes('githubusercontent')||text.includes('discovery candidate')||
+      String(s.id||'').startsWith('auto-');
   };
-  const clean = () => {
-    const app = window.app;
-    if (!app || !Array.isArray(app.systems)) return;
-    const before = app.systems.length;
-    app.systems = app.systems.filter(s => !bad(s));
-    if (Array.isArray(app.filtered)) app.filtered = app.filtered.filter(s => !bad(s));
-    if (before !== app.systems.length) {
-      if (typeof app.applyFilters === 'function') app.applyFilters();
-      if (typeof app.populateCompare === 'function') app.populateCompare();
-      if (typeof app.updateStats === 'function') app.updateStats();
+  const cleanCard=card=>{
+    if(!card || !card.matches?.('.system-card'))return;
+    const text=(card.textContent||'').toLowerCase();
+    const hrefs=[...card.querySelectorAll('a[href]')].map(a=>a.href.toLowerCase()).join(' ');
+    const imgs=[...card.querySelectorAll('img[src]')].map(i=>i.src.toLowerCase()).join(' ');
+    if(text.includes('discovery candidate')||/github\.com|github\.io|githubusercontent/.test(hrefs+' '+imgs))card.remove();
+  };
+  const scanAdded=node=>{
+    if(node.nodeType!==1)return;
+    cleanCard(node);
+    node.querySelectorAll?.('.system-card').forEach(cleanCard);
+  };
+  const scrub=()=>{
+    const app=window.app;
+    if(app && Array.isArray(app.systems)){
+      const filtered=app.systems.filter(s=>!bad(s));
+      if(filtered.length!==app.systems.length){
+        app.systems=filtered;
+        if(Array.isArray(app.filtered))app.filtered=app.filtered.filter(s=>!bad(s));
+        app.applyFilters?.();
+        app.populateCompare?.();
+        app.updateStats?.();
+      }
     }
-    document.querySelectorAll('.system-card').forEach(card => {
-      const text = (card.textContent || '').toLowerCase();
-      const hrefs = [...card.querySelectorAll('a[href]')].map(a => a.href.toLowerCase()).join(' ');
-      const imgs = [...card.querySelectorAll('img[src]')].map(i => i.src.toLowerCase()).join(' ');
-      if (text.includes('discovery candidate') || /github\.com|github\.io|githubusercontent/.test(hrefs + ' ' + imgs)) card.remove();
+    document.querySelectorAll('.system-card').forEach(cleanCard);
+  };
+  const start=()=>{
+    scrub();
+    const gridObserver=new MutationObserver(records=>{
+      for(const record of records)for(const node of record.addedNodes)scanAdded(node);
     });
+    for(const id of ['systemGrid','favoritesGrid']){
+      const grid=document.getElementById(id);
+      if(grid)gridObserver.observe(grid,{childList:true});
+    }
+    window.addEventListener('ospulse:catalog-ready',scrub);
+    // Fallback for a catalog that finishes without emitting its event.
+    window.setTimeout(scrub,1200);
   };
-  const start = () => {
-    clean();
-    const observer = new MutationObserver(clean);
-    observer.observe(document.body, {childList:true, subtree:true});
-    [100,300,750,1500,3000,6000].forEach(ms => setTimeout(clean, ms));
-  };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, {once:true});
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});
   else start();
 })();
 
@@ -107,8 +123,12 @@
   const buildReport = () => {
     const app = window.app;
     const typeSelect = document.getElementById('typeFilter');
-    const ids = [...document.querySelectorAll('[id]')].map(el => el.id);
-    const duplicateIds = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
+    const seenIds = new Set(), duplicateIdSet = new Set();
+    document.querySelectorAll('[id]').forEach(el => {
+      if(seenIds.has(el.id))duplicateIdSet.add(el.id);
+      else seenIds.add(el.id);
+    });
+    const duplicateIds = [...duplicateIdSet];
     const duplicateTypeOptions = typeSelect ? [...typeSelect.options]
       .map(o => `${o.value}|${o.textContent}`.toLowerCase())
       .filter((v, i, arr) => arr.indexOf(v) !== i) : [];
@@ -143,18 +163,11 @@
   const start = () => {
     bindModalUX();
     repair();
-    let queued = false;
-    const observer = new MutationObserver(() => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(() => {
-        queued = false;
-        repair();
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-    window.setTimeout(repair, 1000);
-    window.setTimeout(repair, 4000);
+    // Run a finite audit on genuine navigation and data events, not every
+    // animation particle, button change, image load or DOM insertion.
+    window.addEventListener('ospulse:catalog-ready', () => window.setTimeout(repair, 120));
+    window.addEventListener('hashchange', () => window.setTimeout(repair, 120));
+    window.setTimeout(repair, 1300);
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
