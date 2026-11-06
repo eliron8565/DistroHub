@@ -204,7 +204,7 @@
   const root=document.documentElement;
   const style=document.createElement('style');style.id='ospulse-living-style';style.textContent=`
     :root{--mx:50vw;--my:30vh;--motion-ease:cubic-bezier(.22,1,.36,1);--motion-spring:cubic-bezier(.16,1,.3,1)}
-    body::before{content:'';position:fixed;left:var(--mx);top:var(--my);width:380px;height:380px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(34,211,238,.12),rgba(124,92,255,.045) 38%,transparent 72%);filter:blur(12px);transition:left .18s ease-out,top .18s ease-out}
+    body::before{content:'';position:fixed;left:0;top:0;width:310px;height:310px;transform:translate3d(calc(var(--mx) - 50%),calc(var(--my) - 50%),0);border-radius:50%;pointer-events:none;z-index:0;background:radial-gradient(circle,rgba(34,211,238,.12),rgba(124,92,255,.045) 36%,transparent 70%);transition:transform .18s ease-out;will-change:transform}
     #ospulse-particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;opacity:.65}.ospulse-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:#67e8f9;box-shadow:0 0 9px #22d3ee;animation:particleDrift var(--pd) ease-in-out infinite alternate;opacity:var(--po)}@keyframes particleDrift{from{transform:translate3d(0,0,0) scale(.7)}to{transform:translate3d(var(--px),var(--py),0) scale(1.5)}}
     .site-header,main{position:relative;z-index:1}.site-header{transition:padding .3s ease,box-shadow .3s ease,background .3s ease}.site-header.scrolled{padding-top:9px;padding-bottom:9px;box-shadow:0 12px 45px rgba(0,0,0,.25)}
     .page.active{animation:pageIn .5s var(--motion-ease) both}.page.active>*{animation:sectionIn .65s var(--motion-ease) both}.page.active>*:nth-child(2){animation-delay:.07s}.page.active>*:nth-child(3){animation-delay:.14s}.page.active>*:nth-child(4){animation-delay:.21s}@keyframes pageIn{from{opacity:.01;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes sectionIn{from{opacity:0;transform:translateY(18px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
@@ -216,17 +216,50 @@
     .motion-ripple{position:absolute;border-radius:50%;pointer-events:none;transform:scale(0);background:rgba(255,255,255,.3);animation:ripple .55s ease-out forwards}@keyframes ripple{to{transform:scale(4);opacity:0}}
     .brand-mark{transition:transform .55s var(--motion-spring),box-shadow .4s ease}.brand:hover .brand-mark{transform:rotate(-8deg) scale(1.08);box-shadow:0 0 30px rgba(70,210,255,.6)}.main-nav a{position:relative}.main-nav a::after{content:'';position:absolute;left:50%;bottom:-5px;width:0;height:2px;border-radius:99px;background:linear-gradient(90deg,#7c6cff,#22d9ff);transition:width .35s var(--motion-spring),left .35s var(--motion-spring)}.main-nav a:hover::after,.main-nav a.active::after{left:12%;width:76%}
     .system-logo,.game-logo,.dash-icon,.family-icon{transition:transform .45s var(--motion-spring),filter .45s ease}.system-card:hover .system-logo,.game-card:hover .game-logo,.dashboard-card:hover .dash-icon,.family-card:hover .family-icon{transform:rotate(-6deg) scale(1.1);filter:drop-shadow(0 0 13px rgba(80,210,255,.45))}.fav-btn.active{animation:heartPop .45s var(--motion-spring)}@keyframes heartPop{0%{transform:scale(.7)}55%{transform:scale(1.28)}100%{transform:scale(1)}}
-    .pulse-dot{animation:dotPulse 1.8s ease-in-out infinite}@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,217,255,.4)}50%{box-shadow:0 0 0 8px rgba(34,217,255,0)}}.hero-orbit .core{animation:corePulse 3s ease-in-out infinite}.hero-orbit .orbit{animation:spinOrbit 18s linear infinite}.hero-orbit .orbit-2{animation-duration:12s;animation-direction:reverse}.hero-orbit .orbit-node{animation:nodeFloat 3s ease-in-out infinite}.node-2{animation-delay:-1s}.node-3{animation-delay:-2s}@keyframes corePulse{0%,100%{box-shadow:0 0 28px rgba(90,100,255,.18)}50%{box-shadow:0 0 65px rgba(90,100,255,.38),0 0 100px rgba(34,211,238,.1)}}@keyframes spinOrbit{to{transform:rotate(360deg)}}@keyframes nodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .pulse-dot{animation:dotPulse 1.8s ease-in-out infinite}@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,217,255,.4)}50%{box-shadow:0 0 0 8px rgba(34,217,255,0)}}.hero-orbit .core{animation:none}.hero-orbit .orbit{animation:spinOrbit 18s linear infinite}.hero-orbit .orbit-2{animation-duration:12s;animation-direction:reverse}.hero-orbit .orbit-node{animation:nodeFloat 3s ease-in-out infinite}.node-2{animation-delay:-1s}.node-3{animation-delay:-2s}@keyframes corePulse{0%,100%{box-shadow:0 0 28px rgba(90,100,255,.18)}50%{box-shadow:0 0 65px rgba(90,100,255,.38),0 0 100px rgba(34,211,238,.1)}}@keyframes spinOrbit{to{transform:rotate(360deg)}}@keyframes nodeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     .gaming-hero::after{content:'';position:absolute;inset:-20%;pointer-events:none;background:conic-gradient(from 0deg,transparent,rgba(34,211,238,.09),transparent,rgba(124,92,255,.09),transparent);animation:heroSweep 12s linear infinite}@keyframes heroSweep{to{transform:rotate(360deg)}}.scanline{animation:scan 6s linear infinite}@keyframes scan{from{background-position:0 0}to{background-position:0 120px}}.game-score span{animation:scoreGlow 2.4s ease-in-out infinite}@keyframes scoreGlow{50%{text-shadow:0 0 20px rgba(34,211,238,.55)}}
     .search-box:focus-within{box-shadow:0 0 0 3px rgba(77,196,255,.1),0 0 38px rgba(77,196,255,.12);transform:translateY(-1px);transition:.3s}.modal.show .modal-card,.auth-modal.show .auth-card{animation:modalIn .45s var(--motion-spring)}@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.95);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}.toast.show{animation:toastIn .42s var(--motion-spring)}@keyframes toastIn{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:none}}
-    @media(max-width:700px){body::before{width:230px;height:230px}.page.active>*{animation-duration:.45s}.gaming-hero::after{display:none}.system-card:hover,.game-card:hover,.family-card:hover,.dashboard-card:hover,.oslab-card:hover,.quiz-card:hover,.compare-builder:hover{transform:translateY(-3px)}}
+    @media(max-width:700px){body::before{width:200px;height:200px}.page.active>*{animation-duration:.45s}.gaming-hero::after{display:none}.system-card:hover,.game-card:hover,.family-card:hover,.dashboard-card:hover,.oslab-card:hover,.quiz-card:hover,.compare-builder:hover{transform:translateY(-3px)}}
   `;document.head.appendChild(style);
 
-  const particleLayer=document.createElement('div');particleLayer.id='ospulse-particles';particleLayer.setAttribute('aria-hidden','true');const count=Math.min(18,Math.max(8,Math.floor(innerWidth/85)));for(let i=0;i<count;i++){const p=document.createElement('span');p.className='ospulse-particle';p.style.left=`${Math.random()*100}%`;p.style.top=`${Math.random()*100}%`;p.style.setProperty('--pd',`${4+Math.random()*8}s`);p.style.setProperty('--px',`${(Math.random()-.5)*80}px`);p.style.setProperty('--py',`${(Math.random()-.5)*100}px`);p.style.setProperty('--po',`${.18+Math.random()*.5}`);particleLayer.appendChild(p)}document.body.prepend(particleLayer);
-  window.addEventListener('pointermove',e=>{root.style.setProperty('--mx',`${e.clientX}px`);root.style.setProperty('--my',`${e.clientY}px`);const card=e.target.closest?.('.system-card,.game-card,.family-card,.oslab-card');if(card){const r=card.getBoundingClientRect();card.style.setProperty('--card-x',`${e.clientX-r.left}px`);card.style.setProperty('--card-y',`${e.clientY-r.top}px`)}},{passive:true});
+  const particleLayer=document.createElement('div');particleLayer.id='ospulse-particles';particleLayer.setAttribute('aria-hidden','true');const count=Math.min(12,Math.max(6,Math.floor(innerWidth/110)));for(let i=0;i<count;i++){const p=document.createElement('span');p.className='ospulse-particle';p.style.left=`${Math.random()*100}%`;p.style.top=`${Math.random()*100}%`;p.style.setProperty('--pd',`${4+Math.random()*8}s`);p.style.setProperty('--px',`${(Math.random()-.5)*80}px`);p.style.setProperty('--py',`${(Math.random()-.5)*100}px`);p.style.setProperty('--po',`${.18+Math.random()*.5}`);particleLayer.appendChild(p)}document.body.prepend(particleLayer);
+  let latestPointer=null,pointerFrame=0;
+  window.addEventListener('pointermove',e=>{
+    latestPointer={x:e.clientX,y:e.clientY,target:e.target};
+    if(pointerFrame||document.hidden)return;
+    pointerFrame=requestAnimationFrame(()=>{
+      pointerFrame=0;
+      const p=latestPointer;if(!p)return;
+      root.style.setProperty('--mx',p.x+'px');
+      root.style.setProperty('--my',p.y+'px');
+      const card=p.target.closest?.('.system-card,.game-card,.family-card,.oslab-card');
+      if(card){
+        const rect=card.getBoundingClientRect();
+        card.style.setProperty('--card-x',(p.x-rect.left)+'px');
+        card.style.setProperty('--card-y',(p.y-rect.top)+'px');
+      }
+    });
+  },{passive:true});
   const header=document.querySelector('.site-header');const onScroll=()=>header?.classList.toggle('scrolled',scrollY>24);addEventListener('scroll',onScroll,{passive:true});onScroll();
   const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:.08});
-  const stagger=()=>{document.querySelectorAll('.system-grid .system-card,.gaming-grid .game-card,.family-grid .family-card').forEach((el,i)=>el.style.setProperty('--card-index',Math.min(i,14)))};
-  const bind=()=>{document.querySelectorAll('.family-card,.feature-strip>div,.system-card,.game-card,.dashboard-card,.oslab-card,.compare-builder,.quiz-card').forEach(el=>{if(!el.classList.contains('reveal')){el.classList.add('reveal');observer.observe(el)}});stagger()};bind();new MutationObserver(bind).observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
+  const revealSelector='.family-card,.feature-strip>div,.system-card,.game-card,.dashboard-card,.oslab-card,.compare-builder,.quiz-card';
+  const register=el=>{
+    if(!el||el.nodeType!==1)return;
+    if(el.matches?.(revealSelector)&&!el.classList.contains('reveal')){
+      el.classList.add('reveal');
+      observer.observe(el);
+    }
+    if(el.matches?.('.system-card,.game-card,.family-card')){
+      const siblings=el.parentElement?.children;
+      if(siblings)el.style.setProperty('--card-index',Math.min(Array.prototype.indexOf.call(siblings,el),14));
+    }
+    el.querySelectorAll?.(revealSelector).forEach(register);
+  };
+  document.querySelector('main')?.querySelectorAll(revealSelector).forEach(register);
+  // Process only newly inserted nodes. Never rescan the entire catalog on every mutation.
+  const main=document.querySelector('main');
+  if(main)new MutationObserver(records=>{
+    for(const record of records)for(const node of record.addedNodes)register(node);
+  }).observe(main,{childList:true,subtree:true});
   document.addEventListener('click',e=>{const b=e.target.closest?.('.btn,.icon-btn,.account-btn,.game-chip,.chip,.oslab-badge');if(!b)return;const r=b.getBoundingClientRect(),size=Math.max(r.width,r.height)*1.4,ring=document.createElement('span');ring.className='motion-ripple';ring.style.width=ring.style.height=`${size}px`;ring.style.left=`${e.clientX-r.left-size/2}px`;ring.style.top=`${e.clientY-r.top-size/2}px`;b.style.position=b.style.position||'relative';b.appendChild(ring);ring.addEventListener('animationend',()=>ring.remove(),{once:true})});
 })();
