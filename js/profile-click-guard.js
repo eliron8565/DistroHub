@@ -15,6 +15,6 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', install);
   else install();
-  const observer = new MutationObserver(install);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
+  // #accountBtn is in the initial HTML; observing the whole DOM indefinitely
+  // only repeats this check for unrelated cards, images and animation nodes.
 })();
