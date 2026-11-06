@@ -5,6 +5,28 @@
   const REMEMBER_KEY = 'ospulse:remember-device';
   let client = null;
   let authListenerAttached = false;
+  let sdkWait = null;
+  const waitForSdk = () => {
+    if (window.supabase?.createClient) return Promise.resolve(true);
+    const script = document.getElementById('osp-supabase-sdk');
+    if (!script) return Promise.resolve(false);
+    if (!sdkWait) sdkWait = new Promise(resolve => {
+      let settled = false;
+      let timeout;
+      const finish = () => {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timeout);
+        script.removeEventListener('load', finish);
+        script.removeEventListener('error', finish);
+        resolve(Boolean(window.supabase?.createClient));
+      };
+      script.addEventListener('load', finish, { once: true });
+      script.addEventListener('error', finish, { once: true });
+      timeout = setTimeout(finish, 6500);
+    });
+    return sdkWait;
+  };
 
   const rememberDevice = () => localStorage.getItem(REMEMBER_KEY) !== 'false';
   const authStorage = {
@@ -33,7 +55,8 @@
   }
 
   async function loadClient() {
-    if (!SUPABASE_PUBLISHABLE_KEY || !window.supabase?.createClient) return null;
+    if (!SUPABASE_PUBLISHABLE_KEY) return null;
+    if (!window.supabase?.createClient && !(await waitForSdk())) return null;
     if (!client) {
       client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
         auth: {
