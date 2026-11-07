@@ -211,6 +211,25 @@
       play(label,[{transform:'scale(1)',opacity:1},{transform:'scale(1.025)',opacity:1,offset:.5},{transform:'scale(1)',opacity:1}],300);
     });
   });
+  // Interactive beats stay event-driven: no polling or permanent animation loop.
+  const animateResult=(page,id)=>{
+    const root=document.getElementById(page);
+    if(!root?.classList.contains('active'))return;
+    const result=document.getElementById(id);
+    if(!result?.children.length)return;
+    play(result,[{opacity:.25,transform:'translate3d(0,13px,0)'},{opacity:1,transform:'translate3d(0,0,0)'}],430);
+  };
+  for(const [page,button,result] of [['compare','compareRun','comparisonResult'],['recommend','quizRun','quizResults']]){
+    document.getElementById(button)?.addEventListener('click',()=>{
+      requestAnimationFrame(()=>animateResult(page,result));
+    });
+  }
+  document.querySelectorAll('#gaming .game-chip').forEach(chip=>{
+    chip.addEventListener('click',()=>{
+      if(!document.getElementById('gaming')?.classList.contains('active'))return;
+      play(chip,[{transform:'scale(.98)'},{transform:'scale(1.055)',offset:.43},{transform:'scale(1)'}],270);
+    });
+  });
   if(document.readyState!=='loading'){
     const activePage=document.querySelector('.page.active')?.id;
     if(activePage)enter(activePage,activePage==='home');
