@@ -187,7 +187,14 @@
     revision++;
     const first=!seen.has(page);
     saveSeen(page);
-    if(page==='home'&&initial)return;
+    if(page==='home'&&initial){
+      let built=false;
+      try{built=sessionStorage.getItem('ospulse:home-built-v2')==='1';}catch(e){}
+      if(!built)return; // The original magnetic build is already running.
+      playPage(page,false); // Brief welcome on subsequent reloads.
+      doneTimer=setTimeout(clean,480);
+      return;
+    }
     playPage(page,first);
     pendingCardPage=first&&['explore','gaming','favorites'].includes(page)?page:null;
     pendingCardRevision=revision;
