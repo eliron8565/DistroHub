@@ -45,6 +45,13 @@
     '#osp-live-build .osp-tail{position:absolute;left:11px;top:13px;width:var(--tail,75px);height:2px;transform-origin:0 50%;transform:rotate(var(--angle));background:linear-gradient(90deg,var(--c),transparent);opacity:.72}',
     '#osp-live-build .osp-wire{position:absolute;border:1px solid var(--c);border-radius:10px;box-sizing:border-box;box-shadow:0 0 12px rgba(72,206,255,.24),inset 0 0 8px rgba(72,206,255,.1);pointer-events:none;will-change:transform}',
     '#osp-live-build .osp-target{position:absolute;border:1px dashed var(--c);border-radius:10px;box-sizing:border-box;pointer-events:none;opacity:.18}',
+    '#osp-live-build .osp-route{position:absolute;left:0;top:0;height:2px;transform-origin:0 50%;background:linear-gradient(90deg,transparent,var(--c),rgba(255,255,255,.95));box-shadow:0 0 10px var(--c);border-radius:3px;pointer-events:none;will-change:transform,opacity}',
+    '#osp-live-build .osp-beacon{position:absolute;width:24px;height:24px;border:1px solid var(--c);border-radius:7px;transform:translate(-50%,-50%) rotate(45deg);box-shadow:0 0 15px color-mix(in srgb,var(--c) 42%,transparent);pointer-events:none;animation:ospBeacon .55s ease-out both}',
+    '#osp-live-build .osp-beacon:after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--c);box-shadow:0 0 10px var(--c)}',
+    '#osp-live-build .osp-verify{position:absolute;overflow:hidden;border-radius:10px;pointer-events:none;box-sizing:border-box;opacity:.8}',
+    '#osp-live-build .osp-verify:after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 32%,color-mix(in srgb,var(--c) 24%,transparent) 50%,transparent 68%);animation:ospVerify .46s cubic-bezier(.2,.7,.2,1) both}',
+    '@keyframes ospBeacon{0%{opacity:0;scale:.5}40%{opacity:.85;scale:1}100%{opacity:0;scale:1.15}}',
+    '@keyframes ospVerify{from{transform:translate3d(-110%,0,0)}to{transform:translate3d(110%,0,0)}}',
     '#osp-live-build .osp-impact{position:absolute;left:var(--x);top:var(--y);width:36px;height:36px;border-radius:50%;border:1px solid var(--c);transform:translate(-50%,-50%);animation:ospImpact .46s ease-out both;pointer-events:none}',
     '#osp-live-build .osp-particle{position:absolute;left:var(--x);top:var(--y);width:3px;height:3px;background:var(--c);border-radius:50%;animation:ospBuildSpark .45s ease-out both;pointer-events:none}',
     '@keyframes ospImpact{0%{opacity:.85;transform:translate(-50%,-50%) scale(.4)}100%{opacity:0;transform:translate(-50%,-50%) scale(2.6)}}',
@@ -116,7 +123,7 @@
     const end='translate3d(0,0,0)';
     cursor.style.left=anchorX+'px';cursor.style.top=anchorY+'px';
     cursor.style.setProperty('--angle',Math.atan2(dy,dx)+'rad');
-    cursor.querySelector('.osp-tag').textContent='DRAG · '+item.label;
+    cursor.querySelector('.osp-tag').textContent='PULSE / '+item.label;
     cursor.style.opacity='1';
 
     const target=document.createElement('div');
@@ -128,6 +135,21 @@
       node.style.setProperty('--c',color);
       layer.appendChild(node);
     }
+    // Each magnetic trajectory draws once on the compositor, not in a JS loop.
+    const route=document.createElement('div');
+    route.className='osp-route';
+    route.style.left=(anchorX+dx)+'px';
+    route.style.top=(anchorY+dy)+'px';
+    route.style.width=Math.hypot(dx,dy)+'px';
+    route.style.setProperty('--c',color);
+    layer.appendChild(route);
+    const routeAngle=Math.atan2(-dy,-dx);
+    const rot='rotate('+routeAngle+'rad)';
+    const pathAnim=animate(route,[
+      {transform:rot+' scaleX(.03)',opacity:0,offset:0},
+      {transform:rot+' scaleX(.65)',opacity:.65,offset:.6},
+      {transform:rot+' scaleX(1)',opacity:0,offset:1}
+    ],motion);
     const a=animate(cursor,[{transform:start},{transform:end}],motion);
     const b=animate(wire,[{transform:start,opacity:.65},{transform:end,opacity:.35}],motion);
     el.classList.add('osp-placed');
@@ -136,8 +158,23 @@
     const settle=()=>{
       // Removing the final-keyframe animation returns the real element to its
       // natural layout at exactly the position where the cursor dropped it.
-      for(const anim of [a,b,c,d]){try{anim.cancel();}catch(e){}pendingAnimations.delete(anim);}
-      wire.remove();target.remove();
+      for(const anim of [a,b,c,d,pathAnim]){try{anim.cancel();}catch(e){}pendingAnimations.delete(anim);}
+      wire.remove();target.remove();route.remove();
+      if(!stopped){
+        const beacon=document.createElement('div');
+        beacon.className='osp-beacon';
+        beacon.style.left=anchorX+'px';
+        beacon.style.top=anchorY+'px';
+        beacon.style.setProperty('--c',color);
+        layer.appendChild(beacon);
+        later(()=>beacon.remove(),570);
+        const verify=document.createElement('div');
+        verify.className='osp-verify';
+        Object.assign(verify.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
+        verify.style.setProperty('--c',color);
+        layer.appendChild(verify);
+        later(()=>verify.remove(),490);
+      }
       cursor.style.opacity='0';
       if(!stopped)burst(Math.max(10,Math.min(innerWidth-10,anchorX)),Math.max(10,Math.min(innerHeight-10,anchorY)),color);
       resolve();
