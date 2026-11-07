@@ -33,7 +33,7 @@
     const saved=JSON.parse(sessionStorage.getItem('ospulse:six-worlds-seen-v1')||'[]');
     if(Array.isArray(saved))saved.filter(x=>supported.includes(x)).forEach(x=>seen.add(x));
   }catch(e){}
-  let current=null,revision=0,active=[],layers=[],doneTimer=0,cardRunId=0;
+  let current=null,revision=0,active=[],layers=[],doneTimer=0,pendingCardPage=null,pendingCardRevision=0;
 
   const saveSeen=page=>{
     seen.add(page);
@@ -58,6 +58,7 @@
     if(!visible(el))return null;
     const a=el.animate(frames,{duration,delay,easing,fill:'none'});
     active.push(a);
+    a.onfinish=()=>{const index=active.indexOf(a);if(index>=0)active.splice(index,1);};
     return a;
   };
   const lift=(el,delay=0,axis='y',distance=18,duration=670)=>{
@@ -188,8 +189,9 @@
     saveSeen(page);
     if(page==='home'&&initial)return;
     playPage(page,first);
-    cardRunId=revision;
-    if(first&&(page==='explore'||page==='gaming'||page==='favorites'))cardPreview(page,true);
+    pendingCardPage=first&&['explore','gaming','favorites'].includes(page)?page:null;
+    pendingCardRevision=revision;
+    if(pendingCardPage&&cardPreview(page,true))pendingCardPage=null;
     doneTimer=setTimeout(()=>{clean();},first?1120:480);
   };
 
@@ -197,7 +199,9 @@
     enter(e.detail?.page,Boolean(e.detail?.initial));
   });
   window.addEventListener('ospulse:catalog-ready',()=>{
-    if(['explore','gaming','favorites'].includes(current) && cardRunId===revision)cardPreview(current,true);
+    if(pendingCardPage===current && pendingCardRevision===revision){
+      if(cardPreview(current,true))pendingCardPage=null;
+    }
   });
   document.addEventListener('visibilitychange',()=>{if(document.hidden)clean();});
   document.getElementById('recommend')?.querySelectorAll('.quiz-grid select').forEach(el=>{
