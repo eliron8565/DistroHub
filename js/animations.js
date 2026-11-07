@@ -4,7 +4,9 @@
   const root=document.documentElement;
   const normal=()=>root.classList.remove('osp-prebuild');
   const motionOff=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(motionOff || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
+  let alreadyBuilt=false;
+  try{alreadyBuilt=sessionStorage.getItem('ospulse:home-built-v2')==='1';}catch(e){}
+  if(motionOff || alreadyBuilt || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
     normal();return;
   }
 
@@ -212,6 +214,7 @@
     pendingTimers.clear();
     items.forEach(item=>item.el.classList.add('osp-placed'));
     window.removeEventListener('hashchange',finish);
+    window.removeEventListener('ospulse:page-changed',onNavigate);
     window.removeEventListener('pagehide',finish);
     document.removeEventListener('visibilitychange',onVisibility);
     document.removeEventListener('keydown',onKey);
@@ -224,6 +227,7 @@
       hold.textContent='html.osp-built-done #home.page.active,html.osp-built-done #home.page.active>.hero-grid,html.osp-built-done #home.page.active>.family-grid,html.osp-built-done #home.page.active>.feature-strip,html.osp-built-done #home .hero-copy>*,html.osp-built-done #home .hero-orbit,html.osp-built-done #home .family-card{animation:none!important}';
       document.head.appendChild(hold);
     }
+    try{sessionStorage.setItem('ospulse:home-built-v2','1');}catch(e){}
     root.classList.add('osp-built-done');
     root.classList.remove('osp-building');
     layer.classList.add('osp-finished');
@@ -231,6 +235,8 @@
   };
   const onVisibility=()=>{if(document.visibilityState==='hidden')finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
+  const onNavigate=e=>{if(e.detail?.page!=='home')finish();};
+  window.addEventListener('ospulse:page-changed',onNavigate);
   window.addEventListener('hashchange',finish);
   window.addEventListener('pagehide',finish);
   document.addEventListener('visibilitychange',onVisibility);
