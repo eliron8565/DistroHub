@@ -4,9 +4,9 @@
   const root=document.documentElement;
   const normal=()=>root.classList.remove('osp-prebuild');
   const motionOff=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let alreadyBuilt=false;
-  try{alreadyBuilt=sessionStorage.getItem('ospulse:home-built-v2')==='1';}catch(e){}
-  if(motionOff || alreadyBuilt || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
+  // Direct entry to Home always plays the signature cursor build. Navigating
+  // back inside the SPA does not rerun this module, so it stays lightweight.
+  if(motionOff || (location.hash && location.hash!=='#home') || !Element.prototype.animate){
     normal();return;
   }
 
@@ -227,7 +227,6 @@
       hold.textContent='html.osp-built-done #home.page.active,html.osp-built-done #home.page.active>.hero-grid,html.osp-built-done #home.page.active>.family-grid,html.osp-built-done #home.page.active>.feature-strip,html.osp-built-done #home .hero-copy>*,html.osp-built-done #home .hero-orbit,html.osp-built-done #home .family-card{animation:none!important}';
       document.head.appendChild(hold);
     }
-    try{sessionStorage.setItem('ospulse:home-built-v2','1');}catch(e){}
     root.classList.add('osp-built-done');
     root.classList.remove('osp-building');
     layer.classList.add('osp-finished');
