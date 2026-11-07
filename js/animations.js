@@ -215,13 +215,19 @@
     window.removeEventListener('pagehide',finish);
     document.removeEventListener('visibilitychange',onVisibility);
     document.removeEventListener('keydown',onKey);
+    // Preserve the short-lived docking animations through the fade-out.
+    // The homepage's own entrance animations stay disabled after assembly.
+    let hold=document.getElementById('osp-built-hold-css');
+    if(!hold){
+      hold=document.createElement('style');
+      hold.id='osp-built-hold-css';
+      hold.textContent='html.osp-built-done #home.page.active,html.osp-built-done #home.page.active>.hero-grid,html.osp-built-done #home.page.active>.family-grid,html.osp-built-done #home.page.active>.feature-strip,html.osp-built-done #home .hero-copy>*,html.osp-built-done #home .hero-orbit,html.osp-built-done #home .family-card{animation:none!important}';
+      document.head.appendChild(hold);
+    }
     root.classList.add('osp-built-done');
     root.classList.remove('osp-building');
-    css.textContent=[
-      'html.osp-built-done #home.page.active,html.osp-built-done #home.page.active>.hero-grid,html.osp-built-done #home.page.active>.family-grid,html.osp-built-done #home.page.active>.feature-strip,html.osp-built-done #home .hero-copy>*,html.osp-built-done #home .hero-orbit,html.osp-built-done #home .family-card{animation:none!important}'
-    ].join('');
     layer.classList.add('osp-finished');
-    setTimeout(()=>layer.remove(),380);
+    setTimeout(()=>{layer.remove();css.remove();},600);
   };
   const onVisibility=()=>{if(document.visibilityState==='hidden')finish();};
   const onKey=e=>{if(e.key==='Escape')finish();};
