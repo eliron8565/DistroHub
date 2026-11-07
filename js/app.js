@@ -45,6 +45,7 @@ class DistroHubApp {
   }
   routeHash(){const raw=location.hash.replace(/^#/,'');const p=raw.split('?')[0]||'home';this.showPage(['home','explore','gaming','compare','favorites','recommend'].includes(p)?p:'home',false)}
   showPage(p,scroll=true){
+    const previous=this.currentPage||null;
     document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));
     document.querySelectorAll('.main-nav a').forEach(x=>x.classList.toggle('active',x.dataset.page===p));
     if(scroll)history.replaceState(null,'','#'+p);
@@ -53,7 +54,14 @@ class DistroHubApp {
       const q=new URLSearchParams(location.hash.split('?')[1]||'');
       const type=q.get('type'); if(type&&document.getElementById('typeFilter')){document.getElementById('typeFilter').value=type;this.applyFilters()}
     }
-    window.scrollTo({top:0,behavior:'smooth'});
+    // Navigation owns the page position; page-specific animation owns the motion.
+    window.scrollTo({top:0,behavior:'instant'});
+    if(previous!==p){
+      this.currentPage=p;
+      window.dispatchEvent(new CustomEvent('ospulse:page-changed',{
+        detail:{page:p,previous,initial:previous===null}
+      }));
+    }
   }
   bindUI(){
     this.on('searchInput','input',()=>this.applyFilters());
