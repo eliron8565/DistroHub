@@ -188,11 +188,8 @@
     const first=!seen.has(page);
     saveSeen(page);
     if(page==='home'&&initial){
-      let built=false;
-      try{built=sessionStorage.getItem('ospulse:home-built-v2')==='1';}catch(e){}
-      if(!built)return; // The original magnetic build is already running.
-      playPage(page,false); // Brief welcome on subsequent reloads.
-      doneTimer=setTimeout(clean,480);
+      // The first direct Home entry belongs entirely to Magnetic Pulse.
+      // Never animate its hero a second time over the three designer cursors.
       return;
     }
     playPage(page,first);
@@ -237,8 +234,14 @@
       play(chip,[{transform:'scale(.98)'},{transform:'scale(1.055)',offset:.43},{transform:'scale(1)'}],270);
     });
   });
-  if(document.readyState!=='loading'){
+  const detectInitialPage=()=>{
+    if(current!==null)return; // Navigation events may already have initialized us.
     const activePage=document.querySelector('.page.active')?.id;
-    if(activePage)enter(activePage,activePage==='home');
+    if(activePage)enter(activePage,true);
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',detectInitialPage,{once:true});
+  }else{
+    detectInitialPage();
   }
 })();
